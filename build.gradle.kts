@@ -19,13 +19,18 @@ java {
 
 javafx {
     version = "25.0.3"
-    modules = listOf("javafx.controls")
+    modules = listOf("javafx.controls", "javafx.fxml")
 }
 
 dependencies {
     testImplementation(platform("org.junit:junit-bom:6.0.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("com.google.code.gson:gson:2.13.2")
+}
+
+application {
+    mainClass.set("it.unicam.cs.mpgc.rpg130809.GameLauncher")
 }
 
 tasks.test {

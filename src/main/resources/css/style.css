@@ -1,0 +1,92 @@
+@font-face {
+    font-family: 'Jersey 20', sans-serif;
+    src: url('../fonts/Jersey20-Regular.ttf');
+}
+
+.root {
+    -fx-font-family: 'Jersey 20', sans-serif;
+}
+
+/* --- TitleScreen START --- */
+.main-menu {
+    -fx-background-image: url("../img/titlescreen/background.png");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+/* TitleScreen Buttons */
+.menu-button {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-pref-width: 320px;
+    -fx-pref-height: 56px;
+    -fx-min-width: 300px;
+    -fx-min-height: 52px;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-border-width: 3px;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.7), 0, 0, 0, 3);
+}
+
+/* TitleScreen Button 1: Nuova Partita */
+.red-button {
+    -fx-background-color: #82151f;
+    -fx-border-color: #faede2;
+}
+
+.red-button:hover {
+    -fx-background-color: #9c1c28;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 5, 0, 0, 3);
+}
+
+.red-button:pressed {
+    -fx-background-color: #630f16;
+    -fx-translate-y: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
+}
+
+/* TitleScreen Button 2: Carica Partita */
+.blue-button {
+    -fx-background-color: #12386a;
+    -fx-border-color: #e2ebf7;
+}
+
+.blue-button:hover {
+    -fx-background-color: #1b4e8e;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 5, 0, 0, 3);
+}
+
+.blue-button:pressed {
+    -fx-background-color: #0c264a;
+    -fx-translate-y: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
+}
+
+/* TitleScreen Button 3: Esci dal Gioco */
+.gray-button {
+    -fx-background-color: #343944;
+    -fx-border-color: #e7e8eb;
+}
+
+.gray-button:hover {
+    -fx-background-color: #444b58;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 5, 0, 0, 3);
+}
+
+.gray-button:pressed {
+    -fx-background-color: #242830;
+    -fx-translate-y: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
+}
+/* --- TitleScreen END --- */
