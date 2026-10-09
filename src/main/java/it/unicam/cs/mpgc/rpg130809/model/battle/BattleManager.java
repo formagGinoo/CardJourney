@@ -46,20 +46,18 @@ public class BattleManager {
      */
     public boolean playCombo(List<Card> selectedCards) {
         if (!isPlayerTurn) return false;
-
         int damage = playerHand.evaluateHand(selectedCards);
-
         if (damage <= 0) {
             return false;
         }
         enemy.takeDamage(damage);
-
         //Sposta le carte giocate dalla mano agli scarti
         for (Card c : selectedCards) {
             playerHand.removeCard(c);
             discardPile.addCard(c);
         }
 
+        //MEMO
         // Il giocatore dopo aver giocato una combo, non ripesca carte immediatamente.
         // Deve arrangiarsi con le carte rimaste in mano, o premere "Fine Turno".
         return true;
@@ -80,8 +78,6 @@ public class BattleManager {
             discardPile.addCard(c);
         }
         playerHand.clearHand();
-
-        //Pesca una nuova mano per il turno successivo
         drawHand();
         isPlayerTurn = true;
     }
