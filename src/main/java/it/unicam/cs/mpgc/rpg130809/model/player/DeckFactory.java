@@ -12,9 +12,9 @@ public class DeckFactory {
      * Genera il mazzo base (Starter Deck) con cui il player inizia la partita.
      * <p>
      * Il mazzo base è volutamente debole e costringerà il giocatore a comprare
-     * carte migliori allo shop.
+     * carte migliori nello shop.
      * <p>
-     * Composizione attuale (10 carte): 
+     * Composizione (10 carte):
      * <br> - 4x TWO
      * <br> - 4x THREE
      * <br> - 2x FOUR

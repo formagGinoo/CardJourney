@@ -42,7 +42,7 @@ public class Deck {
      * @param card la carta da aggiungere
      */
     public void addCard(Card card) {
-        this.cards.add(card);
+        cards.add(card);
     }
 
     /**
@@ -50,7 +50,7 @@ public class Deck {
      * Indispensabile prima di iniziare a pescare in un combattimento.
      */
     public void shuffle() {
-        Collections.shuffle(this.cards);
+        Collections.shuffle(cards);
     }
 
     /**
