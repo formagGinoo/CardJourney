@@ -88,7 +88,7 @@ public class BattleManager {
 
     /**
      * Pesca carte fino a riempire la mano.
-     * Se il drawPile è vuoto, rimescola le carte in discardPile dentro il drawPile.
+     * Se il drawPile è vuoto, sposta le carte dal discardPile al drawPile e le rimescola.
      */
     private void drawHand() {
         while (playerHand.getHandSize() < playerHand.getMaxHandSize()) {

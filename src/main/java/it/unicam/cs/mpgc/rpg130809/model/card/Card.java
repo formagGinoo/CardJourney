@@ -1,29 +1,24 @@
 package it.unicam.cs.mpgc.rpg130809.model.card;
 
-import it.unicam.cs.mpgc.rpg130809.model.enemy.Enemy;
-import it.unicam.cs.mpgc.rpg130809.model.player.Player;
-
 import java.util.UUID;
 
 /**
  * Rappresenta una carta del gioco.
  * Ogni carta ha un ID univoco, un tipo e un nome. Danno e costo sono invariabili.
  */
-public abstract class Card {
+public class Card {
     private final String id;
     private final CardType type;
-    private final String name;
 
     /**
-     * Costruisce una nuova carta
+     * Costruisce una nuova carta in base al suo tipo.
+     * Il nome viene generato automaticamente per evitare modifiche esterne.
      *
-     * @param type il tipo della carta
-     * @param name il nome della carta
+     * @param type il tipo della carta (definisce anche il nome, il danno e il costo)
      */
-    public Card(CardType type, String name) {
+    public Card(CardType type) {
         this.id = UUID.randomUUID().toString();
         this.type = type;
-        this.name = name;
     }
 
     /**
@@ -50,7 +45,7 @@ public abstract class Card {
      * @return il nome della carta
      */
     public String getName() {
-        return name;
+        return type.getCardName();
     }
 
     /**
@@ -70,12 +65,4 @@ public abstract class Card {
     public int getDamage() {
         return type.getDamage();
     }
-
-    /**
-     * Gioca la carta.
-     *
-     * @param player il giocatore
-     * @param enemy il nemico
-     */
-    public abstract void play(Player player, Enemy enemy);
 }

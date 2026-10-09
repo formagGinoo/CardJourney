@@ -68,8 +68,8 @@ public class Hand {
         if (selectedCards.size() >= 3) {
             List<Card> sorted = new ArrayList<>(selectedCards);
             
-            // Ordiniamo usando l'ordinal() di CardType.
-            // Poiché nell'enum CardType l'ordine è: JOKER(0), ACE(1), KING(2)... TWO(13),
+            // Ordiniamo usando l'ordinal() di CardInfo.
+            // Poiché nell'enum CardInfo l'ordine è: JOKER(0), ACE(1), KING(2)... TWO(13),
             // l'ordinal decrescente (c2 rispetto a c1) metterà prima le carte più deboli e alla fine le più forti
             sorted.sort((c1, c2) -> Integer.compare(c2.getType().ordinal(), c1.getType().ordinal()));
 
@@ -134,10 +134,9 @@ public class Hand {
      * Rimuove una carta dalla mano del giocatore.
      *
      * @param card La carta da rimuovere
-     * @return true se la carta è stata rimossa, false altrimenti
      */
-    public boolean removeCard(Card card) {
-        return cards.remove(card);
+    public void removeCard(Card card) {
+        cards.remove(card);
     }
 
     /**
