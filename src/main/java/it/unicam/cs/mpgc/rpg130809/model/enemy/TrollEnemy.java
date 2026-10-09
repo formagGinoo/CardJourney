@@ -1,0 +1,17 @@
+package it.unicam.cs.mpgc.rpg130809.model.enemy;
+
+import it.unicam.cs.mpgc.rpg130809.model.player.Player;
+
+public class TrollEnemy extends Enemy {
+    private static final EnemyType type = EnemyType.TROLL;
+    private static final String name = "Troll";
+
+    public TrollEnemy() {
+        super(type, name);
+    }
+
+    @Override
+    public void takeTurn(Player player) {
+        player.takeDamage(this.getType().getDamage());
+    }
+}

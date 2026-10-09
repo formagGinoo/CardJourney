@@ -2,7 +2,7 @@ package it.unicam.cs.mpgc.rpg130809.model.enemy;
 
 /**
  * Definisce i vari tipi di nemici presenti nel gioco, 
- * con i rispettivi valori base di Salute (HP) e Danno.
+ * con i rispettivi valori base di Salute e Danno.
  */
 public enum EnemyType {
     SLIME(15, 3),
@@ -12,7 +12,7 @@ public enum EnemyType {
     ORC(60, 10),
     GOLEM(120, 6),
     TROLL(100, 15),
-    LICH(150, 12),
+    VAMPIRE(150, 12),
     DRAGON(250, 25);
 
     private final int health;
