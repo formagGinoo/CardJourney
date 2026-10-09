@@ -9,7 +9,7 @@ import it.unicam.cs.mpgc.rpg130809.model.player.Player;
  */
 public class KingCard extends Card {
     private final static CardType type = CardType.KING;
-    private final static String name = "King";
+    private final static String name = "Re";
 
     public KingCard() {
         super(type, name);

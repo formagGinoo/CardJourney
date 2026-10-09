@@ -9,7 +9,7 @@ import it.unicam.cs.mpgc.rpg130809.model.player.Player;
  */
 public class FiveCard extends Card {
     private final static CardType type = CardType.FIVE;
-    private final static String name = "Five";
+    private final static String name = "Cinque";
 
     public FiveCard() {
         super(type, name);
