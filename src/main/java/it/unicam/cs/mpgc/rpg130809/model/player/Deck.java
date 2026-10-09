@@ -74,4 +74,26 @@ public class Deck {
     public int size() { 
         return cards.size(); 
     }
+
+    /**
+     * Restituisce una copia della lista delle carte presenti nel mazzo.
+     * 
+     * @return una nuova lista contenente le carte
+     */
+    /**
+     * Restituisce una copia della lista delle carte presenti nel mazzo.
+     * 
+     * @return una nuova lista contenente le carte
+     */
+    public List<Card> getCards() {
+        return new ArrayList<>(cards);
+    }
+
+    /**
+     * Svuota completamente il mazzo, rimuovendo tutte le carte presenti.
+     * Utile in battaglia per svuotare la pila degli scarti in un colpo solo.
+     */
+    public void clear() {
+        cards.clear();
+    }
 }

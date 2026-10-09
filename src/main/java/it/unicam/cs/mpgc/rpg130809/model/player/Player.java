@@ -46,6 +46,20 @@ public class Player {
     }
 
     /**
+     * Infligge danni al giocatore, assicurandosi che la salute non scenda sotto zero.
+     *
+     * @param amount I danni da infliggere
+     */
+    public void takeDamage(int amount) {
+        if (amount > 0) {
+            this.health -= amount;
+            if (this.health < 0) {
+                this.health = 0;
+            }
+        }
+    }
+
+    /**
      * Ottiene la salute massima del giocatore.
      *
      * @return La salute massima del giocatore

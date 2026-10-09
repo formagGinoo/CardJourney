@@ -157,4 +157,13 @@ public class Hand {
     public int getMaxHandSize() {
         return maxHandSize;
     }
+
+    /**
+     * Ottiene la dimensione attuale della mano del giocatore.
+     *
+     * @return La dimensione attuale della mano
+     */
+    public int getHandSize() {
+        return cards.size();
+    }
 }
