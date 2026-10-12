@@ -10,6 +10,7 @@ public class Player {
     private final Deck mainDeck;
     private int health;
     private final int maxHealth = 100;
+    private int currentZone;
 
     /**
      * Inizializza un nuovo giocatore.
@@ -22,9 +23,47 @@ public class Player {
      * @param mainDeck Il mazzo persistente del giocatore
      */
     public Player(Deck mainDeck) {
+        this(mainDeck, 100, 50, 1);
+    }
+
+    /**
+     * Inizializza un nuovo giocatore con parametri specifici.
+     * <p>
+     * Utilizzato per ricaricare la partita da un salvataggio, permettendo di impostare la salute, l'oro e la zona corrente del giocatore.
+     * </p>
+     * @param mainDeck Il mazzo persistente del giocatore
+     * @param health La salute iniziale del giocatore
+     * @param gold L'oro iniziale del giocatore
+     * @param currentZone La zona corrente del giocatore
+     */
+    public Player(Deck mainDeck, int health, int gold, int currentZone) {
         this.mainDeck = mainDeck;
-        this.health = this.maxHealth;
-        this.gold = 50;
+        this.health = Math.min(health, maxHealth);
+        this.gold = gold;
+        this.currentZone = Math.max(1, currentZone);
+    }
+
+    /**
+     * Infligge danni al giocatore, assicurandosi che la salute non scenda sotto zero.
+     *
+     * @param amount I danni da infliggere
+     */
+    public void takeDamage(int amount) {
+        if (amount > 0) {
+            this.health -= amount;
+            if (this.health < 0) {
+                this.health = 0;
+            }
+        }
+    }
+
+    /**
+     * Aggiunge una carta al mazzo principale del giocatore.
+     *
+     * @param card La carta da aggiungere
+     */
+    public void addCardToMainDeck(Card card) {
+        this.mainDeck.addCard(card);
     }
 
     /**
@@ -43,20 +82,6 @@ public class Player {
      */
     public void setHealth(int health) {
         this.health = Math.min(health, maxHealth);
-    }
-
-    /**
-     * Infligge danni al giocatore, assicurandosi che la salute non scenda sotto zero.
-     *
-     * @param amount I danni da infliggere
-     */
-    public void takeDamage(int amount) {
-        if (amount > 0) {
-            this.health -= amount;
-            if (this.health < 0) {
-                this.health = 0;
-            }
-        }
     }
 
     /**
@@ -96,11 +121,31 @@ public class Player {
     }
 
     /**
-     * Aggiunge una carta al mazzo principale del giocatore.
-     *
-     * @param card La carta da aggiungere
+     * Fa avanzare il giocatore alla zona successiva
      */
-    public void addCardToMainDeck(Card card) {
-        this.mainDeck.addCard(card);
+    public void advanceToNextZone() {
+        if (this.currentZone < 3) {
+            this.currentZone++;
+        }
+    }
+
+    /**
+     * Ottiene la zona corrente del giocatore.
+     *
+     * @return La zona corrente del giocatore
+     */
+    public int getCurrentZone() {
+        return currentZone;
+    }
+
+    /**
+     * Imposta la zona corrente del giocatore.
+     *
+     * @param zone La nuova zona corrente del giocatore
+     */
+    public void setCurrentZone(int zone) {
+        if (zone >= 1 && zone <= 3) {
+            this.currentZone = zone;
+        }
     }
 }
