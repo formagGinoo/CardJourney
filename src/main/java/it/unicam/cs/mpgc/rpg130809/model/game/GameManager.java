@@ -1,5 +1,8 @@
 package it.unicam.cs.mpgc.rpg130809.model.game;
 
+import it.unicam.cs.mpgc.rpg130809.model.map.GameMap;
+import it.unicam.cs.mpgc.rpg130809.model.map.MapFactory;
+import it.unicam.cs.mpgc.rpg130809.model.map.MapType;
 import it.unicam.cs.mpgc.rpg130809.model.player.DeckFactory;
 import it.unicam.cs.mpgc.rpg130809.model.player.Player;
 
@@ -14,12 +17,13 @@ public class GameManager {
 
     private static GameManager instance;
     private Player player;
+    private GameMap activeGameMap;
 
     private GameManager() {
     }
 
     /**
-     * Restituisce l'unica istanza attiva di {@link GameManager}.
+     * Restituisce l'istanza di {@link GameManager}.
      * Se l'istanza non esiste ancora, viene creata.
      *
      * @return L'istanza di GameManager
@@ -33,10 +37,13 @@ public class GameManager {
 
     /**
      * Avvia una nuova partita creando un nuovo giocatore con il mazzo iniziale
-     * (Starter Deck fornito da {@link DeckFactory}) e i valori base di salute e oro.
+     * fornito da {@link DeckFactory}) e i valori base di salute e oro.
+     * Il giocatore inizia nella prima mappa (Sentiero Scosceso).
      */
     public void startNewGame() {
         this.player = new Player(DeckFactory.createStarterDeck());
+        MapType mapType = MapType.fromLevel(player.getCurrentMapLevel());
+        this.activeGameMap = MapFactory.createMap(mapType);
     }
 
     /**
@@ -58,5 +65,38 @@ public class GameManager {
      */
     public void setPlayer(Player player) {
         this.player = player;
+        MapType mapType = MapType.fromLevel(player.getCurrentMapLevel());
+        this.activeGameMap = MapFactory.createMap(mapType);
+    }
+
+    /**
+     * Restituisce la mappa di gioco attualmente attiva.
+     *
+     * @return La mappa attiva, oppure {@code null} se non è ancora stata caricata una zona
+     */
+    public GameMap getActiveGameMap() {
+        return activeGameMap;
+    }
+
+    /**
+     * Imposta la mappa di gioco attiva.
+     *
+     * @param activeGameMap La mappa da impostare
+     */
+    public void setActiveGameMap(GameMap activeGameMap) {
+        this.activeGameMap = activeGameMap;
+    }
+
+    /**
+     * Carica e inizializza la mappa specificata tramite {@link MapFactory}.
+     *
+     * @param mapType Il tipo di mappa da caricare
+     */
+    public void loadGameMap(MapType mapType) {
+        if (player == null) {
+            throw new IllegalStateException("Cannot load a map before a player is initialized");
+        }
+        player.setCurrentMapLevel(mapType.getLevel());
+        this.activeGameMap = MapFactory.createMap(mapType);
     }
 }

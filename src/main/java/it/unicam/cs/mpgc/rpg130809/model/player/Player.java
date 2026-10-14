@@ -10,7 +10,7 @@ public class Player {
     private final Deck mainDeck;
     private int health;
     private final int maxHealth = 100;
-    private int currentZone;
+    private int currentMapLevel;
 
     /**
      * Inizializza un nuovo giocatore.
@@ -19,6 +19,7 @@ public class Player {
      * <br> - Un mazzo principale
      * <br> - 50 monete d'oro
      * <br> - 100 punti salute
+     * Il giocatore inizia nella prima mappa (Sentiero Scosceso).
      * </p>
      * @param mainDeck Il mazzo persistente del giocatore
      */
@@ -34,13 +35,13 @@ public class Player {
      * @param mainDeck Il mazzo persistente del giocatore
      * @param health La salute iniziale del giocatore
      * @param gold L'oro iniziale del giocatore
-     * @param currentZone La zona corrente del giocatore
+     * @param currentMapLevel Il livello della zona corrente del giocatore
      */
-    public Player(Deck mainDeck, int health, int gold, int currentZone) {
+    public Player(Deck mainDeck, int health, int gold, int currentMapLevel) {
         this.mainDeck = mainDeck;
         this.health = Math.min(health, maxHealth);
         this.gold = gold;
-        this.currentZone = Math.max(1, currentZone);
+        this.currentMapLevel = Math.max(1, currentMapLevel);
     }
 
     /**
@@ -121,31 +122,31 @@ public class Player {
     }
 
     /**
-     * Fa avanzare il giocatore alla zona successiva
+     * Fa avanzare il giocatore alla mappa successiva
      */
-    public void advanceToNextZone() {
-        if (this.currentZone < 3) {
-            this.currentZone++;
+    public void advanceToNextMap() {
+        if (this.currentMapLevel < 3) {
+            this.currentMapLevel++;
         }
     }
 
     /**
-     * Ottiene la zona corrente del giocatore.
+     * Ottiene il livello della mappa corrente del giocatore.
      *
-     * @return La zona corrente del giocatore
+     * @return Il livello della mappa corrente del giocatore
      */
-    public int getCurrentZone() {
-        return currentZone;
+    public int getCurrentMapLevel() {
+        return currentMapLevel;
     }
 
     /**
-     * Imposta la zona corrente del giocatore.
+     * Imposta il livello della mappa corrente del giocatore.
      *
-     * @param zone La nuova zona corrente del giocatore
+     * @param mapLevel Il nuovo livello della mappa corrente del giocatore
      */
-    public void setCurrentZone(int zone) {
-        if (zone >= 1 && zone <= 3) {
-            this.currentZone = zone;
+    public void setCurrentMapLevel(int mapLevel) {
+        if (mapLevel >= 1 && mapLevel <= 3) {
+            this.currentMapLevel = mapLevel;
         }
     }
 }

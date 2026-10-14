@@ -15,11 +15,8 @@ import javafx.scene.control.Button;
  */
 public class TitleScreenController {
 
-    @FXML
-    private Button newGameButton;
-
-    @FXML
-    private Button loadGameButton;
+    @FXML private Button newGameButton;
+    @FXML private Button loadGameButton;
 
     /**
      * Inizializza i componenti grafici del menu principale.
@@ -43,7 +40,7 @@ public class TitleScreenController {
     @FXML
     private void onNewGameButtonClicked() {
         GameManager.getInstance().startNewGame();
-        SceneManager.getInstance().switchScene("/fxml/MapScreen.fxml");
+        SceneManager.getInstance().switchScene("/fxml/MapSelection.fxml");
     }
 
     /**
