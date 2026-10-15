@@ -1,8 +1,8 @@
 package it.unicam.cs.mpgc.rpg130809.model.map;
 
-import it.unicam.cs.mpgc.rpg130809.model.enemy.Enemy;
-import it.unicam.cs.mpgc.rpg130809.model.enemy.EnemyFactory;
-import it.unicam.cs.mpgc.rpg130809.model.enemy.EnemyType;
+import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.Enemy;
+import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.EnemyFactory;
+import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.EnemyType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +12,15 @@ import java.util.Random;
 /**
  * Rappresenta la mappa logica e bidimensionale di una specifica zona di gioco.
  * <p>
- * Mantiene la griglia delle celle con i rispettivi {@link TileType}, la posizione del giocatore,
- * la posizione del negozio, dell'uscita, del Boss e la mappa dei nemici presenti sul terreno.
+ * Ogni mappa è composta da una griglia di celle, a ogni cella è associato un tipo {@link TileType}.
+ * {@link GameMap#loadFromLayout(String[])} popola la mappa a partire da un layout testuale, dove ogni carattere rappresenta un tipo di cella.
+ * La logica di assegnazione dei tipi di celle è:
+ * <li> {@link TileType#WALKABLE} per le celle calpestabili, qualsiasi carattere non riconosciuto viene considerato calpestabile
+ * <li> {@link TileType#OBSTACLE} per le celle non calpestabili, rappresentate dal carattere '#'
+ * <li> {@link TileType#ENEMY} per le celle occupate da un nemico, rappresentate dal carattere 'E'
+ * <li> {@link TileType#SHOP} per la cella del negozio, rappresentata dal carattere 'S'
+ * <li> {@link TileType#BOSS} per la cella del boss finale della mappa, rappresentata dal carattere 'B'
+ * <li> {@link TileType#EXIT} per la cella di uscita alla mappa successiva, rappresentata dal carattere 'N'
  * </p>
  */
 public class GameMap {
@@ -112,6 +119,16 @@ public class GameMap {
             return false;
         }
         return tiles[position.getX()][position.getY()] != TileType.OBSTACLE;
+    }
+
+    /**
+     * Verifica se il boss della mappa è stato sconfitto.
+     *
+     * @return {@code true} se la mappa non ha un boss oppure se il boss non è
+     * più presente tra i nemici vivi
+     */
+    public boolean isBossDefeated() {
+        return bossPosition == null || !enemies.containsKey(bossPosition);
     }
 
     /**

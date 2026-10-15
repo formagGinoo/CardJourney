@@ -1,7 +1,7 @@
 package it.unicam.cs.mpgc.rpg130809.model.game;
 
 import it.unicam.cs.mpgc.rpg130809.model.card.CardType;
-import it.unicam.cs.mpgc.rpg130809.model.enemy.EnemyType;
+import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.EnemyType;
 import javafx.scene.image.Image;
 import java.io.InputStream;
 import java.util.HashMap;

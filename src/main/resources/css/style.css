@@ -16,7 +16,7 @@
 }
 
 /* TitleScreen Buttons */
-.menu-button {
+.title-screen-menu-button {
     -fx-font-family: 'Jersey 20', sans-serif;
     -fx-font-size: 25px;
     -fx-font-weight: bold;
@@ -37,54 +37,54 @@
 }
 
 /* TitleScreen Button 1: Nuova Partita */
-.red-button {
+.title-screen-new-game-button {
     -fx-background-color: #82151f;
     -fx-border-color: #faede2;
 }
 
-.red-button:hover {
+.title-screen-new-game-button:hover {
     -fx-background-color: #9c1c28;
     -fx-border-color: #ffffff;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 5, 0, 0, 3);
 }
 
-.red-button:pressed {
+.title-screen-new-game-button:pressed {
     -fx-background-color: #630f16;
     -fx-translate-y: 2px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
 }
 
 /* TitleScreen Button 2: Carica Partita */
-.blue-button {
+.title-screen-load-game-button {
     -fx-background-color: #12386a;
     -fx-border-color: #e2ebf7;
 }
 
-.blue-button:hover {
+.title-screen-load-game-button:hover {
     -fx-background-color: #1b4e8e;
     -fx-border-color: #ffffff;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 5, 0, 0, 3);
 }
 
-.blue-button:pressed {
+.title-screen-load-game-button:pressed {
     -fx-background-color: #0c264a;
     -fx-translate-y: 2px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
 }
 
 /* TitleScreen Button 3: Esci dal Gioco */
-.gray-button {
+.title-screen-exit-button {
     -fx-background-color: #343944;
     -fx-border-color: #e7e8eb;
 }
 
-.gray-button:hover {
+.title-screen-exit-button:hover {
     -fx-background-color: #444b58;
     -fx-border-color: #ffffff;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 5, 0, 0, 3);
 }
 
-.gray-button:pressed {
+.title-screen-exit-button:pressed {
     -fx-background-color: #242830;
     -fx-translate-y: 2px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
@@ -142,17 +142,103 @@
 /* --- MapSelection END --- */
 
 /* --- MapView START --- */
-.hud {
+.map-view-hud {
     -fx-background-color: rgba(18, 20, 26, 0.90);
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
     -fx-border-color: #8b6b44;
     -fx-border-width: 2px;
-    -fx-padding: 6px 10px;
+    -fx-max-width: 360px;
+    -fx-padding: 4px 7px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 10, 0, 0, 3);
 }
 
-.hud-map-name {
+.map-view-hud-map-name {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffd79a;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 3, 0, 0, 1);
+}
+
+.map-view-hud-stat {
+    -fx-padding: 1px 7px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+}
+
+.map-view-hud-hp {
+    -fx-background-color: rgba(90, 15, 20, 0.70);
+    -fx-border-color: #ff6b6b;
+}
+
+.map-view-hud-gold {
+    -fx-background-color: rgba(90, 70, 10, 0.70);
+    -fx-border-color: #ffd152;
+}
+
+.map-view-hud-label {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.map-view-hud-button {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2b303a;
+    -fx-border-color: #faede2;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-padding: 2px 6px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 3, 0, 0, 1);
+}
+
+.map-view-hud-button:hover {
+    -fx-background-color: #404756;
+    -fx-border-color: #ffd79a;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 215, 120, 0.6), 6, 0, 0, 0);
+}
+
+.map-view-hud-button:pressed {
+    -fx-background-color: #1a1d24;
+    -fx-translate-y: 1px;
+}
+
+.map-view-hud-deck-button {
+    -fx-background-color: #1e3350;
+    -fx-border-color: #8ac0ff;
+}
+
+.map-view-hud-deck-button:hover {
+    -fx-background-color: #2a466d;
+    -fx-border-color: #ffffff;
+}
+
+/* --- MapView END --- */
+
+/* --- BattleView START --- */
+.battle-view-overlay {
+    -fx-background-color: rgba(10, 12, 18, 0.65);
+}
+
+.battle-view-hud {
+    -fx-background-color: rgba(18, 20, 28, 0.92);
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: #8b6b44;
+    -fx-border-width: 2px;
+    -fx-padding: 8px 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 10, 0, 0, 3);
+}
+
+.battle-view-map-name {
     -fx-font-family: 'Jersey 20', sans-serif;
     -fx-font-size: 19px;
     -fx-font-weight: bold;
@@ -160,84 +246,443 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 3, 0, 0, 1);
 }
 
-.hud-stat {
-    -fx-padding: 1px 7px;
-    -fx-background-radius: 6px;
-    -fx-border-radius: 6px;
+.battle-view-turn-label {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-padding: 3px 12px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}
+
+.battle-view-turn-player {
+    -fx-text-fill: #e0f2fe;
+    -fx-background-color: rgba(14, 116, 144, 0.65);
+    -fx-border-color: #38bdf8;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.4), 8, 0, 0, 0);
+}
+
+.battle-view-turn-enemy {
+    -fx-text-fill: #fee2e2;
+    -fx-background-color: rgba(153, 27, 27, 0.65);
+    -fx-border-color: #f87171;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(248, 113, 113, 0.4), 8, 0, 0, 0);
+}
+
+.battle-view-message {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 20px;
+    -fx-text-fill: #ffd79a;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 3, 0, 0, 1);
+}
+
+.battle-view-combo {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #67e8f9;
+    -fx-background-color: rgba(8, 51, 68, 0.75);
+    -fx-padding: 4px 12px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #22d3ee;
     -fx-border-width: 1px;
 }
 
-.hud-hp {
-    -fx-background-color: rgba(90, 15, 20, 0.70);
-    -fx-border-color: #ff6b6b;
+.battle-view-vs {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 36px;
+    -fx-text-fill: #94a3b8;
+    -fx-font-weight: bold;
 }
 
-.hud-gold {
-    -fx-background-color: rgba(90, 70, 10, 0.70);
-    -fx-border-color: #ffd152;
+.battle-view-entity {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0 10px;
+    -fx-effect: none;
+    -fx-min-width: 190px;
 }
 
-.hud-label {
+.battle-view-player {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.battle-view-enemy {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.battle-view-entity-name {
     -fx-font-family: 'Jersey 20', sans-serif;
-    -fx-font-size: 18px;
+    -fx-font-size: 26px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.95), 6, 0, 0, 2);
 }
 
-.hud-button {
+.battle-view-entity-sprite-container {
+    -fx-alignment: center;
+    -fx-min-height: 140px;
+    -fx-min-width: 140px;
+}
+
+.battle-view-entity-sprite {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 12, 0, 0, 5);
+}
+
+.battle-view-hp-bar {
+    -fx-pref-height: 18px;
+    -fx-pref-width: 180px;
+}
+
+.battle-view-hp-bar .track {
+    -fx-background-color: #1f2937;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #374151;
+    -fx-border-width: 1px;
+}
+
+.battle-view-player-hp-bar .bar {
+    -fx-background-color: linear-gradient(to right, #16a34a, #22c55e);
+    -fx-background-radius: 8px;
+}
+
+.battle-view-enemy-hp-bar .bar {
+    -fx-background-color: linear-gradient(to right, #b91c1c, #ef4444);
+    -fx-background-radius: 8px;
+}
+
+.battle-view-hp-label {
     -fx-font-family: 'Jersey 20', sans-serif;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
-    -fx-background-color: #2b303a;
-    -fx-border-color: #faede2;
-    -fx-border-radius: 6px;
+    -fx-text-fill: #f3f4f6;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 2, 0, 0, 1);
+}
+
+.battle-view-entity-damage {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f87171;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1.0), 6, 0, 0, 2);
+}
+
+.battle-view-enemy-attack {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 19px;
+    -fx-text-fill: #fca5a5;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.95), 4, 0, 0, 1);
+}
+
+.battle-view-pile {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-pref-width: 90px;
+    -fx-alignment: center;
+    -fx-effect: none;
+}
+
+.battle-view-draw-pile {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.battle-view-discard-pile {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.battle-view-pile-icon {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 8, 0, 0, 3);
+}
+
+.battle-view-pile-name {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffd79a;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.95), 4, 0, 0, 1);
+}
+
+.battle-view-pile-count {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f8fafc;
+    -fx-background-color: rgba(15, 23, 42, 0.9);
     -fx-background-radius: 6px;
-    -fx-border-width: 1.2px;
-    -fx-padding: 3px 8px;
+    -fx-padding: 2px 8px;
+    -fx-border-color: #94a3b8;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 6, 0, 0, 2);
+}
+
+.battle-view-hand-card {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 3, 0, 0, 1);
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 8, 0, 0, 3);
 }
 
-.hud-button:hover {
-    -fx-background-color: #404756;
-    -fx-border-color: #ffd79a;
-    -fx-effect: dropshadow(three-pass-box, rgba(255, 215, 120, 0.6), 6, 0, 0, 0);
+.battle-view-hand-card:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(250, 204, 21, 0.9), 5, 0.5, 0, 0);
 }
 
-.hud-button:pressed {
-    -fx-background-color: #1a1d24;
-    -fx-translate-y: 1px;
+.battle-view-hand-card-selected {
+    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 1.0), 5, 0.5, 0, 0);
 }
 
-.hud-deck-button {
-    -fx-background-color: #1e3350;
-    -fx-border-color: #8ac0ff;
+.battle-view-hand-card-image {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.7), 6, 0, 0, 2);
 }
 
-.hud-deck-button:hover {
-    -fx-background-color: #2a466d;
+.battle-view-action-button {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-pref-width: 170px;
+    -fx-pref-height: 48px;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-width: 3px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.75), 6, 0, 0, 2);
+}
+
+.battle-view-attack-button {
+    -fx-background-color: #991b1b;
+    -fx-border-color: #fca5a5;
+}
+
+.battle-view-attack-button:hover {
+    -fx-background-color: #b91c1c;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(239, 68, 68, 0.8), 10, 0, 0, 0);
+}
+
+.battle-view-attack-button:pressed {
+    -fx-background-color: #7f1d1d;
+    -fx-translate-y: 2px;
+}
+
+.battle-view-attack-button:disabled {
+    -fx-opacity: 0.4;
+    -fx-cursor: default;
+    -fx-effect: none;
+}
+
+.battle-view-end-turn-button {
+    -fx-background-color: #1e3a8a;
+    -fx-border-color: #93c5fd;
+}
+
+.battle-view-end-turn-button:hover {
+    -fx-background-color: #2563eb;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.8), 10, 0, 0, 0);
+}
+
+.battle-view-end-turn-button:pressed {
+    -fx-background-color: #172554;
+    -fx-translate-y: 2px;
+}
+
+.battle-view-end-turn-button:disabled {
+    -fx-opacity: 0.4;
+    -fx-cursor: default;
+    -fx-effect: none;
+}
+
+.battle-view-flying-card {
+    -fx-background-color: transparent;
+    -fx-pref-width: 45px;
+    -fx-pref-height: 65px;
+}
+
+.battle-view-flying-card-sprite {
+    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.95), 14, 0.7, 0, 0);
+}
+
+.battle-view-flying-card-attack {
+    -fx-effect: dropshadow(three-pass-box, rgba(239, 68, 68, 0.95), 16, 0.8, 0, 0);
+}
+/* --- BattleView END --- */
+
+/* --- BattleResultView START --- */
+.battle-result-root {
+    -fx-background-color: #080b12;
+}
+
+.battle-result-overlay {
+    -fx-background-color: linear-gradient(to bottom, rgba(5, 8, 15, 0.68), rgba(5, 8, 15, 0.90));
+}
+
+.battle-result-box {
+    -fx-background-color: linear-gradient(to bottom, rgba(20, 29, 48, 0.98), rgba(11, 17, 30, 0.98));
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-border-color: #64748b;
+    -fx-border-width: 2px;
+    -fx-padding: 32px 42px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.95), 28, 0.25, 0, 8);
+}
+
+.battle-result-title {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 44px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 4px 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 5, 0, 0, 3);
+}
+
+.battle-result-sprite {
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.18), 14, 0.35, 0, 3);
+}
+
+.battle-result-subtitle {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 22px;
+    -fx-text-fill: #e2e8f0;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 2px 0 4px 0;
+}
+
+.battle-result-reward {
+    -fx-padding: 4px 0;
+}
+
+.battle-result-reward-label {
+    -fx-text-fill: #fde68a;
+}
+
+.battle-result-label {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 22px;
+}
+
+.battle-result-gold-reward {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fde047;
+    -fx-background-color: rgba(161, 98, 7, 0.4);
+    -fx-padding: 4px 16px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #eab308;
+    -fx-border-width: 2px;
+}
+
+.battle-result-stats {
+    -fx-padding: 4px 0 2px 0;
+}
+
+.battle-result-stat {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 12px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+}
+
+.battle-result-player-hp {
+    -fx-text-fill: #bbf7d0;
+    -fx-background-color: rgba(22, 101, 52, 0.28);
+    -fx-border-color: rgba(74, 222, 128, 0.55);
+}
+
+.battle-result-defeat-player-hp {
+    -fx-text-fill: #fecaca;
+    -fx-background-color: rgba(127, 29, 29, 0.30);
+    -fx-border-color: rgba(248, 113, 113, 0.60);
+}
+
+.battle-result-player-gold {
+    -fx-text-fill: #fef08a;
+    -fx-background-color: rgba(133, 77, 14, 0.28);
+    -fx-border-color: rgba(250, 204, 21, 0.55);
+}
+
+.battle-result-actions {
+    -fx-padding: 8px 0 0 0;
+}
+
+.battle-result-button {
+    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-content-display: text-only;
+    -fx-text-alignment: center;
+    -fx-min-width: 260px;
+    -fx-pref-width: 260px;
+    -fx-pref-height: 52px;
+    -fx-padding: 0;
+    -fx-label-padding: 0;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-width: 3px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.75), 6, 0, 0, 2);
+}
+
+.battle-result-victory-button {
+    -fx-background-color: #1e3a8a;
+    -fx-border-color: #93c5fd;
+}
+
+.battle-result-victory-button:hover {
+    -fx-background-color: #2563eb;
     -fx-border-color: #ffffff;
 }
 
-.hud-show-grid-button {
-    -fx-font-size: 16px;
-    -fx-background-color: #363024;
-    -fx-border-color: #c79a40;
+.battle-result-victory-button:pressed {
+    -fx-background-color: #172554;
+    -fx-translate-y: 2px;
 }
 
-.grid-tile-obstacle {
-    -fx-background-color: rgba(220, 40, 40, 0.28);
-    -fx-border-color: rgba(255, 40, 40, 0.50);
-    -fx-border-width: 1px;
+.battle-result-defeat-button {
+    -fx-background-color: #991b1b;
+    -fx-border-color: #fca5a5;
 }
 
-.grid-tile-walkable {
-    -fx-background-color: rgba(40, 220, 60, 0.18);
-    -fx-border-color: rgba(40, 255, 60, 0.40);
-    -fx-border-width: 1px;
+.battle-result-defeat-button:hover {
+    -fx-background-color: #b91c1c;
+    -fx-border-color: #ffffff;
 }
-/* --- MapView END --- */
 
+.battle-result-defeat-button:pressed {
+    -fx-background-color: #7f1d1d;
+    -fx-translate-y: 2px;
+}
 
+.battle-result-victory-title {
+    -fx-text-fill: #fef08a;
+    -fx-effect: dropshadow(three-pass-box, rgba(234, 179, 8, 0.8), 12, 0, 0, 0);
+}
 
+.battle-result-defeat-title {
+    -fx-text-fill: #f87171;
+    -fx-effect: dropshadow(three-pass-box, rgba(239, 68, 68, 0.8), 12, 0, 0, 0);
+}

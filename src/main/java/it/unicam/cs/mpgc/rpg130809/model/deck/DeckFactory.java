@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg130809.model.player;
+package it.unicam.cs.mpgc.rpg130809.model.deck;
 
 import it.unicam.cs.mpgc.rpg130809.model.card.CardFactory;
 import it.unicam.cs.mpgc.rpg130809.model.card.CardType;

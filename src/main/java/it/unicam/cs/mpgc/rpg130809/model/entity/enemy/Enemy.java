@@ -1,18 +1,16 @@
-package it.unicam.cs.mpgc.rpg130809.model.enemy;
+package it.unicam.cs.mpgc.rpg130809.model.entity.enemy;
 
-import it.unicam.cs.mpgc.rpg130809.model.player.Player;
+import it.unicam.cs.mpgc.rpg130809.model.entity.Damageable;
 
 import java.util.UUID;
 
 /**
  * Rappresenta un nemico generico nel gioco.
- * Ogni nemico specifico erediterà da questa classe e
- * implementerà la propria logica di combattimento nel metodo takeTurn.
+ * I nemici condividono l'attacco base definito in questa classe.
  */
-public abstract class Enemy {
+public class Enemy implements Damageable {
     private final String id;
     private final EnemyType type;
-    private final String name;
     private final int maxHealth;
     private int health;
 
@@ -20,12 +18,13 @@ public abstract class Enemy {
      * Inizializza un nuovo nemico.
      * 
      * @param type Il tipo di nemico
-     * @param name Il nome mostrato a schermo per questo nemico
      */
-    public Enemy(EnemyType type, String name) {
+    public Enemy(EnemyType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("Enemy type is required");
+        }
         this.id = UUID.randomUUID().toString();
         this.type = type;
-        this.name = name;
         this.maxHealth = type.getHealth();
         this.health = this.maxHealth;
     }
@@ -48,7 +47,7 @@ public abstract class Enemy {
      * @return Il nome del nemico
      */
     public String getName() {
-        return name;
+        return type.getEnemyName();
     }
 
     /**
@@ -71,7 +70,7 @@ public abstract class Enemy {
      * @param health I nuovi HP del nemico
      */
     public void setHealth(int health) {
-        this.health = Math.min(health, maxHealth);
+        this.health = Math.max(0, Math.min(health, maxHealth));
     }
 
     /**
@@ -89,10 +88,21 @@ public abstract class Enemy {
     }
 
     /**
-     * Esegue l'azione o l'attacco del nemico durante il suo turno.
-     * Qualsiasi sottoclasse implementerà in modo autonomo come attaccare il giocatore.
-     * 
-     * @param player Il giocatore bersaglio dell'attacco
+     * @return La quantità di monete d'oro rilasciate da questo nemico quando sconfitto
      */
-    public abstract void takeTurn(Player player);
+    public int getGoldDrop() {
+        return type.getGoldDrop();
+    }
+
+    /**
+     * Esegue l'attacco base del nemico durante il suo turno.
+     * 
+     * @param target Il bersaglio dell'attacco
+     */
+    public void takeTurn(Damageable target) {
+        if (target == null) {
+            throw new IllegalArgumentException("Attack target is required");
+        }
+        target.takeDamage(type.getDamage());
+    }
 }

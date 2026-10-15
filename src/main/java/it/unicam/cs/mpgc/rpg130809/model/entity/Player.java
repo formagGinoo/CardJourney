@@ -1,11 +1,12 @@
-package it.unicam.cs.mpgc.rpg130809.model.player;
+package it.unicam.cs.mpgc.rpg130809.model.entity;
 
 import it.unicam.cs.mpgc.rpg130809.model.card.Card;
+import it.unicam.cs.mpgc.rpg130809.model.deck.Deck;
 
 /**
  * Rappresenta il Mago (il giocatore) nel gioco. Contiene lo stato persistente del giocatore, come il mazzo principale (Main Deck), l'oro e la salute.
  */
-public class Player {
+public class Player implements Damageable {
     private int gold;
     private final Deck mainDeck;
     private int health;
@@ -82,7 +83,7 @@ public class Player {
      * @param health La nuova salute del giocatore
      */
     public void setHealth(int health) {
-        this.health = Math.min(health, maxHealth);
+        this.health = Math.max(0, Math.min(health, maxHealth));
     }
 
     /**
@@ -110,6 +111,17 @@ public class Player {
      */
     public void setGold(int gold) {
         this.gold = gold;
+    }
+
+    /**
+     * Aggiunge una quantità di oro al giocatore.
+     *
+     * @param amount La quantità di oro da aggiungere
+     */
+    public void addGold(int amount) {
+        if (amount > 0) {
+            this.gold += amount;
+        }
     }
 
     /**

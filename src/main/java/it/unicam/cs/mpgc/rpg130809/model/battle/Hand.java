@@ -140,11 +140,11 @@ public class Hand {
     }
 
     /**
-     * Ottiene la mano del giocatore.
+     * Ottiene le carte della mano del giocatore.
      *
-     * @return La mano del giocatore
+     * @return Le carte della mano del giocatore
      */
-    public List<Card> getHand() {
+    public List<Card> getCards() {
         return cards;
     }
 

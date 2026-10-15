@@ -1,6 +1,6 @@
 package it.unicam.cs.mpgc.rpg130809.model.map;
 
-import it.unicam.cs.mpgc.rpg130809.model.enemy.EnemyType;
+import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.EnemyType;
 
 import java.util.List;
 import java.util.Objects;
