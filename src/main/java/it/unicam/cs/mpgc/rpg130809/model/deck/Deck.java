@@ -8,8 +8,16 @@ import java.util.List;
 
 /**
  * Rappresenta un mazzo di carte nel gioco.
- * Può essere utilizzato sia per rappresentare il 'Main Deck' (il mazzo persistente del giocatore)
- * sia il 'Combat Deck' (il mazzo da cui il giocatore pesca durante un singolo combattimento).
+ * <p>
+ * La stessa classe viene usata per il <b>Main Deck</b> persistente del
+ * {@link it.unicam.cs.mpgc.rpg130809.model.entity.Player}, per la pila di pesca
+ * e per la pila degli scarti del
+ * {@link it.unicam.cs.mpgc.rpg130809.model.battle.BattleManager}. Le carte sono
+ * contenute in una lista interna, modificabile solo tramite i metodi esposti.
+ * </p>
+ *
+ * @see Card
+ * @see DeckFactory
  */
 public class Deck {
 
@@ -17,28 +25,37 @@ public class Deck {
 
     /**
      * Costruisce un mazzo vuoto.
-     * Utile per creare il mazzo iniziale prima di popolarlo tramite la CardFactory,
-     * oppure per inizializzare una pila degli scarti (Discard Pile).
+     * <p>
+     * Utile per creare il mazzo iniziale prima di popolarlo tramite la
+     * {@link it.unicam.cs.mpgc.rpg130809.model.card.CardFactory}, oppure per
+     * inizializzare una pila degli scarti.
+     * </p>
      */
     public Deck() {
         this.cards = new ArrayList<>();
     }
-    
+
     /**
      * Costruisce un mazzo a partire da una lista di carte esistenti.
-     * È il costruttore ideale per creare il mazzo di combattimento copiando le carte del Main Deck
-     * all'inizio di ogni battaglia, per non intaccare il mazzo originale quando le carte vengono pescate.
-     * 
-     * @param masterCards la lista di carte da cui inizializzare il mazzo
+     * <p>
+     * La lista viene copiata: è il costruttore ideale per creare il mazzo di
+     * combattimento a partire dal Main Deck, senza intaccare il mazzo originale
+     * quando le carte vengono pescate.
+     * </p>
+     *
+     * @param cards la lista di carte da cui inizializzare il mazzo
      */
-    public Deck(List<Card> masterCards) {
-        this.cards = new ArrayList<>(masterCards);
+    public Deck(List<Card> cards) {
+        this.cards = new ArrayList<>(cards);
     }
 
     /**
      * Aggiunge una carta alla fine del mazzo.
-     * Da usare quando si comprano carte allo shop o si mischiano gli scarti nel mazzo di pesca.
-     * 
+     * <p>
+     * Da usare quando si comprano carte allo shop o si rimescolano gli scarti
+     * nella pila di pesca.
+     * </p>
+     *
      * @param card la carta da aggiungere
      */
     public void addCard(Card card) {
@@ -47,17 +64,15 @@ public class Deck {
 
     /**
      * Mescola le carte presenti nel mazzo in ordine casuale.
-     * Indispensabile prima di iniziare a pescare in un combattimento.
      */
     public void shuffle() {
         Collections.shuffle(cards);
     }
 
     /**
-     * Pesca la prima carta disponibile.
-     * Rimuove fisicamente la carta dal mazzo.
-     * 
-     * @return la carta pescata, oppure null se il mazzo è vuoto.
+     * Pesca l'ultima carta disponibile, rimuovendola dal mazzo.
+     *
+     * @return la carta pescata, oppure {@code null} se il mazzo è vuoto
      */
     public Card drawCard() {
         if (cards.isEmpty()) {
@@ -68,21 +83,20 @@ public class Deck {
 
     /**
      * Restituisce il numero di carte attualmente presenti nel mazzo.
-     * 
-     * @return la grandezza del mazzo
+     *
+     * @return la dimensione del mazzo
      */
-    public int size() { 
-        return cards.size(); 
+    public int size() {
+        return cards.size();
     }
 
     /**
      * Restituisce una copia della lista delle carte presenti nel mazzo.
-     * 
-     * @return una nuova lista contenente le carte
-     */
-    /**
-     * Restituisce una copia della lista delle carte presenti nel mazzo.
-     * 
+     * <p>
+     * La copia impedisce al chiamante di modificare direttamente lo stato
+     * interno del mazzo.
+     * </p>
+     *
      * @return una nuova lista contenente le carte
      */
     public List<Card> getCards() {
@@ -91,7 +105,9 @@ public class Deck {
 
     /**
      * Svuota completamente il mazzo, rimuovendo tutte le carte presenti.
+     * <p>
      * Utile in battaglia per svuotare la pila degli scarti in un colpo solo.
+     * </p>
      */
     public void clear() {
         cards.clear();

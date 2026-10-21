@@ -2,6 +2,11 @@ package it.unicam.cs.mpgc.rpg130809.model.shop;
 
 /**
  * Esito di un tentativo di acquisto nello shop.
+ * <p>
+ * Viene restituito da {@link ShopManager#buy(ShopItem, Player)} e interpretato
+ * dalla {@code ShopViewController} per mostrare il messaggio di feedback
+ * corretto.
+ * </p>
  */
 public enum PurchaseResult {
 

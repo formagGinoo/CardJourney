@@ -4,13 +4,28 @@ import it.unicam.cs.mpgc.rpg130809.GameConstants;
 
 /**
  * Factory dedicata alla creazione e configurazione delle mappe di ciascuna zona.
+ * <p>
+ * Associa ogni {@link MapType} al layout testuale definito in
+ * {@link GameConstants} e costruisce una {@link GameMap} completa, usata da
+ * {@link it.unicam.cs.mpgc.rpg130809.model.game.GameManager}.
+ * </p>
+ *
+ * @see GameMap
+ * @see MapType
  */
-public class MapFactory {
+public final class MapFactory {
+
+    /**
+     * Costruttore privato: la classe espone solo metodi statici.
+     */
+    private MapFactory() {
+    }
+
     /**
      * Costruisce e popola una mappa completa per la zona richiesta.
      *
-     * @param mapType La zona di cui generare la mappa
-     * @return La mappa di gioco pronta per l'esplorazione
+     * @param mapType la zona di cui generare la mappa
+     * @return la mappa di gioco pronta per l'esplorazione
      */
     public static GameMap createMap(MapType mapType) {
         String[] layout = getLayoutForMap(mapType);
@@ -22,10 +37,10 @@ public class MapFactory {
     /**
      * Restituisce la matrice di caratteri corrispondente al layout della zona specificata.
      *
-     * @param zone La zona richiesta
-     * @return L'array di stringhe rappresentante la matrice di tile
+     * @param zone la zona richiesta
+     * @return l'array di stringhe rappresentante la matrice di tile
      */
-    public static String[] getLayoutForMap(MapType zone) {
+    private static String[] getLayoutForMap(MapType zone) {
         return switch (zone) {
             case PATH -> GameConstants.PATH_MAP_LAYOUT;
             case FOREST -> GameConstants.FOREST_MAP_LAYOUT;

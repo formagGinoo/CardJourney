@@ -35,6 +35,13 @@ import static it.unicam.cs.mpgc.rpg130809.GameConstants.TILE_SIZE;
  * </p>
  */
 public class MapViewController {
+
+    /**
+     * Crea il controller della mappa, istanziato da JavaFX tramite il file FXML.
+     */
+    public MapViewController() {
+    }
+
     @FXML private StackPane rootPane;
     @FXML private ImageView backgroundImage;
     @FXML private Pane mapPane;
@@ -234,6 +241,16 @@ public class MapViewController {
         }
     }
 
+    /**
+     * Posiziona il badge di un'entità sulla griglia della mappa.
+     * <p>
+     * Le coordinate logiche della {@link Position} vengono convertite in pixel
+     * moltiplicandole per {@code TILE_SIZE}.
+     * </p>
+     *
+     * @param sprite immagine da visualizzare nel badge
+     * @param position posizione logica dell'entità sulla mappa
+     */
     private void addBadge(Image sprite, Position position) {
         StackPane badge = createBadge(sprite);
         badge.setLayoutX(position.getX() * TILE_SIZE);
@@ -295,6 +312,10 @@ public class MapViewController {
 
     /**
      * Gestisce il click sul pulsante del mazzo.
+     * <p>
+     * La visualizzazione del mazzo non è ancora implementata: per ora l'azione
+     * si limita a registrare a console il numero di carte possedute.
+     * </p>
      */
     @FXML
     private void onDeckButtonClicked() {

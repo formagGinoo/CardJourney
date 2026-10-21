@@ -8,21 +8,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Gestore per il caricamento e la fornitura
- * degli sprite utilizzati nelle schermate di gioco.
+ * Gestore per il caricamento e la fornitura degli sprite utilizzati nelle schermate di gioco.
  * <p>
- * Implementa il pattern <b>Flyweight</b> memorizzando in cache le istanze di {@link Image}
+ * Implementa il design pattern <b>Flyweight</b> memorizzando in cache le istanze di {@link Image}
  * caricate da disco, evitando duplicazioni in memoria e ottimizzando le performance.
  * </p>
+ * <p>
+ * Gli sprite sono richiesti dalle viste del package {@code controller.ui} e sono
+ * indicizzati per percorso, {@link EnemyType} o {@link CardType}.
+ * </p>
  */
-public class SpriteManager {
+public final class SpriteManager {
 
     private static final Map<String, Image> CACHE = new HashMap<>();
 
     /**
+     * Costruttore privato: la classe espone solo metodi statici.
+     */
+    private SpriteManager() {
+    }
+
+    /**
      * Restituisce lo sprite del giocatore.
      *
-     * @return L'immagine del giocatore, o {@code null} se non presente
+     * @return l'immagine del giocatore, o {@code null} se non presente
      */
     public static Image getPlayerSprite() {
         return loadSprite("/img/sprites/player.png");
@@ -31,7 +40,7 @@ public class SpriteManager {
     /**
      * Restituisce lo sprite del negozio.
      *
-     * @return L'immagine del negozio, o {@code null} se non presente
+     * @return l'immagine del negozio, o {@code null} se non presente
      */
     public static Image getShopSprite() {
         return loadSprite("/img/sprites/shop.png");
@@ -40,7 +49,7 @@ public class SpriteManager {
     /**
      * Restituisce lo sprite della pozione di salute.
      *
-     * @return L'immagine della pozione, o {@code null} se non presente
+     * @return l'immagine della pozione, o {@code null} se non presente
      */
     public static Image getHealthPotionSprite() {
         return loadSprite("/img/sprites/items/health_potion.png");
@@ -49,7 +58,7 @@ public class SpriteManager {
     /**
      * Restituisce lo sprite del portale di uscita alla zona successiva.
      *
-     * @return L'immagine dell'uscita, o {@code null} se non presente
+     * @return l'immagine dell'uscita, o {@code null} se non presente
      */
     public static Image getExitSprite() {
         return loadSprite("/img/sprites/exit.png");
@@ -58,8 +67,8 @@ public class SpriteManager {
     /**
      * Restituisce lo sprite associato alla tipologia di nemico specificata.
      *
-     * @param type Il tipo di nemico
-     * @return L'immagine del nemico, o {@code null} se non presente
+     * @param type il tipo di nemico
+     * @return l'immagine del nemico, o {@code null} se non presente
      */
     public static Image getEnemySprite(EnemyType type) {
         return loadSprite("/img/sprites/enemies/" + type.name().toLowerCase() + ".png");
@@ -68,8 +77,8 @@ public class SpriteManager {
     /**
      * Restituisce lo sprite per la carta specificata.
      *
-     * @param type Il tipo di carta
-     * @return L'immagine della carta, o {@code null} se non presente
+     * @param type il tipo di carta
+     * @return l'immagine della carta, o {@code null} se non presente
      */
     public static Image getCardSprite(CardType type) {
         return loadSprite("/img/sprites/cards/" + type.name().toLowerCase() + ".png");
@@ -78,8 +87,8 @@ public class SpriteManager {
     /**
      * Carica un'immagine dal classpath sfruttando la cache in memoria.
      *
-     * @param resourcePath Il percorso assoluto della risorsa all'interno del classpath
-     * @return L'istanza di {@link Image} caricata, o {@code null} se la risorsa non è presente
+     * @param resourcePath il percorso assoluto della risorsa all'interno del classpath
+     * @return l'istanza di {@link Image} caricata, o {@code null} se la risorsa non è presente
      */
     private static Image loadSprite(String resourcePath) {
         if (CACHE.containsKey(resourcePath)) {

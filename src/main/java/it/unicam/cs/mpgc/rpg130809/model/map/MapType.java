@@ -8,15 +8,27 @@ import java.util.Objects;
 /**
  * Rappresenta le diverse mappe esplorabili nel gioco.
  * <p>
- * A ogni mappa è associato un livello di difficoltà {@code level}, un nome {@code name},
- * e un insieme di nemici comuni affrontabili {@code enemies} e un boss finale {@code boss}
- * che deve essere sconfitto per sbloccare la zona successiva.
+ * A ogni mappa sono associati un livello di difficoltà {@code level}, un nome
+ * {@code name}, un insieme di nemici comuni affrontabili {@code enemies} e un
+ * boss finale {@code boss}, che deve essere sconfitto per sbloccare la zona
+ * successiva.
+ * </p>
+ * <p>
+ * I valori di questa enumerazione sono utilizzati da {@link MapFactory} per
+ * costruire la {@link GameMap}, da
+ * {@link it.unicam.cs.mpgc.rpg130809.model.game.GameManager} per caricare la
+ * zona corrente e dalla {@code MapViewController} per mostrare nome e sfondo.
  * </p>
  */
 public enum MapType {
 
+    /** Prima zona: Sentiero Scosceso. */
     PATH("Sentiero Scosceso", 1, List.of(EnemyType.SLIME, EnemyType.GOBLIN), EnemyType.BANDIT),
+
+    /** Seconda zona: Boschetto Bisunto. */
     FOREST("Boschetto Bisunto", 2, List.of(EnemyType.ORC, EnemyType.GOLEM, EnemyType.ASSASSIN), EnemyType.TROLL),
+
+    /** Terza zona: Picco del Drago. */
     DRAGON_PEAK("Picco del Drago", 3, List.of(EnemyType.VAMPIRE), EnemyType.DRAGON);
 
     private final String name;
@@ -27,10 +39,10 @@ public enum MapType {
     /**
      * Costruisce una zona con le sue caratteristiche di gioco.
      *
-     * @param name    Il nome della zona
-     * @param tier    Il livello di difficoltà
-     * @param enemies La lista di nemici che ci sono nella zona
-     * @param boss    Il boss della zona, da sconfiggere per completarla
+     * @param name il nome della zona
+     * @param tier il livello di difficoltà
+     * @param enemies la lista di nemici presenti nella zona
+     * @param boss il boss della zona, da sconfiggere per completarla
      */
     MapType(String name, int tier, List<EnemyType> enemies, EnemyType boss) {
         this.name = name;
@@ -40,55 +52,56 @@ public enum MapType {
     }
 
     /**
-     * Ottiene il nome della zona.
+     * Restituisce il nome della zona.
      *
-     * @return Il nome della zona
+     * @return il nome della zona
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Ottiene il livello di difficoltà della zona.
+     * Restituisce il livello di difficoltà della zona.
      *
-     * @return Il numero del level
+     * @return il numero del livello
      */
     public int getLevel() {
         return level;
     }
 
     /**
-     * Ottiene l'elenco dei nemici presenti nella zona.
+     * Restituisce l'elenco dei nemici comuni presenti nella zona.
      *
-     * @return La lista immutabile dei tipi di nemici comuni
+     * @return la lista immutabile dei tipi di nemici comuni
      */
     public List<EnemyType> getEnemies() {
         return enemies;
     }
 
     /**
-     * Ottiene il boss finale della zona.
+     * Restituisce il boss finale della zona.
      *
-     * @return Il tipo di nemico che funge da boss
+     * @return il tipo di nemico che funge da boss
      */
     public EnemyType getBoss() {
         return boss;
     }
 
     /**
-     * Ottiene il percorso dell'immagine di sfondo della mappa.
+     * Restituisce il percorso dell'immagine di sfondo della mappa.
      *
-     * @return Il percorso dell'immagine della mappa
+     * @return il percorso dell'immagine della mappa
+     * @throws NullPointerException if the background image resource is missing
      */
     public String getMapBackgroundPath() {
         return Objects.requireNonNull(getClass().getResource("/img/mapview/map" + level + ".jpg")).toExternalForm();
     }
 
     /**
-     * Restituisce il MapType corrispondente al level specificato.
+     * Restituisce il {@link MapType} corrispondente al livello specificato.
      *
-     * @param level Il livello della zona
-     * @return La mappa associata al level, oppure PATH come default
+     * @param level il livello della zona
+     * @return la mappa associata al livello, oppure {@link #PATH} come valore predefinito
      */
     public static MapType fromLevel(int level) {
         for (MapType zone : values()) {

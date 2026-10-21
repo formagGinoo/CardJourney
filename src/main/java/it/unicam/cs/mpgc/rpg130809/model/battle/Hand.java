@@ -7,16 +7,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Rappresenta la mano del giocatore in battaglia.
+ * Rappresenta la mano del giocatore durante una battaglia.
+ * <p>
+ * La mano contiene al massimo cinque carte, pescate dalla pila di
+ * pesca e spostate nella pila degli scarti al termine del turno. È posseduta dal
+ * {@link BattleManager}, che ne gestisce il ciclo di vita, e viene interrogata
+ * dalla {@code BattleViewController} per mostrare le carte e le anteprime delle
+ * combo.
+ * </p>
+ *
+ * @see Card
+ * @see BattleManager
  */
 public class Hand {
+
     private final List<Card> cards;
     private final int maxHandSize = 5;
 
     /**
      * Costruisce una nuova mano con le carte specificate.
      *
-     * @param cards Le carte della mano
+     * @param cards le carte iniziali della mano
      */
     public Hand(List<Card> cards) {
         this.cards = cards;
@@ -25,15 +36,15 @@ public class Hand {
     /**
      * Valuta le carte selezionate dal giocatore e calcola il danno totale della combo.
      * <p>
-     * Regole delle Combo:
-     * <br> - 1 Carta: Danno base della carta.
-     * <br> - 2+ Carte uguali (Coppia, Tris, Poker): Somma danni moltiplicata per 1.5, 2.0, 2.5 ecc.
-     * <br> - Scala (almeno 3 carte consecutive): Somma danni moltiplicata per 1.5 (se 3 carte), 2.0 (se 4), 3.0 (se 5).
-     * <br> - Combinazione non valida: Ritorna 0.
-     * <p>
+     * Regole delle combo:
+     * <br> - 1 carta: danno base della carta.
+     * <br> - 2+ carte uguali (coppia, tris, poker): somma dei danni moltiplicata per 1.5, 2.0, 2.5, 3.0.
+     * <br> - Scala (almeno 3 carte consecutive): somma dei danni moltiplicata per 1.5 (se 3 carte), 2.0 (se 4), 3.0 (se 5).
+     * <br> - Combinazione non valida: restituisce 0.
+     * </p>
      *
-     * @param selectedCards Le carte selezionate dal giocatore nella UI per l'attacco
-     * @return I danni totali calcolati, oppure 0 se la combinazione non è valida.
+     * @param selectedCards le carte selezionate dal giocatore nella UI per l'attacco
+     * @return i danni totali calcolati, oppure 0 se la combinazione non è valida
      */
     public int evaluateHand(List<Card> selectedCards) {
         if (selectedCards == null || selectedCards.isEmpty()) {
@@ -67,9 +78,9 @@ public class Hand {
         //Scala, ovvero almeno 3 carte consecutive in ordine decrescente di valore.
         if (selectedCards.size() >= 3) {
             List<Card> sorted = new ArrayList<>(selectedCards);
-            
-            // Ordiniamo usando l'ordinal() di CardInfo.
-            // Poiché nell'enum CardInfo l'ordine è: JOKER(0), ACE(1), KING(2)... TWO(13),
+
+            // Ordiniamo usando l'ordinal() di CardType.
+            // Poiché nell'enum CardType l'ordine è: JOKER(0), ACE(1), KING(2)... TWO(13),
             // l'ordinal decrescente (c2 rispetto a c1) metterà prima le carte più deboli e alla fine le più forti
             sorted.sort((c1, c2) -> Integer.compare(c2.getType().ordinal(), c1.getType().ordinal()));
 
@@ -77,10 +88,10 @@ public class Hand {
             for (int i = 0; i < sorted.size() - 1; i++) {
                 int currentOrdinal = sorted.get(i).getType().ordinal();
                 int nextOrdinal = sorted.get(i + 1).getType().ordinal();
-                
-                // Affinché sia una scala perfetta, ogni carta successiva deve avere 
+
+                // Affinché sia una scala perfetta, ogni carta successiva deve avere
                 // un ordinal inferiore esattamente di 1 rispetto alla precedente.
-                // 
+                //
                 // ESEMPIO CON IL JOKER:
                 // Se la lista ordinata è KING(2), ACE(1), JOKER(0):
                 // 1° Ciclo: current(2) - 1 == next(1) -> Vero!
@@ -102,15 +113,18 @@ public class Hand {
                 return (int) (baseSum * multiplier);
             }
         }
-        
+
         // Se si arriva qui, le carte non formano né un gruppo di carte uguali né una scala.
         // La mossa non è valida, quindi restituiamo 0 danni.
-        return 0; 
+        return 0;
     }
 
     /**
      * Pulisce la mano del giocatore.
-     * Questo perché a ogni turno di battaglia la mano viene ricostruita.
+     * <p>
+     * A ogni turno di battaglia la mano viene ricostruita, quindi il contenuto
+     * precedente viene rimosso prima della nuova pescata.
+     * </p>
      */
     public void clearHand() {
         cards.clear();
@@ -119,8 +133,8 @@ public class Hand {
     /**
      * Aggiunge una carta alla mano del giocatore.
      *
-     * @param card La carta da aggiungere
-     * @throws IllegalStateException Se la mano è piena e non si può aggiungere un'altra carta
+     * @param card la carta da aggiungere
+     * @throws IllegalStateException if the hand is already full
      */
     public void addCard(Card card) {
         if (cards.size() < maxHandSize) {
@@ -133,34 +147,34 @@ public class Hand {
     /**
      * Rimuove una carta dalla mano del giocatore.
      *
-     * @param card La carta da rimuovere
+     * @param card la carta da rimuovere
      */
     public void removeCard(Card card) {
         cards.remove(card);
     }
 
     /**
-     * Ottiene le carte della mano del giocatore.
+     * Restituisce le carte attualmente presenti nella mano.
      *
-     * @return Le carte della mano del giocatore
+     * @return la lista delle carte in mano
      */
     public List<Card> getCards() {
         return cards;
     }
 
     /**
-     * Ottiene la dimensione massima della mano del giocatore.
+     * Restituisce la dimensione massima della mano.
      *
-     * @return La dimensione massima della mano
+     * @return il numero massimo di carte che la mano può contenere
      */
     public int getMaxHandSize() {
         return maxHandSize;
     }
 
     /**
-     * Ottiene la dimensione attuale della mano del giocatore.
+     * Restituisce il numero di carte attualmente in mano.
      *
-     * @return La dimensione attuale della mano
+     * @return la dimensione attuale della mano
      */
     public int getHandSize() {
         return cards.size();

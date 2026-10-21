@@ -39,10 +39,26 @@ import java.util.Map;
  * <p>
  * Le regole del combattimento restano in {@link BattleManager}; questo controller
  * interpreta i comandi dell'utente, aggiorna l'interfaccia e coordina le
- * animazioni.
+ * animazioni. Lo stato persistente della sessione è letto dal
+ * {@link GameManager}, mentre la transizione verso la schermata dei risultati è
+ * delegata a {@link SceneManager}.
  * </p>
+ * <p>
+ * Le carte visualizzate provengono dalla {@link it.unicam.cs.mpgc.rpg130809.model.battle.Hand}
+ * del {@link BattleManager}, mentre le pile di pesca e scarto sono due
+ * {@link it.unicam.cs.mpgc.rpg130809.model.deck.Deck} gestiti dallo stesso
+ * {@link BattleManager}.
+ * </p>
+ *
+ * @see BattleResultViewController
  */
 public class BattleViewController {
+
+    /**
+     * Crea il controller della battaglia, istanziato da JavaFX tramite il file FXML.
+     */
+    public BattleViewController() {
+    }
 
     @FXML private ImageView backgroundImage;
     @FXML private Label mapLabel;
@@ -166,6 +182,8 @@ public class BattleViewController {
      * azzera le selezioni e crea un nodo grafico interattivo per ogni carta posseduta.
      * È usato quando non è necessaria un'animazione di pesca dal drawPile.
      * </p>
+     *
+     * @see #renderHand(Runnable)
      */
     private void renderHand() {
         cards.getChildren().clear();
@@ -190,7 +208,7 @@ public class BattleViewController {
      * immediatamente senza animazione.
      * </p>
      *
-     * @param onFinished callback opzionale invocato al termine della pescata, può essere {@code null}}
+     * @param onFinished callback opzionale invocato al termine della pescata, può essere {@code null}
      */
     private void renderHand(Runnable onFinished) {
         cards.getChildren().clear();
@@ -420,7 +438,7 @@ public class BattleViewController {
      * @param x coordinata X iniziale nella vista
      * @param y coordinata Y iniziale nella vista
      * @param opacity opacità iniziale
-     * @return sprite configurato e posizionato
+     * @return lo sprite configurato e posizionato
      */
     private ImageView createCardForAnimation(
             CardType type,

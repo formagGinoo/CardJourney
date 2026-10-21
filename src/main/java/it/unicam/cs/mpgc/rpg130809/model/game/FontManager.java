@@ -9,23 +9,32 @@ import java.io.InputStream;
  * Carica e registra i font usati dalla UI.
  * <p>
  * JavaFX non gestisce in modo affidabile la direttiva {@code @font-face} nei
- * file css quando l'applicazione viene eseguita da un JAR o da una
- * directory diversa. Il font viene quindi caricato all'avvio dell'applicazione
+ * file CSS quando l'applicazione viene eseguita da un JAR o da una directory
+ * diversa. Il font viene quindi caricato all'avvio da
+ * {@link it.unicam.cs.mpgc.rpg130809.CardJourneyApplication} tramite
+ * {@link #loadFonts()}.
+ * </p>
+ * <p>
+ * Se la risorsa manca o non è valida, l'applicazione continua a funzionare con
+ * il font di fallback del sistema.
  * </p>
  */
 public final class FontManager {
 
-    public static final String UI_FONT_FAMILY = "Jersey 20";
+    private static final String UI_FONT_FAMILY = "Jersey 20";
     private static final String FONT_RESOURCE = "/fonts/Jersey20-Regular.ttf";
     private static boolean loaded;
 
+    /**
+     * Costruttore privato: la classe espone solo metodi statici.
+     */
     private FontManager() {}
 
     /**
      * Carica il font se non è già stato caricato.
      * <p>
-     * Se la risorsa manca o non è valida, l'applicazione continua a funzionare
-     * con il font di fallback del sistema.
+     * L'operazione è invariabile: dopo il primo caricamento riuscito le
+     * invocazioni successive non rileggono la risorsa.
      * </p>
      */
     public static void loadFonts() {
@@ -35,30 +44,23 @@ public final class FontManager {
 
         try (InputStream fontStream = FontManager.class.getResourceAsStream(FONT_RESOURCE)) {
             if (fontStream == null) {
-                System.err.println("Font non trovato: " + FONT_RESOURCE);
+                System.err.println("Font not found: " + FONT_RESOURCE);
                 return;
             }
 
             Font font = Font.loadFont(fontStream, 10);
             if (font == null) {
-                System.err.println("Impossibile caricare il font: " + FONT_RESOURCE);
+                System.err.println("Cant load font: " + FONT_RESOURCE);
                 return;
             }
 
             loaded = true;
 
             if (!UI_FONT_FAMILY.equals(font.getFamily())) {
-                System.err.println("Font caricato: '" + font.getFamily() + "', atteso: '" + UI_FONT_FAMILY + "'");
+                System.err.println("Font loaded: '" + font.getFamily() + "', but expected: '" + UI_FONT_FAMILY + "'");
             }
         } catch (IOException e) {
-            System.err.println("Errore durante il caricamento del font: " + e.getMessage());
+            System.err.println("Error loading font: " + e.getMessage());
         }
-    }
-
-    /**
-     * @return {@code true} se il font dell'interfaccia è stato caricato
-     */
-    public static boolean isLoaded() {
-        return loaded;
     }
 }

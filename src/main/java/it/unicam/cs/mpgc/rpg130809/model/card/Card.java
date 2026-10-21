@@ -4,17 +4,27 @@ import java.util.UUID;
 
 /**
  * Rappresenta una carta del gioco.
- * Ogni carta ha un ID univoco, un tipo e un nome. Danno e costo sono invariabili.
+ * <p>
+ * Ogni carta ha un identificatore univoco e un {@link CardType} immutabile, che
+ * definisce nome, danno e costo nello shop. Le carte sono create tramite
+ * {@link CardFactory}, raccolte nei mazzi
+ * ({@link it.unicam.cs.mpgc.rpg130809.model.deck.Deck}) e utilizzate in
+ * battaglia dalla {@link it.unicam.cs.mpgc.rpg130809.model.battle.Hand}.
+ * </p>
  */
 public class Card {
+
     private final String id;
     private final CardType type;
 
     /**
      * Costruisce una nuova carta in base al suo tipo.
-     * Il nome viene generato automaticamente per evitare modifiche esterne.
+     * <p>
+     * L'identificatore viene generato automaticamente e il nome è derivato dal
+     * tipo, per evitare modifiche esterne.
+     * </p>
      *
-     * @param type il tipo della carta (definisce anche il nome, il danno e il costo)
+     * @param type il tipo della carta, che definisce anche nome, danno e costo
      */
     public Card(CardType type) {
         this.id = UUID.randomUUID().toString();
@@ -22,7 +32,7 @@ public class Card {
     }
 
     /**
-     * Restituisce l'id univoco della carta.
+     * Restituisce l'identificatore univoco della carta.
      *
      * @return l'id univoco della carta
      */
@@ -49,18 +59,9 @@ public class Card {
     }
 
     /**
-     * Restituisce il costo nello shop della carta (fisso, preso dal tipo).
+     * Restituisce il danno di base della carta.
      *
-     * @return il costo nello shop
-     */
-    public int getShopCost() {
-        return type.getShopCost();
-    }
-
-    /**
-     * Restituisce il danno di base della carta (fisso, preso dal tipo).
-     *
-     * @return il danno della carta
+     * @return il danno della carta, ricavato dal tipo
      */
     public int getDamage() {
         return type.getDamage();

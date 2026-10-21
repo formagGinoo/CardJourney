@@ -4,9 +4,20 @@ import it.unicam.cs.mpgc.rpg130809.model.card.Card;
 import it.unicam.cs.mpgc.rpg130809.model.deck.Deck;
 
 /**
- * Rappresenta il Mago (il giocatore) nel gioco. Contiene lo stato persistente del giocatore, come il mazzo principale (Main Deck), l'oro e la salute.
+ * Rappresenta il giocatore nel gioco.
+ * <p>
+ * Contiene lo stato persistente del giocatore: il mazzo principale
+ * ({@link Deck}), l'oro, la salute e il livello della zona corrente. È creato e
+ * conservato dal {@link it.unicam.cs.mpgc.rpg130809.model.game.GameManager}, che
+ * lo passa al {@link it.unicam.cs.mpgc.rpg130809.model.battle.BattleManager} per
+ * i combattimenti e allo {@link it.unicam.cs.mpgc.rpg130809.model.shop.ShopManager} per gli acquisti.
+ * </p>
+ * <p>
+ * Implementa {@link Damageable} perché può essere bersaglio degli attacchi nemici.
+ * </p>
  */
 public class Player implements Damageable {
+
     private int gold;
     private final Deck mainDeck;
     private int health;
@@ -14,15 +25,16 @@ public class Player implements Damageable {
     private int currentMapLevel;
 
     /**
-     * Inizializza un nuovo giocatore.
+     * Inizializza un nuovo giocatore con i valori di partenza.
      * <p>
      * Il giocatore inizia con:
-     * <br> - Un mazzo principale
+     * <br> - il mazzo principale fornito
      * <br> - 50 monete d'oro
      * <br> - 100 punti salute
-     * Il giocatore inizia nella prima mappa (Sentiero Scosceso).
+     * <br> - la prima mappa (Sentiero Scosceso)
      * </p>
-     * @param mainDeck Il mazzo persistente del giocatore
+     *
+     * @param mainDeck il mazzo persistente del giocatore
      */
     public Player(Deck mainDeck) {
         this(mainDeck, 100, 50, 1);
@@ -31,12 +43,15 @@ public class Player implements Damageable {
     /**
      * Inizializza un nuovo giocatore con parametri specifici.
      * <p>
-     * Utilizzato per ricaricare la partita da un salvataggio, permettendo di impostare la salute, l'oro e la zona corrente del giocatore.
+     * Utilizzato per ricaricare la partita da un salvataggio, permettendo di
+     * impostare salute, oro e zona corrente. La salute viene limitata al valore
+     * massimo e il livello della mappa non può essere inferiore a 1.
      * </p>
-     * @param mainDeck Il mazzo persistente del giocatore
-     * @param health La salute iniziale del giocatore
-     * @param gold L'oro iniziale del giocatore
-     * @param currentMapLevel Il livello della zona corrente del giocatore
+     *
+     * @param mainDeck il mazzo persistente del giocatore
+     * @param health la salute del giocatore
+     * @param gold l'oro del giocatore
+     * @param currentMapLevel il livello della zona corrente del giocatore
      */
     public Player(Deck mainDeck, int health, int gold, int currentMapLevel) {
         this.mainDeck = mainDeck;
@@ -48,7 +63,7 @@ public class Player implements Damageable {
     /**
      * Infligge danni al giocatore, assicurandosi che la salute non scenda sotto zero.
      *
-     * @param amount I danni da infliggere
+     * @param amount la quantità di danni da infliggere
      */
     public void takeDamage(int amount) {
         if (amount > 0) {
@@ -62,25 +77,25 @@ public class Player implements Damageable {
     /**
      * Aggiunge una carta al mazzo principale del giocatore.
      *
-     * @param card La carta da aggiungere
+     * @param card la carta da aggiungere
      */
     public void addCardToMainDeck(Card card) {
         this.mainDeck.addCard(card);
     }
 
     /**
-     * Ottiene la salute attuale del giocatore.
+     * Restituisce la salute attuale del giocatore.
      *
-     * @return La salute attuale del giocatore
+     * @return la salute attuale
      */
     public int getHealth() {
         return health;
     }
 
     /**
-     * Imposta la salute del giocatore, assicurandosi che non superi la salute massima.
+     * Imposta la salute del giocatore, limitandola tra zero e la salute massima.
      *
-     * @param health La nuova salute del giocatore
+     * @param health la nuova salute del giocatore
      */
     public void setHealth(int health) {
         this.health = Math.clamp(health, 0, maxHealth);
@@ -89,7 +104,7 @@ public class Player implements Damageable {
     /**
      * Cura il giocatore di una quantità di salute, senza superare la salute massima.
      *
-     * @param amount La quantità di salute da recuperare
+     * @param amount la quantità di salute da recuperare
      */
     public void heal(int amount) {
         if (amount > 0) {
@@ -98,18 +113,18 @@ public class Player implements Damageable {
     }
 
     /**
-     * Ottiene la salute massima del giocatore.
+     * Restituisce la salute massima del giocatore.
      *
-     * @return La salute massima del giocatore
+     * @return la salute massima
      */
     public int getMaxHealth() {
         return maxHealth;
     }
 
     /**
-     * Ottiene l'oro attuale del giocatore.
+     * Restituisce l'oro attuale del giocatore.
      *
-     * @return L'oro attuale del giocatore
+     * @return l'oro attuale
      */
     public int getGold() {
         return gold;
@@ -118,7 +133,7 @@ public class Player implements Damageable {
     /**
      * Imposta l'oro del giocatore.
      *
-     * @param gold La nuova quantità di oro del giocatore
+     * @param gold la nuova quantità di oro
      */
     public void setGold(int gold) {
         this.gold = gold;
@@ -127,7 +142,7 @@ public class Player implements Damageable {
     /**
      * Aggiunge una quantità di oro al giocatore.
      *
-     * @param amount La quantità di oro da aggiungere
+     * @param amount la quantità di oro da aggiungere
      */
     public void addGold(int amount) {
         if (amount > 0) {
@@ -141,8 +156,9 @@ public class Player implements Damageable {
      * L'oro viene scalato solo se il giocatore possiede la cifra richiesta.
      * </p>
      *
-     * @param amount La quantità di oro da spendere
+     * @param amount la quantità di oro da spendere
      * @return {@code true} se l'oro è stato speso, {@code false} se l'oro non basta
+     * @throws IllegalArgumentException if the amount is negative
      */
     public boolean spendGold(int amount) {
         if (amount < 0) {
@@ -156,16 +172,19 @@ public class Player implements Damageable {
     }
 
     /**
-     * Ottiene il mazzo principale del giocatore.
+     * Restituisce il mazzo principale del giocatore.
      *
-     * @return Il mazzo principale del giocatore
+     * @return il mazzo principale
      */
     public Deck getMainDeck() {
         return mainDeck;
     }
 
     /**
-     * Fa avanzare il giocatore alla mappa successiva
+     * Fa avanzare il giocatore alla mappa successiva.
+     * <p>
+     * Il livello viene incrementato solo se non è già l'ultimo (3).
+     * </p>
      */
     public void advanceToNextMap() {
         if (this.currentMapLevel < 3) {
@@ -174,9 +193,9 @@ public class Player implements Damageable {
     }
 
     /**
-     * Ottiene il livello della mappa corrente del giocatore.
+     * Restituisce il livello della mappa corrente del giocatore.
      *
-     * @return Il livello della mappa corrente del giocatore
+     * @return il livello della mappa corrente
      */
     public int getCurrentMapLevel() {
         return currentMapLevel;
@@ -184,8 +203,11 @@ public class Player implements Damageable {
 
     /**
      * Imposta il livello della mappa corrente del giocatore.
+     * <p>
+     * Il valore viene applicato solo se compreso tra 1 e 3.
+     * </p>
      *
-     * @param mapLevel Il nuovo livello della mappa corrente del giocatore
+     * @param mapLevel il nuovo livello della mappa corrente
      */
     public void setCurrentMapLevel(int mapLevel) {
         if (mapLevel >= 1 && mapLevel <= 3) {

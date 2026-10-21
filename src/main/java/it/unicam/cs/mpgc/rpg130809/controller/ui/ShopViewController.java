@@ -45,6 +45,12 @@ import java.util.List;
  */
 public class ShopViewController {
 
+    /**
+     * Crea il controller dello shop, istanziato da JavaFX tramite il file FXML.
+     */
+    public ShopViewController() {
+    }
+
     @FXML private ImageView backgroundImage;
     @FXML private ImageView shopIcon;
     @FXML private Label shopSubtitle;
@@ -191,6 +197,12 @@ public class ShopViewController {
         };
     }
 
+    /**
+     * Crea l'icona di una carta a partire dallo sprite del suo tipo.
+     *
+     * @param item l'articolo di tipo carta
+     * @return il nodo dell'icona
+     */
     private Node createCardIcon(CardShopItem item) {
         ImageView imageView = new ImageView(SpriteManager.getCardSprite(item.getCardType()));
         imageView.setFitWidth(58.0);
@@ -204,6 +216,8 @@ public class ShopViewController {
     /**
      * Crea l'icona della pozione. Usa lo sprite PNG se disponibile, altrimenti
      * ricade sull'icona disegnata via CSS.
+     *
+     * @return il nodo dell'icona della pozione
      */
     private Node createPotionIcon() {
         Image sprite = SpriteManager.getHealthPotionSprite();
@@ -221,7 +235,9 @@ public class ShopViewController {
     }
 
     /**
-     * Icona di riserva usata finché non è presente il PNG della pozione.
+     * Crea l'icona di riserva usata quando il PNG della pozione non è disponibile.
+     *
+     * @return il nodo dell'icona disegnata via CSS
      */
     private Node createFallbackPotionIcon() {
         Region cork = new Region();
@@ -243,6 +259,11 @@ public class ShopViewController {
         return bottle;
     }
 
+    /**
+     * Crea un'icona segnaposto per gli articoli senza una grafica dedicata.
+     *
+     * @return il nodo dell'icona generica
+     */
     private Node createGenericIcon() {
         Label placeholder = new Label("?");
         placeholder.getStyleClass().add("shop-generic-icon");
@@ -288,7 +309,12 @@ public class ShopViewController {
 
     /**
      * Conta quante copie di una carta sono presenti nel mazzo principale.
+     * <p>
      * Gli articoli non-carta restituiscono zero.
+     * </p>
+     *
+     * @param item l'articolo da verificare
+     * @return il numero di copie possedute
      */
     private long countOwned(ShopItem item) {
         if (!(item instanceof CardShopItem cardItem)) {
@@ -357,6 +383,10 @@ public class ShopViewController {
     /**
      * Associa un articolo ai controlli grafici che devono essere aggiornati
      * dopo un acquisto.
+     *
+     * @param item l'articolo rappresentato dalla tile
+     * @param buyButton il pulsante di acquisto della tile
+     * @param ownedBadge il badge che mostra quante copie possiede il giocatore
      */
     private record ItemView(ShopItem item, Button buyButton, Label ownedBadge) {
     }

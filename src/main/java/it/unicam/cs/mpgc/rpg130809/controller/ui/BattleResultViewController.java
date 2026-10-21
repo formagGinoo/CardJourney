@@ -14,11 +14,30 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * Controller per la schermata dedicata ai risultati di combattimento (BattleResultView).
- * Gestisce la visualizzazione specifica per l'esito della battaglia:
- * vittoria con ricompensa in oro e ritorno alla mappa, oppure sconfitta con ritorno al menu principale.
+ * Controller della schermata dedicata ai risultati di combattimento
+ * ({@code BattleResultView.fxml}).
+ * <p>
+ * Legge l'esito dal {@link BattleManager} attivo nel {@link GameManager} e
+ * presenta due varianti della stessa vista: vittoria con ricompensa in oro e
+ * ritorno alla mappa, oppure sconfitta con ritorno al menu principale.
+ * </p>
+ * <p>
+ * La vista non applica regole di combattimento: si limita a mostrare lo stato
+ * già calcolato e a delegare la chiusura della battaglia a
+ * {@link GameManager#endCurrentBattle(boolean)} e la navigazione a
+ * {@link SceneManager}.
+ * </p>
+ *
+ * @see BattleViewController
  */
 public class BattleResultViewController {
+
+    /**
+     * Crea il controller della vista dei risultati, istanziato da JavaFX tramite il file FXML.
+     */
+    public BattleResultViewController() {
+    }
+
     @FXML private ImageView backgroundImage;
     @FXML private Label battleResultTitle;
     @FXML private ImageView battleResultSprite;
@@ -32,6 +51,12 @@ public class BattleResultViewController {
 
     /**
      * Inizializza la vista caricando i dettagli della battaglia appena conclusa.
+     * <p>
+     * Recupera giocatore, nemico e {@link BattleManager} dal {@link GameManager},
+     * imposta lo sfondo della zona e determina l'esito. Se il gestore della
+     * battaglia non è più disponibile, l'esito viene ricostruito dallo stato di
+     * salute delle due entità.
+     * </p>
      */
     @FXML
     public void initialize() {
@@ -63,6 +88,14 @@ public class BattleResultViewController {
 
     /**
      * Configura l'interfaccia in caso di vittoria del giocatore.
+     * <p>
+     * Mostra il nemico sconfitto, la ricompensa in oro e le statistiche
+     * aggiornate del giocatore. I valori provengono dal {@link GameManager} e
+     * dal nemico, già aggiornati dal {@link BattleManager}.
+     * </p>
+     *
+     * @param player il giocatore vincitore
+     * @param enemy il nemico sconfitto, può essere {@code null}
      */
     private void setupVictory(Player player, Enemy enemy) {
         battleResultTitle.setText("VITTORIA!");
@@ -86,6 +119,13 @@ public class BattleResultViewController {
 
     /**
      * Configura l'interfaccia in caso di sconfitta del giocatore.
+     * <p>
+     * Nasconde la ricompensa, mostra il nemico vittorioso e azzera gli HP
+     * visualizzati del giocatore.
+     * </p>
+     *
+     * @param player il giocatore sconfitto
+     * @param enemy il nemico vittorioso, può essere {@code null}
      */
     private void setupDefeat(Player player, Enemy enemy) {
         battleResultTitle.setText("SCONFITTA!");
@@ -109,6 +149,11 @@ public class BattleResultViewController {
 
     /**
      * Gestisce il click sul pulsante d'azione principale.
+     * <p>
+     * Conclude la battaglia nel {@link GameManager} e apre la mappa in caso di
+     * vittoria, oppure il menu principale in caso di sconfitta. La transizione
+     * è delegata a {@link SceneManager}.
+     * </p>
      */
     @FXML
     private void onBattleResultButtonClicked() {

@@ -5,14 +5,19 @@ import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
 /**
  * Rappresenta un articolo acquistabile nello shop.
  * <p>
- * L'interfaccia astrae il concetto di "cosa si può comprare": una carta, una pozione
- * o qualsiasi futuro articolo. Lo shop e la UI lavorano solo con questa interfaccia,
- * senza conoscere il tipo concreto dell'articolo.
+ * L'interfaccia astrae il concetto di "cosa si può comprare": una carta, una
+ * pozione o qualsiasi futuro articolo. Lo {@link ShopManager} e la
+ * {@code ShopViewController} lavorano solo con questa interfaccia, senza
+ * conoscere il tipo concreto dell'articolo.
  * </p>
  * <p>
- * Il pagamento non è responsabilità dell'articolo: {@link ShopManager#buy(ShopItem, Player)}
- * controlla l'oro e lo scala, poi chiama {@link #applyTo(Player)} per applicare l'effetto.
+ * Il pagamento non è responsabilità dell'articolo:
+ * {@link ShopManager#buy(ShopItem, Player)} controlla l'oro e lo scala, poi
+ * chiama {@link #applyTo(Player)} per applicare l'effetto.
  * </p>
+ *
+ * @see CardShopItem
+ * @see HealthPotionShopItem
  */
 public interface ShopItem {
 
@@ -41,8 +46,8 @@ public interface ShopItem {
      * Indica se l'articolo può essere acquistato dal giocatore in questo momento.
      * <p>
      * Di default ogni articolo è sempre acquistabile. Le sottoclassi possono
-     * sovrascrivere questo metodo, ad esempio per impedire di comprare una pozione
-     * quando il giocatore ha già la salute al massimo.
+     * sovrascrivere questo metodo, ad esempio per impedire di comprare una
+     * pozione quando il giocatore ha già la salute al massimo.
      * </p>
      *
      * @param player il giocatore che vuole acquistare l'articolo
@@ -55,8 +60,8 @@ public interface ShopItem {
     /**
      * Applica l'effetto dell'articolo al giocatore.
      * <p>
-     * Viene chiamato da {@link ShopManager} solo dopo aver verificato la disponibilità
-     * e scalato l'oro. Non deve quindi occuparsi del pagamento.
+     * Viene chiamato da {@link ShopManager} solo dopo aver verificato la
+     * disponibilità e scalato l'oro. Non deve quindi occuparsi del pagamento.
      * </p>
      *
      * @param player il giocatore che ha acquistato l'articolo

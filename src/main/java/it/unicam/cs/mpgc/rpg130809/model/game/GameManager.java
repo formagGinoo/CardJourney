@@ -10,13 +10,21 @@ import it.unicam.cs.mpgc.rpg130809.model.deck.DeckFactory;
 import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
 
 /**
- * Gestore principale dello stato e della sessione di gioco
+ * Gestore principale dello stato e della sessione di gioco.
  * <p>
- * Implementa il design pattern <b>Singleton</b> per garantire un'unica istanza di gestione dello stato del gioco
- * durante l'intera esecuzione dell'applicazione.
+ * Implementa il design pattern <b>Singleton</b> per garantire un'unica istanza
+ * di gestione dello stato durante l'intera esecuzione dell'applicazione.
+ * </p>
+ * <p>
+ * Conserva il {@link Player}, la {@link GameMap} attiva e il
+ * {@link BattleManager} corrente. Le viste del package
+ * {@code controller.ui} leggono e aggiornano lo stato tramite questa classe,
+ * mentre la creazione di mappe e mazzi è delegata a {@link MapFactory} e
+ * {@link DeckFactory}. La transizione tra le scene resta a carico di
+ * {@link it.unicam.cs.mpgc.rpg130809.controller.SceneManager}.
  * </p>
  */
-public class GameManager {
+public final class GameManager {
 
     private static GameManager instance;
     private Player player;
@@ -25,14 +33,19 @@ public class GameManager {
     private Enemy currentBattleEnemy;
     private BattleManager activeBattleManager;
 
+    /**
+     * Costruttore privato conforme al pattern Singleton.
+     */
     private GameManager() {
     }
 
     /**
      * Restituisce l'istanza di {@link GameManager}.
+     * <p>
      * Se l'istanza non esiste ancora, viene creata.
+     * </p>
      *
-     * @return L'istanza di GameManager
+     * @return l'istanza condivisa di {@link GameManager}
      */
     public static GameManager getInstance() {
         if (instance == null) {
@@ -42,9 +55,13 @@ public class GameManager {
     }
 
     /**
-     * Avvia una nuova partita creando un nuovo giocatore con il mazzo iniziale
-     * fornito da {@link DeckFactory}) e i valori base di salute e oro.
+     * Avvia una nuova partita.
+     * <p>
+     * Crea un nuovo {@link Player} con il mazzo iniziale fornito da
+     * {@link DeckFactory#createStarterDeck()} e i valori base di salute e oro,
+     * quindi carica la mappa corrispondente al livello corrente del giocatore.
      * Il giocatore inizia nella prima mappa (Sentiero Scosceso).
+     * </p>
      */
     public void startNewGame() {
         this.player = new Player(DeckFactory.createStarterDeck());
@@ -55,7 +72,7 @@ public class GameManager {
     /**
      * Restituisce il giocatore attualmente associato alla sessione di gioco.
      *
-     * @return Il giocatore corrente, oppure {@code null} se nessuna partita è attiva
+     * @return il giocatore corrente, oppure {@code null} se nessuna partita è attiva
      */
     public Player getPlayer() {
         return player;
@@ -64,10 +81,12 @@ public class GameManager {
     /**
      * Imposta il giocatore della sessione di gioco.
      * <p>
-     * Questo metodo è utilizzato principalmente durante il caricamento di una partita salvata.
+     * Questo metodo è utilizzato principalmente durante il caricamento di una
+     * partita salvata. La mappa attiva viene ricreata in base al livello del
+     * giocatore.
      * </p>
      *
-     * @param player Il giocatore da associare alla sessione
+     * @param player il giocatore da associare alla sessione
      */
     public void setPlayer(Player player) {
         this.player = player;
@@ -78,7 +97,7 @@ public class GameManager {
     /**
      * Restituisce la mappa di gioco attualmente attiva.
      *
-     * @return La mappa attiva, oppure {@code null} se non è ancora stata caricata una zona
+     * @return la mappa attiva, oppure {@code null} se non è ancora stata caricata una zona
      */
     public GameMap getActiveGameMap() {
         return activeGameMap;
@@ -87,7 +106,7 @@ public class GameManager {
     /**
      * Imposta la mappa di gioco attiva.
      *
-     * @param activeGameMap La mappa da impostare
+     * @param activeGameMap la mappa da impostare
      */
     public void setActiveGameMap(GameMap activeGameMap) {
         this.activeGameMap = activeGameMap;
@@ -95,8 +114,12 @@ public class GameManager {
 
     /**
      * Carica e inizializza la mappa specificata tramite {@link MapFactory}.
+     * <p>
+     * Aggiorna anche il livello della mappa corrente del giocatore.
+     * </p>
      *
-     * @param mapType Il tipo di mappa da caricare
+     * @param mapType il tipo di mappa da caricare
+     * @throws IllegalStateException if no player has been initialized yet
      */
     public void loadGameMap(MapType mapType) {
         if (player == null) {
@@ -107,10 +130,15 @@ public class GameManager {
     }
 
     /**
-     * Avvia un incontro di combattimento con il nemico specificato alla posizione indicata.
+     * Avvia un combattimento con il nemico specificato alla posizione indicata.
+     * <p>
+     * Crea un nuovo {@link BattleManager} per il giocatore corrente e avvia
+     * subito la battaglia, memorizzando posizione e nemico per la conclusione
+     * dell'incontro.
+     * </p>
      *
-     * @param pos La posizione del nemico sulla mappa
-     * @param enemy L'istanza del nemico
+     * @param pos la posizione del nemico sulla mappa
+     * @param enemy l'istanza del nemico
      */
     public void startBattle(Position pos, Enemy enemy) {
         this.currentBattlePosition = pos;
@@ -120,28 +148,30 @@ public class GameManager {
     }
 
     /**
-     * @return Il {@link BattleManager} attualmente attivo, o {@code null} se non in battaglia
+     * Restituisce il gestore della battaglia attualmente attiva.
+     *
+     * @return il {@link BattleManager} attivo, o {@code null} se non in battaglia
      */
     public BattleManager getActiveBattleManager() {
         return activeBattleManager;
     }
 
     /**
-     * @return La posizione del nemico nel combattimento attuale
-     */
-    public Position getCurrentBattlePosition() {
-        return currentBattlePosition;
-    }
-
-    /**
-     * @return L'istanza del nemico attualmente affrontato
+     * Restituisce il nemico attualmente affrontato.
+     *
+     * @return l'istanza del nemico, oppure {@code null} se non in battaglia
      */
     public Enemy getCurrentBattleEnemy() {
         return currentBattleEnemy;
     }
 
     /**
-     * Conclude la battaglia corrente. Se vinta, rimuove il nemico e sposta il giocatore su quella casella.
+     * Conclude la battaglia corrente.
+     * <p>
+     * Se la battaglia è stata vinta, il nemico viene rimosso dalla mappa e il
+     * giocatore viene spostato sulla casella dell'incontro. In ogni caso i
+     * riferimenti alla battaglia vengono azzerati.
+     * </p>
      *
      * @param won {@code true} se il giocatore ha vinto la battaglia
      */

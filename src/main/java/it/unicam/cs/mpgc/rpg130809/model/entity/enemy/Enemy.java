@@ -6,18 +6,33 @@ import java.util.UUID;
 
 /**
  * Rappresenta un nemico generico nel gioco.
- * I nemici condividono l'attacco base definito in questa classe.
+ * <p>
+ * Ogni istanza ha un identificatore univoco ed è configurata da un
+ * {@link EnemyType}, che ne definisce nome, salute, danno e oro rilasciato. I
+ * nemici sono creati da {@link EnemyFactory}, posizionati sulla mappa da
+ * {@link it.unicam.cs.mpgc.rpg130809.model.map.GameMap} e affrontati dal
+ * {@link it.unicam.cs.mpgc.rpg130809.model.battle.BattleManager}.
+ * </p>
+ * <p>
+ * Implementa {@link Damageable} perché può subire gli attacchi del giocatore,
+ * mentre {@link #takeTurn(Damageable)} gli consente di attaccare a sua volta.
+ * </p>
  */
 public class Enemy implements Damageable {
+
     private final String id;
     private final EnemyType type;
     private final int maxHealth;
     private int health;
 
     /**
-     * Inizializza un nuovo nemico.
-     * 
-     * @param type Il tipo di nemico
+     * Inizializza un nuovo nemico del tipo indicato.
+     * <p>
+     * La salute parte al valore massimo previsto dal tipo.
+     * </p>
+     *
+     * @param type il tipo di nemico
+     * @throws IllegalArgumentException if the enemy type is null
      */
     public Enemy(EnemyType type) {
         if (type == null) {
@@ -30,44 +45,54 @@ public class Enemy implements Damageable {
     }
 
     /**
-     * @return L'identificatore univoco di questa istanza di nemico
+     * Restituisce l'identificatore univoco di questa istanza di nemico.
+     *
+     * @return l'identificatore univoco
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @return Il tipo base del nemico
+     * Restituisce il tipo base del nemico.
+     *
+     * @return il tipo del nemico
      */
     public EnemyType getType() {
         return type;
     }
 
     /**
-     * @return Il nome del nemico
+     * Restituisce il nome del nemico.
+     *
+     * @return il nome del nemico
      */
     public String getName() {
         return type.getEnemyName();
     }
 
     /**
-     * @return Gli HP massimi del nemico
+     * Restituisce gli HP massimi del nemico.
+     *
+     * @return gli HP massimi
      */
     public int getMaxHealth() {
         return maxHealth;
     }
 
     /**
-     * @return Gli HP correnti del nemico
+     * Restituisce gli HP correnti del nemico.
+     *
+     * @return gli HP correnti
      */
     public int getHealth() {
         return health;
     }
 
     /**
-     * Imposta gli HP del nemico, assicurandosi che non superino il limite massimo.
-     * 
-     * @param health I nuovi HP del nemico
+     * Imposta gli HP del nemico, assicurandosi che restino tra zero e il limite massimo.
+     *
+     * @param health i nuovi HP del nemico
      */
     public void setHealth(int health) {
         this.health = Math.max(0, Math.min(health, maxHealth));
@@ -75,8 +100,8 @@ public class Enemy implements Damageable {
 
     /**
      * Infligge danni al nemico, garantendo che gli HP non scendano sotto zero.
-     * 
-     * @param amount Quantità di danni subiti
+     *
+     * @param amount la quantità di danni subiti
      */
     public void takeDamage(int amount) {
         if (amount > 0) {
@@ -88,7 +113,9 @@ public class Enemy implements Damageable {
     }
 
     /**
-     * @return La quantità di monete d'oro rilasciate da questo nemico quando sconfitto
+     * Restituisce la quantità di monete d'oro rilasciate da questo nemico quando viene sconfitto.
+     *
+     * @return l'oro rilasciato
      */
     public int getGoldDrop() {
         return type.getGoldDrop();
@@ -96,8 +123,9 @@ public class Enemy implements Damageable {
 
     /**
      * Esegue l'attacco base del nemico durante il suo turno.
-     * 
-     * @param target Il bersaglio dell'attacco
+     *
+     * @param target il bersaglio dell'attacco
+     * @throws IllegalArgumentException if the target is null
      */
     public void takeTurn(Damageable target) {
         if (target == null) {

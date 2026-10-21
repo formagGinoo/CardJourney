@@ -12,8 +12,19 @@ import javafx.scene.control.Button;
  * e l'uscita dall'applicazione, delegando la gestione dello stato a {@link GameManager}
  * e lo switch delle scene a {@link SceneManager}.
  * </p>
+ * <p>
+ * La nuova partita crea un {@link it.unicam.cs.mpgc.rpg130809.model.entity.Player}
+ * con il mazzo iniziale e apre la schermata di selezione delle mappe. Il
+ * caricamento dei salvataggi è previsto ma non ancora implementato.
+ * </p>
  */
 public class TitleScreenController {
+
+    /**
+     * Crea il controller del menu principale, istanziato da JavaFX tramite il file FXML.
+     */
+    public TitleScreenController() {
+    }
 
     @FXML private Button newGameButton;
     @FXML private Button loadGameButton;
@@ -31,7 +42,7 @@ public class TitleScreenController {
     }
 
     /**
-     * Gestisce all' avvio di una nuova partita.
+     * Gestisce l'avvio di una nuova partita.
      * <p>
      * Inizializza lo stato del giocatore tramite il {@link GameManager}
      * e richiede a {@link SceneManager} il passaggio alla schermata della mappa.

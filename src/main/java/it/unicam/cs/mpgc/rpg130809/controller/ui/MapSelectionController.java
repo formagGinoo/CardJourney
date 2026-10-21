@@ -12,10 +12,18 @@ import javafx.scene.control.Button;
  * <p>
  * Gestisce l'interfaccia di selezione delle zone, visualizzando le zone disponibili
  * e disabilitando quelle inaccessibili in base alla progressione attuale del giocatore
- * registrata in {@link GameManager}.
+ * registrata in {@link GameManager}. La zona scelta viene caricata tramite
+ * {@link GameManager#loadGameMap(MapType)} e la transizione a
+ * {@code MapView.fxml} è delegata a {@link SceneManager}.
  * </p>
  */
 public class MapSelectionController {
+
+    /**
+     * Crea il controller della selezione mappe, istanziato da JavaFX tramite il file FXML.
+     */
+    public MapSelectionController() {
+    }
 
     @FXML private Button pathButton;
     @FXML private Button forestButton;
@@ -39,7 +47,7 @@ public class MapSelectionController {
      * in cui si trova il giocatore rimane attivo.
      * </p>
      *
-     * @param currentMapLevel Il livello della mappa attuale del giocatore
+     * @param currentMapLevel il livello della mappa attuale del giocatore
      */
     private void updateMapVisibility(int currentMapLevel) {
         if (pathButton != null) pathButton.setDisable(currentMapLevel != 1);
