@@ -31,8 +31,7 @@ import static it.unicam.cs.mpgc.rpg130809.GameConstants.TILE_SIZE;
  * <p>
  * Il controller non contiene la logica di gioco della mappa. Prima di muovere
  * il giocatore delega la validazione a {@link GameMap}; in caso di incontro
- * delega invece la gestione della battaglia o del completamento della zona ai
- * componenti applicativi appropriati.
+ * delega invece la gestione della battaglia a {@link GameManager} e la transizione di scena a {@link SceneManager}.
  * </p>
  */
 public class MapViewController {
@@ -52,7 +51,7 @@ public class MapViewController {
      * nel file FXML.
      * <p>
      * Recupera il giocatore e la mappa attiva dal {@link GameManager}, configura
-     * lo sfondo, aggiorna l'hud, disegna le entità
+     * lo sfondo, aggiorna lo HUD, disegna le entità
      * iniziali e infine abilita la gestione dei comandi da tastiera. L'ordine
      * garantisce che la mappa sia disponibile prima delle operazioni di rendering.
      * </p>
@@ -145,8 +144,14 @@ public class MapViewController {
         }
         map.movePlayer(targetPos);
 
-        if (targetPos.equals(map.getShopPosition())) handleShopEncounter();
-        else if (targetPos.equals(map.getExitPosition())) handleExitEncounter();
+        if (targetPos.equals(map.getShopPosition())) {
+            handleShopEncounter();
+            return;
+        }
+        if (targetPos.equals(map.getExitPosition())) {
+            handleExitEncounter();
+            return;
+        }
 
         renderMap();
         updateHud();
@@ -170,10 +175,15 @@ public class MapViewController {
 
     /**
      * Gestisce l'ingresso del giocatore nel negozio della mappa corrente.
+     * <p>
+     * Apre la schermata dello shop. Il catalogo è creato dalla vista stessa e
+     * non viene memorizzato nel {@link GameManager}, perché lo shop è una
+     * schermata temporanea. Al ritorno, {@code MapView} ricarica giocatore e
+     * mappa dallo stato persistente.
+     * </p>
      */
     private void handleShopEncounter() {
-        System.out.println("Shop di: " + map.getMapType().getName());
-        // TODO: Gestione interazione con il negozio
+        SceneManager.getInstance().switchScene("/fxml/ShopView.fxml");
     }
 
     /**

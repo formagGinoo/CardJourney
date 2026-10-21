@@ -83,7 +83,18 @@ public class Player implements Damageable {
      * @param health La nuova salute del giocatore
      */
     public void setHealth(int health) {
-        this.health = Math.max(0, Math.min(health, maxHealth));
+        this.health = Math.clamp(health, 0, maxHealth);
+    }
+
+    /**
+     * Cura il giocatore di una quantità di salute, senza superare la salute massima.
+     *
+     * @param amount La quantità di salute da recuperare
+     */
+    public void heal(int amount) {
+        if (amount > 0) {
+            setHealth(this.health + amount);
+        }
     }
 
     /**
@@ -122,6 +133,26 @@ public class Player implements Damageable {
         if (amount > 0) {
             this.gold += amount;
         }
+    }
+
+    /**
+     * Prova a spendere una quantità di oro.
+     * <p>
+     * L'oro viene scalato solo se il giocatore possiede la cifra richiesta.
+     * </p>
+     *
+     * @param amount La quantità di oro da spendere
+     * @return {@code true} se l'oro è stato speso, {@code false} se l'oro non basta
+     */
+    public boolean spendGold(int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Amount cannot be negative");
+        }
+        if (this.gold < amount) {
+            return false;
+        }
+        this.gold -= amount;
+        return true;
     }
 
     /**

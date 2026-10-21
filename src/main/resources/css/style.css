@@ -1,10 +1,5 @@
-@font-face {
-    font-family: 'Jersey 20', sans-serif;
-    src: url('../fonts/Jersey20-Regular.ttf');
-}
-
 .root {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
 }
 
 /* --- TitleScreen START --- */
@@ -17,7 +12,7 @@
 
 /* TitleScreen Buttons */
 .title-screen-menu-button {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 25px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
@@ -100,7 +95,7 @@
 }
 
 .map-selection-title {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 38px;
     -fx-font-weight: bold;
     -fx-text-fill: #faede2;
@@ -148,13 +143,12 @@
     -fx-border-radius: 10px;
     -fx-border-color: #8b6b44;
     -fx-border-width: 2px;
-    -fx-max-width: 360px;
     -fx-padding: 4px 7px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 10, 0, 0, 3);
 }
 
 .map-view-hud-map-name {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffd79a;
@@ -179,14 +173,14 @@
 }
 
 .map-view-hud-label {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
 }
 
 .map-view-hud-button {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
@@ -239,7 +233,7 @@
 }
 
 .battle-view-map-name {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 19px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffd79a;
@@ -247,7 +241,7 @@
 }
 
 .battle-view-turn-label {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-padding: 3px 12px;
@@ -272,14 +266,14 @@
 }
 
 .battle-view-message {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 20px;
     -fx-text-fill: #ffd79a;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 3, 0, 0, 1);
 }
 
 .battle-view-combo {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 21px;
     -fx-font-weight: bold;
     -fx-text-fill: #67e8f9;
@@ -320,7 +314,7 @@
 }
 
 .battle-view-entity-name {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 26px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
@@ -361,7 +355,7 @@
 }
 
 .battle-view-hp-label {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #f3f4f6;
@@ -369,7 +363,7 @@
 }
 
 .battle-view-entity-damage {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 32px;
     -fx-font-weight: bold;
     -fx-text-fill: #f87171;
@@ -409,7 +403,7 @@
 }
 
 .battle-view-pile-name {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffd79a;
@@ -417,7 +411,7 @@
 }
 
 .battle-view-pile-count {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #f8fafc;
@@ -453,7 +447,7 @@
 }
 
 .battle-view-action-button {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 22px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
@@ -545,7 +539,7 @@
 }
 
 .battle-result-title {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 44px;
     -fx-font-weight: bold;
     -fx-padding: 0 0 4px 0;
@@ -557,7 +551,7 @@
 }
 
 .battle-result-subtitle {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 22px;
     -fx-text-fill: #e2e8f0;
     -fx-alignment: center;
@@ -574,12 +568,12 @@
 }
 
 .battle-result-label {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 22px;
 }
 
 .battle-result-gold-reward {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 26px;
     -fx-font-weight: bold;
     -fx-text-fill: #fde047;
@@ -596,7 +590,7 @@
 }
 
 .battle-result-stat {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-padding: 5px 12px;
@@ -628,7 +622,7 @@
 }
 
 .battle-result-button {
-    -fx-font-family: 'Jersey 20', sans-serif;
+    -fx-font-family: 'Jersey 20';
     -fx-font-size: 22px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
@@ -686,3 +680,316 @@
     -fx-text-fill: #f87171;
     -fx-effect: dropshadow(three-pass-box, rgba(239, 68, 68, 0.8), 12, 0, 0, 0);
 }
+
+/* --- ShopView START --- */
+.shop-root {
+    -fx-background-color: #0b0d12;
+}
+
+.shop-overlay {
+    -fx-background-color: linear-gradient(to bottom, rgba(8, 10, 16, 0.62), rgba(8, 10, 16, 0.90));
+}
+
+.shop-panel {
+    -fx-background-color: linear-gradient(to bottom, rgba(30, 25, 20, 0.97), rgba(15, 13, 11, 0.98));
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-border-color: #8b6b44;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.95), 30, 0.3, 0, 8);
+}
+
+.shop-header {
+    -fx-padding: 12px 20px 10px 20px;
+    -fx-border-color: transparent transparent rgba(139, 107, 68, 0.45) transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.shop-icon {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 8, 0, 0, 3);
+}
+
+.shop-title {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffd79a;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 5, 0, 0, 2);
+}
+
+.shop-subtitle {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 18px;
+    -fx-text-fill: #cbb99a;
+}
+
+.shop-hud-stat {
+    -fx-padding: 3px 9px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+}
+
+.shop-hud-hp {
+    -fx-background-color: rgba(90, 15, 20, 0.70);
+    -fx-border-color: #ff6b6b;
+}
+
+.shop-hud-gold {
+    -fx-background-color: rgba(90, 70, 10, 0.70);
+    -fx-border-color: #ffd152;
+}
+
+.shop-hud-deck {
+    -fx-background-color: rgba(30, 51, 80, 0.70);
+    -fx-border-color: #8ac0ff;
+}
+
+.shop-hud-label {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.shop-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.shop-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.shop-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.shop-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #8b6b44;
+    -fx-background-radius: 5px;
+}
+
+.shop-scroll .scroll-bar .increment-button,
+.shop-scroll .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+.shop-content {
+    -fx-padding: 10px 16px 16px 16px;
+}
+
+.shop-section-title {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 23px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffd79a;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 3, 0, 0, 1);
+}
+
+.shop-grid {
+    -fx-padding: 2px 0 0 0;
+}
+
+.shop-item {
+    -fx-background-color: linear-gradient(to bottom, rgba(47, 52, 63, 0.95), rgba(26, 29, 37, 0.98));
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: #4b5563;
+    -fx-border-width: 1.5px;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.75), 8, 0, 0, 3);
+}
+
+.shop-item:hover {
+    -fx-border-color: #ffd79a;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 215, 120, 0.45), 10, 0, 0, 0);
+}
+
+.shop-item-potion {
+    -fx-background-color: linear-gradient(to bottom, rgba(22, 74, 42, 0.95), rgba(12, 38, 24, 0.98));
+    -fx-border-color: #4ade80;
+}
+
+.shop-item-potion:hover {
+    -fx-border-color: #bbf7d0;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 222, 128, 0.55), 12, 0, 0, 0);
+}
+
+.shop-item-image {
+    -fx-alignment: center;
+}
+
+.shop-item-card-image {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.7), 5, 0, 0, 2);
+}
+
+.shop-item-potion-image {
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 222, 128, 0.35), 8, 0, 0, 2);
+}
+
+.shop-owned-badge {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e2e8f0;
+    -fx-background-color: rgba(15, 23, 42, 0.94);
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: #94a3b8;
+    -fx-border-width: 1px;
+    -fx-padding: 0 5px;
+}
+
+.shop-item-name {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 2, 0, 0, 1);
+}
+
+.shop-item-description {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 15px;
+    -fx-text-fill: #cbd5e1;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
+.shop-buy-button {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #1e3a8a;
+    -fx-border-color: #93c5fd;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1.5px;
+    -fx-pref-height: 29px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 4, 0, 0, 1);
+}
+
+.shop-buy-button:hover {
+    -fx-background-color: #2563eb;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.75), 8, 0, 0, 0);
+}
+
+.shop-buy-button:pressed {
+    -fx-background-color: #172554;
+    -fx-translate-y: 1px;
+}
+
+.shop-buy-button:disabled {
+    -fx-opacity: 0.4;
+    -fx-cursor: default;
+    -fx-effect: none;
+}
+
+.shop-buy-button-potion {
+    -fx-background-color: #166534;
+    -fx-border-color: #86efac;
+}
+
+.shop-buy-button-potion:hover {
+    -fx-background-color: #15803d;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 222, 128, 0.75), 8, 0, 0, 0);
+}
+
+.shop-buy-button-potion:pressed {
+    -fx-background-color: #14532d;
+}
+
+.shop-potion-icon {
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.55), 6, 0, 0, 2);
+}
+
+.shop-potion-cork {
+    -fx-background-color: #8b5a2b;
+    -fx-background-radius: 2px 2px 0 0;
+    -fx-border-color: #5b3a1a;
+    -fx-border-radius: 2px 2px 0 0;
+    -fx-border-width: 1px;
+}
+
+.shop-potion-body {
+    -fx-background-color: linear-gradient(to bottom, #4ade80, #15803d);
+    -fx-background-radius: 16px 16px 14px 14px;
+    -fx-border-color: #bbf7d0;
+    -fx-border-radius: 16px 16px 14px 14px;
+    -fx-border-width: 2px;
+}
+
+.shop-potion-plus {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 4, 0, 0, 2);
+}
+
+.shop-generic-icon {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 46px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #cbd5e1;
+}
+
+.shop-footer {
+    -fx-padding: 9px 20px 12px 20px;
+    -fx-border-color: rgba(139, 107, 68, 0.45) transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.shop-status {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 18px;
+}
+
+.shop-status-info {
+    -fx-text-fill: #cbd5e1;
+}
+
+.shop-status-success {
+    -fx-text-fill: #86efac;
+}
+
+.shop-status-error {
+    -fx-text-fill: #fca5a5;
+}
+
+.shop-back-button {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2b303a;
+    -fx-border-color: #faede2;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-padding: 5px 16px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 4, 0, 0, 1);
+}
+
+.shop-back-button:hover {
+    -fx-background-color: #404756;
+    -fx-border-color: #ffd79a;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 215, 120, 0.6), 8, 0, 0, 0);
+}
+
+.shop-back-button:pressed {
+    -fx-background-color: #1a1d24;
+    -fx-translate-y: 1px;
+}
+/* --- ShopView END --- */

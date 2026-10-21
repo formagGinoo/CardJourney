@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <StackPane prefHeight="640.0" prefWidth="960.0"
-           stylesheets="@../css/style.css"
            styleClass="battle-result-root"
            xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="it.unicam.cs.mpgc.rpg130809.controller.ui.BattleResultViewController">

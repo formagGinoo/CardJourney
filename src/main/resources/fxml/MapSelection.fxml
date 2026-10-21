@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="640.0" prefWidth="960.0" spacing="25.0" styleClass="map-selection" stylesheets="@../css/style.css"
+<VBox alignment="CENTER" prefHeight="640.0" prefWidth="960.0" spacing="25.0" styleClass="map-selection"
       xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="it.unicam.cs.mpgc.rpg130809.controller.ui.MapSelectionController">
     <Label styleClass="map-selection-title" text="SELEZIONA LA ZONA"/>

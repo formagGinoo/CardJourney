@@ -13,7 +13,6 @@
 <?import javafx.scene.image.Image?>
 
 <StackPane prefHeight="640.0" prefWidth="960.0"
-           stylesheets="@../css/style.css"
            xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="it.unicam.cs.mpgc.rpg130809.controller.ui.BattleViewController">
     <ImageView fx:id="backgroundImage" fitHeight="640.0" fitWidth="960.0" />

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * Gestore centralizzato delle scene dell'applicazione.
@@ -15,6 +16,8 @@ import java.io.IOException;
  * </p>
  */
 public class SceneManager {
+
+    private static final String STYLESHEET_PATH = "/css/style.css";
 
     private static SceneManager instance;
     private Stage mainStage;
@@ -58,10 +61,31 @@ public class SceneManager {
     public void switchScene(String fxmlFile) {
         try {
             FXMLLoader loader = createLoader(fxmlFile);
-            mainStage.setScene(new Scene(loader.load()));
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getStylesheetUrl());
+            mainStage.setScene(scene);
         } catch (IOException e) {
             throw new RuntimeException("Errore durante il caricamento della scena: " + fxmlFile, e);
         }
+    }
+
+    /**
+     * Restituisce l'URL assoluto del foglio di stile condiviso.
+     * <p>
+     * Il foglio viene applicato a ogni scena da qui, invece di essere referenziato
+     * con un percorso relativo nei file FXML. In questo modo il caricamento è
+     * indipendente da dove si trovano i file FXML e funziona anche quando
+     * l'applicazione è impacchettata in un JAR.
+     * </p>
+     *
+     * @return l'URL del foglio di stile
+     */
+    private String getStylesheetUrl() {
+        URL stylesheet = SceneManager.class.getResource(STYLESHEET_PATH);
+        if (stylesheet == null) {
+            throw new IllegalStateException("Stylesheet not found at: " + STYLESHEET_PATH);
+        }
+        return stylesheet.toExternalForm();
     }
 
     /**

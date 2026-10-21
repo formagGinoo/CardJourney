@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="640.0" prefWidth="960.0"
+           styleClass="shop-root"
+           xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="it.unicam.cs.mpgc.rpg130809.controller.ui.ShopViewController">
+    <ImageView fx:id="backgroundImage" fitHeight="640.0" fitWidth="960.0" />
+    <StackPane styleClass="shop-overlay" />
+    <BorderPane prefWidth="920.0" prefHeight="612.0" maxWidth="920.0" maxHeight="612.0" styleClass="shop-panel">
+        <top>
+            <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="shop-header">
+                <ImageView fx:id="shopIcon" fitHeight="54.0" fitWidth="54.0" preserveRatio="true" styleClass="shop-icon" />
+                <VBox alignment="CENTER_LEFT">
+                    <Label styleClass="shop-title" text="Negozio" />
+                    <Label fx:id="shopSubtitle" styleClass="shop-subtitle" />
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER" spacing="10.0">
+                    <HBox alignment="CENTER" spacing="6.0" styleClass="shop-hud-stat, shop-hud-hp">
+                        <Label styleClass="shop-hud-label" text="HP" />
+                        <Label fx:id="hpLabel" styleClass="shop-hud-label" text="100/100" />
+                    </HBox>
+                    <HBox alignment="CENTER" spacing="6.0" styleClass="shop-hud-stat, shop-hud-gold">
+                        <Label styleClass="shop-hud-label" text="Oro" />
+                        <Label fx:id="goldLabel" styleClass="shop-hud-label" text="0" />
+                    </HBox>
+                    <HBox alignment="CENTER" spacing="6.0" styleClass="shop-hud-stat, shop-hud-deck">
+                        <Label styleClass="shop-hud-label" text="Mazzo" />
+                        <Label fx:id="deckLabel" styleClass="shop-hud-label" text="0" />
+                    </HBox>
+                </HBox>
+            </HBox>
+        </top>
+        <center>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="shop-scroll">
+                <VBox spacing="8.0" styleClass="shop-content">
+                    <Label styleClass="shop-section-title" text="Mercanzia" />
+                    <FlowPane fx:id="itemsPane" hgap="10.0" vgap="12.0" prefWrapLength="850.0" styleClass="shop-grid" />
+                </VBox>
+            </ScrollPane>
+        </center>
+        <bottom>
+            <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="shop-footer">
+                <Label fx:id="statusLabel" styleClass="shop-status, shop-status-info" HBox.hgrow="ALWAYS" wrapText="true"
+                       text="Scegli un articolo da acquistare." />
+                <Button mnemonicParsing="false" onAction="#onBackToMap" styleClass="shop-back-button" text="Torna alla mappa" />
+            </HBox>
+        </bottom>
+    </BorderPane>
+</StackPane>

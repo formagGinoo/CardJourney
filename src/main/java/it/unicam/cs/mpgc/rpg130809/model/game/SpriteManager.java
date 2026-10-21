@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Gestore centralizzato per il caricamento e la fornitura
+ * Gestore per il caricamento e la fornitura
  * degli sprite utilizzati nelle schermate di gioco.
  * <p>
  * Implementa il pattern <b>Flyweight</b> memorizzando in cache le istanze di {@link Image}
@@ -35,6 +35,15 @@ public class SpriteManager {
      */
     public static Image getShopSprite() {
         return loadSprite("/img/sprites/shop.png");
+    }
+
+    /**
+     * Restituisce lo sprite della pozione di salute.
+     *
+     * @return L'immagine della pozione, o {@code null} se non presente
+     */
+    public static Image getHealthPotionSprite() {
+        return loadSprite("/img/sprites/items/health_potion.png");
     }
 
     /**
