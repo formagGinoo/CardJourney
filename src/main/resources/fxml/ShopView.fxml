@@ -45,7 +45,7 @@
         <center>
             <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="shop-scroll">
                 <VBox spacing="8.0" styleClass="shop-content">
-                    <Label styleClass="shop-section-title" text="Mercanzia" />
+                    <Label styleClass="shop-section-title" text="Merce" />
                     <FlowPane fx:id="itemsPane" hgap="10.0" vgap="12.0" prefWrapLength="850.0" styleClass="shop-grid" />
                 </VBox>
             </ScrollPane>

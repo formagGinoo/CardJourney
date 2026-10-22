@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -14,25 +14,27 @@
            fx:controller="it.unicam.cs.mpgc.rpg130809.controller.ui.BattleResultViewController">
     <ImageView fx:id="backgroundImage" fitHeight="640.0" fitWidth="960.0" />
     <StackPane styleClass="battle-result-overlay" />
-    <VBox alignment="CENTER" maxWidth="520.0" maxHeight="560.0" spacing="16.0" styleClass="battle-result-box">
-        <padding>
-            <Insets top="28.0" bottom="28.0" left="36.0" right="36.0" />
-        </padding>
-        <Label fx:id="battleResultTitle" styleClass="battle-result-title" />
-        <ImageView fx:id="battleResultSprite" fitHeight="120.0" fitWidth="120.0" preserveRatio="true" styleClass="battle-result-sprite" />
-        <Label fx:id="battleResultSubtitle" styleClass="battle-result-subtitle" />
-        <VBox alignment="CENTER" spacing="10.0">
-            <HBox fx:id="battleResultReward" alignment="CENTER" spacing="10.0" styleClass="battle-result-reward">
-                <Label styleClass="battle-result-label, battle-result-reward-label" text="Ricompensa:" />
-                <Label fx:id="battleResultGoldReward" styleClass="battle-result-gold-reward" />
-            </HBox>
-            <HBox alignment="CENTER" spacing="12.0" styleClass="battle-result-stats">
-                <Label fx:id="battleResultPlayerHp" styleClass="battle-result-stat, battle-result-player-hp" />
-                <Label fx:id="battleResultPlayerGold" styleClass="battle-result-stat, battle-result-player-gold" />
+    <StackPane maxWidth="560.0" maxHeight="605.0" styleClass="battle-result-panel">
+        <ImageView fitWidth="560.0" fitHeight="605.0" preserveRatio="true" styleClass="battle-result-scroll">
+            <Image url="@../img/battleresultview/results_bg.png"/>
+        </ImageView>
+        <VBox alignment="CENTER" maxWidth="250.0" spacing="6.0" translateY="-10.0" styleClass="battle-result-box">
+            <Label fx:id="battleResultTitle" styleClass="battle-result-title" />
+            <ImageView fx:id="battleResultSprite" fitHeight="84.0" fitWidth="84.0" preserveRatio="true" styleClass="battle-result-sprite" />
+            <Label fx:id="battleResultSubtitle" maxWidth="236.0" wrapText="true" styleClass="battle-result-subtitle" />
+            <VBox alignment="CENTER" spacing="4.0">
+                <HBox fx:id="battleResultReward" alignment="CENTER" spacing="6.0" styleClass="battle-result-reward">
+                    <Label styleClass="battle-result-label, battle-result-reward-label" text="Ricompensa:" />
+                    <Label fx:id="battleResultGoldReward" styleClass="battle-result-gold-reward" />
+                </HBox>
+                <HBox alignment="CENTER" spacing="8.0" styleClass="battle-result-stats">
+                    <Label fx:id="battleResultPlayerHp" styleClass="battle-result-stat, battle-result-player-hp" />
+                    <Label fx:id="battleResultPlayerGold" styleClass="battle-result-stat, battle-result-player-gold" />
+                </HBox>
+            </VBox>
+            <HBox alignment="CENTER" styleClass="battle-result-actions">
+                <Button fx:id="battleResultButton" mnemonicParsing="false" onAction="#onBattleResultButtonClicked" styleClass="battle-result-button, battle-result-victory-button" />
             </HBox>
         </VBox>
-        <HBox alignment="CENTER" spacing="18.0" styleClass="battle-result-actions">
-            <Button fx:id="battleResultButton" mnemonicParsing="false" onAction="#onBattleResultButtonClicked" styleClass="battle-result-button, battle-result-victory-button" />
-        </HBox>
-    </VBox>
+    </StackPane>
 </StackPane>
