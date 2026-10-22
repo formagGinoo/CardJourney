@@ -313,13 +313,13 @@ public class MapViewController {
     /**
      * Gestisce il click sul pulsante del mazzo.
      * <p>
-     * La visualizzazione del mazzo non è ancora implementata: per ora l'azione
-     * si limita a registrare a console il numero di carte possedute.
+     * Apre la schermata di visualizzazione delle carte possedute dal giocatore.
+     * La vista è in sola lettura: al ritorno, {@code MapView} ricarica giocatore
+     * e mappa dallo stato persistente del {@link GameManager}.
      * </p>
      */
     @FXML
     private void onDeckButtonClicked() {
-        System.out.println("Apertura visualizzazione mazzo: " + player.getMainDeck().size() + " carte.");
-        //TODO: Implementare la visualizzazione del mazzo del giocatore
+        SceneManager.getInstance().switchScene("/fxml/DeckView.fxml");
     }
 }

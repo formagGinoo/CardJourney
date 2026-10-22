@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="640.0" prefWidth="960.0"
+           styleClass="deck-root"
+           xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="it.unicam.cs.mpgc.rpg130809.controller.ui.DeckViewController">
+    <ImageView fx:id="backgroundImage" fitHeight="640.0" fitWidth="960.0" />
+    <StackPane styleClass="deck-overlay" />
+    <BorderPane prefWidth="920.0" prefHeight="612.0" maxWidth="920.0" maxHeight="612.0" styleClass="deck-panel">
+        <top>
+            <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="deck-header">
+                <ImageView fitHeight="54.0" fitWidth="54.0" preserveRatio="true" styleClass="deck-icon">
+                    <Image url="/img/battleview/draw_pile_icon.png"/>
+                </ImageView>
+                <VBox>
+                    <Label styleClass="deck-title" text="Mazzo" />
+                    <Label fx:id="deckSubtitle" styleClass="deck-subtitle" />
+                </VBox>
+            </HBox>
+        </top>
+        <center>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="deck-scroll">
+                <VBox spacing="8.0" styleClass="deck-content">
+                    <Label styleClass="deck-section-title" text="Carte possedute" />
+                    <FlowPane fx:id="cardsPane" hgap="10.0" vgap="12.0" prefWrapLength="850.0" styleClass="deck-grid" />
+                </VBox>
+            </ScrollPane>
+        </center>
+        <bottom>
+            <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="deck-footer">
+                <Button mnemonicParsing="false" onAction="#onBackToMap" styleClass="deck-close-button" text="Torna alla mappa" />
+            </HBox>
+        </bottom>
+    </BorderPane>
+</StackPane>

@@ -998,3 +998,188 @@
     -fx-translate-y: 1px;
 }
 /* --- ShopView END --- */
+
+/* --- DeckView START --- */
+.deck-root {
+    -fx-background-color: #0b0d12;
+}
+
+.deck-overlay {
+    -fx-background-color: linear-gradient(to bottom, rgba(8, 10, 16, 0.62), rgba(8, 10, 16, 0.90));
+}
+
+.deck-panel {
+    -fx-background-color: linear-gradient(to bottom, rgba(22, 27, 38, 0.97), rgba(11, 13, 18, 0.98));
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-border-color: #4a6b9c;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.95), 30, 0.3, 0, 8);
+}
+
+.deck-header {
+    -fx-padding: 12px 20px 10px 20px;
+    -fx-border-color: transparent transparent rgba(74, 107, 156, 0.45) transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.deck-icon {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 8, 0, 0, 3);
+}
+
+.deck-title {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b8d4ff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 5, 0, 0, 2);
+}
+
+.deck-subtitle {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 18px;
+    -fx-text-fill: #9fb3cc;
+}
+
+.deck-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.deck-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.deck-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.deck-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #4a6b9c;
+    -fx-background-radius: 5px;
+}
+
+.deck-scroll .scroll-bar .increment-button,
+.deck-scroll .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+.deck-content {
+    -fx-padding: 10px 16px 16px 16px;
+}
+
+.deck-section-title {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 23px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b8d4ff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 3, 0, 0, 1);
+}
+
+.deck-grid {
+    -fx-padding: 2px 0 0 0;
+}
+
+.deck-card {
+    -fx-background-color: linear-gradient(to bottom, rgba(38, 46, 62, 0.95), rgba(19, 23, 32, 0.98));
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: #4b5563;
+    -fx-border-width: 1.5px;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.75), 8, 0, 0, 3);
+}
+
+.deck-card:hover {
+    -fx-border-color: #b8d4ff;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(138, 192, 255, 0.45), 10, 0, 0, 0);
+}
+
+.deck-card-image {
+    -fx-alignment: center;
+}
+
+.deck-card-sprite {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.7), 5, 0, 0, 2);
+}
+
+.deck-count-badge {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e2e8f0;
+    -fx-background-color: rgba(15, 23, 42, 0.94);
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: #94a3b8;
+    -fx-border-width: 1px;
+    -fx-padding: 0 5px;
+}
+
+.deck-card-name {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 2, 0, 0, 1);
+}
+
+.deck-card-damage {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 15px;
+    -fx-text-fill: #cbd5e1;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
+.deck-empty {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 22px;
+    -fx-text-fill: #cbd5e1;
+}
+
+.deck-footer {
+    -fx-padding: 9px 20px 12px 20px;
+    -fx-border-color: rgba(74, 107, 156, 0.45) transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.deck-status {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 18px;
+}
+
+.deck-status-info {
+    -fx-text-fill: #cbd5e1;
+}
+
+.deck-close-button {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2b303a;
+    -fx-border-color: #faede2;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-padding: 5px 16px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 4, 0, 0, 1);
+}
+
+.deck-close-button:hover {
+    -fx-background-color: #404756;
+    -fx-border-color: #b8d4ff;
+    -fx-effect: dropshadow(three-pass-box, rgba(138, 192, 255, 0.6), 8, 0, 0, 0);
+}
+
+.deck-close-button:pressed {
+    -fx-background-color: #1a1d24;
+    -fx-translate-y: 1px;
+}
+/* --- DeckView END --- */
