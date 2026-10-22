@@ -63,7 +63,7 @@ public class HealthPotionShopItem implements ShopItem {
     /** {@inheritDoc} */
     @Override
     public String getDescription() {
-        return "Cura di " + healAmount + " HP";
+        return "Cura " + healAmount + " HP";
     }
 
     /** {@inheritDoc} */
