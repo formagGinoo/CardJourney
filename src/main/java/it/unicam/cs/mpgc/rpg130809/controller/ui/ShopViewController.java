@@ -356,7 +356,7 @@ public class ShopViewController {
     private void updateHud() {
         hpLabel.setText(player.getHealth() + "/" + player.getMaxHealth());
         goldLabel.setText(String.valueOf(player.getGold()));
-        deckLabel.setText(String.valueOf(player.getMainDeck().size()));
+        deckLabel.setText(String.valueOf("(" + player.getMainDeck().size() + ")"));
     }
 
     /**
