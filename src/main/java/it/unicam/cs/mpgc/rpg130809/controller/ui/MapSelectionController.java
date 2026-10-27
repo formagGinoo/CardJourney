@@ -1,9 +1,11 @@
 package it.unicam.cs.mpgc.rpg130809.controller.ui;
 
+import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
 import it.unicam.cs.mpgc.rpg130809.model.map.MapType;
 import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
+import it.unicam.cs.mpgc.rpg130809.model.game.SoundManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -35,6 +37,8 @@ public class MapSelectionController {
      */
     @FXML
     public void initialize() {
+        SoundManager.getInstance().playMusic(GameConstants.MAIN_THEME);
+
         Player player = GameManager.getInstance().getPlayer();
         updateMapVisibility(player.getCurrentMapLevel());
     }

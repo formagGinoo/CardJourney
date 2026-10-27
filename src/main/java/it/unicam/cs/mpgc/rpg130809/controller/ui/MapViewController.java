@@ -4,6 +4,7 @@ import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.Enemy;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.SpriteManager;
+import it.unicam.cs.mpgc.rpg130809.model.game.SoundManager;
 import it.unicam.cs.mpgc.rpg130809.model.map.Position;
 import it.unicam.cs.mpgc.rpg130809.model.map.GameMap;
 import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
@@ -68,6 +69,7 @@ public class MapViewController {
         this.player = GameManager.getInstance().getPlayer();
         this.map = GameManager.getInstance().getActiveGameMap();
 
+        SoundManager.getInstance().playMusic(map.getMapType().getSoundtrackPath());
         setupBackground();
         updateHud();
         renderMap();

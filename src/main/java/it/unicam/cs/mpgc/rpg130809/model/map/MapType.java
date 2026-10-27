@@ -98,6 +98,19 @@ public enum MapType {
     }
 
     /**
+     * Restituisce il percorso del brano di sottofondo della mappa.
+     * <p>
+     * Ogni zona ha la propria traccia, identificata dal livello della mappa all'interno
+     * della cartella dei suoni, in analogia allo sfondo di {@link #getMapBackgroundPath()}.
+     * </p>
+     *
+     * @return il percorso del file audio della zona
+     */
+    public String getSoundtrackPath() {
+        return "/sounds/map" + level + ".mp3";
+    }
+
+    /**
      * Restituisce il {@link MapType} corrispondente al livello specificato.
      *
      * @param level il livello della zona

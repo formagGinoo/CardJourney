@@ -1,9 +1,11 @@
 package it.unicam.cs.mpgc.rpg130809.controller.ui;
 
+import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.SpriteManager;
+import it.unicam.cs.mpgc.rpg130809.model.game.SoundManager;
 import it.unicam.cs.mpgc.rpg130809.model.map.GameMap;
 import it.unicam.cs.mpgc.rpg130809.model.shop.CardShopItem;
 import it.unicam.cs.mpgc.rpg130809.model.shop.HealthPotionShopItem;
@@ -72,6 +74,8 @@ public class ShopViewController {
      */
     @FXML
     public void initialize() {
+        SoundManager.getInstance().playMusic(GameConstants.SHOP_THEME);
+
         GameManager gameManager = GameManager.getInstance();
         this.player = gameManager.getPlayer();
         this.map = gameManager.getActiveGameMap();

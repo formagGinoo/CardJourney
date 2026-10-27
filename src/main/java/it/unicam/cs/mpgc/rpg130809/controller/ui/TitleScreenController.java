@@ -1,7 +1,9 @@
 package it.unicam.cs.mpgc.rpg130809.controller.ui;
 
+import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
+import it.unicam.cs.mpgc.rpg130809.model.game.SoundManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -36,6 +38,8 @@ public class TitleScreenController {
      * </p>
      */
     public void initialize() {
+        SoundManager.getInstance().playMusic(GameConstants.MAIN_THEME);
+
         // TODO: Controlla se esiste un salvataggio e abilita/disabilita il pulsante di caricamento di conseguenza.
         // loadGameButton.setVisible(false);
         // loadGameButton.setManaged(false);

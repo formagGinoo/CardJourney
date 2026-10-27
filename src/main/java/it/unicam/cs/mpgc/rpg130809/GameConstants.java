@@ -30,6 +30,15 @@ public final class GameConstants {
     /** Numero di righe della griglia di gioco. */
     public static final int MAP_HEIGHT = 10;
 
+    /** Brano del menu principale, condiviso da TitleScreen e MapSelection. */
+    public static final String MAIN_THEME = "/sounds/main_theme.mp3";
+
+    /** Brano della schermata dello shop. */
+    public static final String SHOP_THEME = "/sounds/shop_theme.mp3";
+
+    /** Volume di riproduzione della musica, da 0.0 (muto) a 1.0 (massimo). */
+    public static final double MUSIC_VOLUME = 0.05;
+
     /**
      * Layout della zona {@link it.unicam.cs.mpgc.rpg130809.model.map.MapType#PATH}.
      * <p>

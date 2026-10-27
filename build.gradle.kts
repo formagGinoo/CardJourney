@@ -19,7 +19,7 @@ java {
 
 javafx {
     version = "25.0.3"
-    modules = listOf("javafx.controls", "javafx.fxml")
+    modules = listOf("javafx.controls", "javafx.fxml", "javafx.media")
 }
 
 dependencies {
