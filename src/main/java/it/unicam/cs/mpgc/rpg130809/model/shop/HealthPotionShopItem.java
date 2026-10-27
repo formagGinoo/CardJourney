@@ -18,7 +18,7 @@ public class HealthPotionShopItem implements ShopItem {
 
     private static final String ITEM_NAME = "Pozione di Salute";
     private static final int HEAL_AMOUNT = 50;
-    private static final int PRICE = 100;
+    private static final int PRICE = 50;
 
     private final String name;
     private final int healAmount;
