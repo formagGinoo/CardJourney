@@ -1,11 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           fx:controller="it.unicam.cs.mpgc.rpg130809.controller.ui.HowToPlayViewController"
-           prefHeight="640.0" prefWidth="960.0">
-            <Label text="How to Play"/>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane prefHeight="640.0" prefWidth="960.0"
+           styleClass="htp-root"
+           xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="it.unicam.cs.mpgc.rpg130809.controller.ui.HowToPlayViewController">
+    <StackPane styleClass="htp-overlay" />
+    <BorderPane prefWidth="920.0" prefHeight="612.0" maxWidth="920.0" maxHeight="612.0" styleClass="htp-panel">
+        <top>
+            <HBox alignment="CENTER" spacing="14.0" styleClass="htp-header">
+                <VBox alignment="CENTER">
+                    <Label styleClass="htp-title" text="Come Giocare" />
+                    <Label styleClass="htp-subtitle" text="Tutto quello che serve per affrontare Card Journey" />
+                </VBox>
+            </HBox>
+        </top>
+        <center>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="htp-scroll">
+                <VBox spacing="12.0" styleClass="htp-content">
+                    <Label styleClass="htp-section-title" text="Muoviti sulla mappa" />
+                    <VBox spacing="12.0" styleClass="htp-step-row">
+                        <HBox alignment="CENTER" spacing="20.0">
+                            <VBox alignment="CENTER" spacing="8.0" styleClass="htp-keypad">
+                                <Button focusTraversable="false" styleClass="htp-key, htp-key-wasd" text="W" />
+                                <HBox alignment="CENTER" spacing="6.0">
+                                    <Button focusTraversable="false" styleClass="htp-key, htp-key-wasd" text="A" />
+                                    <Button focusTraversable="false" styleClass="htp-key, htp-key-wasd" text="S" />
+                                    <Button focusTraversable="false" styleClass="htp-key, htp-key-wasd" text="D" />
+                                </HBox>
+                            </VBox>
+                            <Label styleClass="htp-key-alt" text="oppure" />
+                            <VBox alignment="CENTER" spacing="8.0" styleClass="htp-keypad">
+                                <Button focusTraversable="false" styleClass="htp-key, htp-key-arrow">
+                                    <graphic>
+                                        <Region prefWidth="21.0" prefHeight="30.0" styleClass="htp-arrow, htp-arrow-up" />
+                                    </graphic>
+                                </Button>
+                                <HBox alignment="CENTER" spacing="6.0">
+                                    <Button focusTraversable="false" styleClass="htp-key, htp-key-arrow">
+                                        <graphic>
+                                            <Region prefWidth="21.0" prefHeight="30.0" styleClass="htp-arrow, htp-arrow-left" />
+                                        </graphic>
+                                    </Button>
+                                    <Button focusTraversable="false" styleClass="htp-key, htp-key-arrow">
+                                        <graphic>
+                                            <Region prefWidth="21.0" prefHeight="30.0" styleClass="htp-arrow, htp-arrow-down" />
+                                        </graphic>
+                                    </Button>
+                                    <Button focusTraversable="false" styleClass="htp-key, htp-key-arrow">
+                                        <graphic>
+                                            <Region prefWidth="21.0" prefHeight="30.0" styleClass="htp-arrow, htp-arrow-right" />
+                                        </graphic>
+                                    </Button>
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                        <Label maxWidth="760.0" styleClass="htp-text" wrapText="true"
+                               text="Usa i tasti WASD o le frecce direzionali per muovere il personaggio sulla mappa, una casella alla volta." />
+                    </VBox>
+                    <Label styleClass="htp-section-title" text="Avanza nel gioco" />
+                    <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="htp-step-row">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true" styleClass="htp-step-icon">
+                            <Image url="@../img/sprites/player.png" />
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" spacing="3.0">
+                            <Label styleClass="htp-step-title" text="1. Esplora" />
+                            <Label maxWidth="700.0" styleClass="htp-text" wrapText="true"
+                                   text="Esplora le zone della mappa. Sul tuo HUD in alto trovi sempre la vita, l'oro e le carte del mazzo." />
+                        </VBox>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="htp-step-row">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true" styleClass="htp-step-icon">
+                            <Image url="@../img/sprites/enemies/goblin.png" />
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" spacing="3.0">
+                            <Label styleClass="htp-step-title" text="2. Combatti" />
+                            <Label maxWidth="700.0" styleClass="htp-text" wrapText="true"
+                                   text="Avvicinati ad un nemico per iniziare una battaglia con le carte. Seleziona una o più carte della tua mano e premi ATTACCA per colpire: al termine del turno peschi nuove carte. Riduci a zero la vita del nemico per vincere oro e la gloria!" />
+                        </VBox>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="htp-step-row">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true" styleClass="htp-step-icon">
+                            <Image url="@../img/sprites/exit.png" />
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" spacing="3.0">
+                            <Label styleClass="htp-step-title" text="3. Completa le zone" />
+                            <Label maxWidth="700.0" styleClass="htp-text" wrapText="true"
+                                   text="Le uscite delle zone rimangono chiuse finché non sconfiggi il boss. Dopo la vittoria raggiungi la casella d'uscita per avanzare alla zona successiva, sempre più difficile: supera tutte le zone per completare il viaggio!" />
+                        </VBox>
+                    </HBox>
+                    <Label styleClass="htp-section-title" text="Il Negozio" />
+                    <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="htp-step-row">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true" styleClass="htp-step-icon">
+                            <Image url="@../img/sprites/shop.png" />
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" spacing="3.0">
+                            <Label styleClass="htp-step-title" text="Compra e potenziati" />
+                            <Label maxWidth="700.0" styleClass="htp-text" wrapText="true"
+                                   text="Interagisci con la casella del negozio per aprirlo. Con l'oro guadagnato nelle battaglie puoi comprare nuove carte da aggiungere al tuo mazzo o pozioni di cura per recuperare vita." />
+                        </VBox>
+                    </HBox>
+
+                </VBox>
+            </ScrollPane>
+        </center>
+        <bottom>
+            <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="htp-footer">
+                <Button mnemonicParsing="false" onAction="#onBackToTitle" styleClass="htp-back-button" text="Torna al Menu" />
+            </HBox>
+        </bottom>
+    </BorderPane>
 </StackPane>

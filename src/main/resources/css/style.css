@@ -1200,3 +1200,242 @@
     -fx-translate-y: 1px;
 }
 /* --- DeckView END --- */
+
+/* --- HowToPlayView START --- */
+.htp-root {
+    -fx-background-color: #0b0d12;
+}
+
+.htp-overlay {
+    -fx-background-color: linear-gradient(to bottom, rgba(8, 10, 16, 0.62), rgba(8, 10, 16, 0.90));
+}
+
+.htp-panel {
+    -fx-background-color: linear-gradient(to bottom, rgba(24, 22, 20, 0.97), rgba(11, 13, 18, 0.98));
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-border-color: #8b6b44;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.95), 30, 0.3, 0, 8);
+}
+
+.htp-header {
+    -fx-padding: 12px 20px 10px 20px;
+    -fx-border-color: transparent transparent rgba(139, 107, 68, 0.45) transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.htp-title {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffd79a;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 5, 0, 0, 2);
+}
+
+.htp-subtitle {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 18px;
+    -fx-text-fill: #cbb99a;
+}
+
+.htp-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.htp-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.htp-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.htp-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #8b6b44;
+    -fx-background-radius: 5px;
+}
+
+.htp-scroll .scroll-bar .increment-button,
+.htp-scroll .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+.htp-content {
+    -fx-padding: 10px 16px 16px 16px;
+}
+
+.htp-section-title {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 23px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffd79a;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 3, 0, 0, 1);
+    -fx-padding: 4px 0 0 0;
+}
+
+.htp-step-row {
+    -fx-background-color: linear-gradient(to bottom, rgba(47, 52, 63, 0.55), rgba(26, 29, 37, 0.65));
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: #4b5563;
+    -fx-border-width: 1.5px;
+    -fx-padding: 10px 14px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.55), 6, 0, 0, 2);
+}
+
+.htp-step-icon {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.75), 8, 0, 0, 3);
+}
+
+.htp-step-title {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffd79a;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 3, 0, 0, 1);
+}
+
+.htp-text {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 19px;
+    -fx-text-fill: #cbd5e1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 2, 0, 0, 1);
+}
+
+.htp-keypad {
+    -fx-padding: 8px 10px;
+    -fx-background-color: rgba(15, 17, 24, 0.85);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #2b303a;
+    -fx-border-width: 2px;
+}
+
+.htp-key-alt {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 17px;
+    -fx-text-fill: #94a3b8;
+}
+
+.htp-key {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #faede2;
+    -fx-pref-width: 56px;
+    -fx-pref-height: 56px;
+    -fx-min-width: 56px;
+    -fx-min-height: 56px;
+    -fx-alignment: center;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 3px;
+    -fx-border-color: #0e101d;
+    -fx-background-color: #0e101d, #3f4757, #6a7381;
+    -fx-background-insets: 0, 3, 3 3 9 3;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 0, 0, 3, 4);
+}
+
+.htp-key:hover {
+    -fx-background-color: #0e101d, #4a5261, #7c8594;
+    -fx-background-insets: 0, 3, 3 3 9 3;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 0, 0, 4, 5);
+}
+
+.htp-key:pressed,
+.htp-key:armed {
+    -fx-background-color: #0e101d, #343b47, #4a5261;
+    -fx-background-insets: 0, 2, 2 2 4 2;
+    -fx-translate-y: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 0, 0, 2, 2);
+}
+
+.htp-key-wasd {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #100e26, #3f3a9c, #5550c8;
+    -fx-background-insets: 0, 3, 3 3 9 3;
+}
+
+.htp-key-wasd:hover {
+    -fx-background-color: #100e26, #4a45b8, #6963de;
+    -fx-background-insets: 0, 3, 3 3 9 3;
+}
+
+.htp-key-wasd:pressed,
+.htp-key-wasd:armed {
+    -fx-background-color: #100e26, #332f7d, #443fae;
+    -fx-background-insets: 0, 2, 2 2 4 2;
+}
+
+.htp-key-arrow {
+    -fx-text-fill: #e2e8f0;
+}
+
+.htp-arrow {
+    -fx-background-color: #e2e8f0;
+    -fx-shape: "M10 0 L18 6 H14 V15 H6 V6 H2 Z";
+}
+
+.htp-arrow-up {
+}
+
+.htp-arrow-down {
+    -fx-rotate: 180;
+}
+
+.htp-arrow-left {
+    -fx-rotate: 270;
+}
+
+.htp-arrow-right {
+    -fx-rotate: 90;
+}
+
+.htp-footer {
+    -fx-padding: 9px 20px 12px 20px;
+    -fx-border-color: rgba(139, 107, 68, 0.45) transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.htp-status {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 18px;
+}
+
+.htp-status-info {
+    -fx-text-fill: #cbd5e1;
+}
+
+.htp-back-button {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2b303a;
+    -fx-border-color: #faede2;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-padding: 5px 16px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 4, 0, 0, 1);
+}
+
+.htp-back-button:hover {
+    -fx-background-color: #404756;
+    -fx-border-color: #ffd79a;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 215, 120, 0.6), 8, 0, 0, 0);
+}
+
+.htp-back-button:pressed {
+    -fx-background-color: #1a1d24;
+    -fx-translate-y: 1px;
+}
+/* --- HowToPlayView END --- */
