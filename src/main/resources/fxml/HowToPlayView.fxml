@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="it.unicam.cs.mpgc.rpg130809.controller.ui.HowToPlayViewController"
+           prefHeight="640.0" prefWidth="960.0">
+            <Label text="How to Play"/>
+</StackPane>

@@ -67,6 +67,23 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
 }
 
+.title-screen-how-to-play-button {
+    -fx-background-color: #4338ca;
+    -fx-border-color: #ffffff;
+}
+
+.title-screen-how-to-play-button:hover {
+    -fx-background-color: #6366f1;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 5, 0, 0, 3);
+}
+
+.title-screen-how-to-play-button:pressed {
+    -fx-background-color: #312e81;
+    -fx-translate-y: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
+}
+
 /* TitleScreen Button 3: Esci dal Gioco */
 .title-screen-exit-button {
     -fx-background-color: #343944;
@@ -981,7 +998,7 @@
     -fx-border-color: #faede2;
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
-    -fx-border-width: 1.5px;
+    -fx-border-width: 2px;
     -fx-padding: 5px 16px;
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 4, 0, 0, 1);
