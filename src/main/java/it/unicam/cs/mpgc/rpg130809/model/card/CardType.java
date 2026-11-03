@@ -14,16 +14,16 @@ import java.util.List;
 public enum CardType {
 
     /** Jolly, la carta più forte. */
-    JOKER("Jolly", 30, 300),
+    JOKER("Jolly", 30, 150),
 
     /** Asso. */
-    ACE("Asso", 20, 200),
+    ACE("Asso", 20, 120),
 
     /** Re. */
-    KING("Re", 16, 140),
+    KING("Re", 16, 110),
 
     /** Regina. */
-    QUEEN("Regina", 14, 110),
+    QUEEN("Regina", 14, 95),
 
     /** Jack. */
     JACK("Jack", 12, 75),
