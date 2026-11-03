@@ -65,7 +65,7 @@ public class MapSelectionController {
     @FXML
     private void onPathButtonClicked() {
         GameManager.getInstance().loadGameMap(MapType.PATH);
-        SceneManager.getInstance().switchScene("/fxml/MapView.fxml");
+        SceneManager.getInstance().switchScene(GameConstants.MAP_VIEW_FXML);
     }
 
     /**
@@ -74,7 +74,7 @@ public class MapSelectionController {
     @FXML
     private void onForestButtonClicked() {
         GameManager.getInstance().loadGameMap(MapType.FOREST);
-        SceneManager.getInstance().switchScene("/fxml/MapView.fxml");
+        SceneManager.getInstance().switchScene(GameConstants.MAP_VIEW_FXML);
     }
 
     /**
@@ -83,6 +83,6 @@ public class MapSelectionController {
     @FXML
     private void onDragonPeakButtonClicked() {
         GameManager.getInstance().loadGameMap(MapType.DRAGON_PEAK);
-        SceneManager.getInstance().switchScene("/fxml/MapView.fxml");
+        SceneManager.getInstance().switchScene(GameConstants.MAP_VIEW_FXML);
     }
 }

@@ -360,7 +360,7 @@ public class ShopViewController {
     private void updateHud() {
         hpLabel.setText(player.getHealth() + "/" + player.getMaxHealth());
         goldLabel.setText(String.valueOf(player.getGold()));
-        deckLabel.setText(String.valueOf("(" + player.getMainDeck().size() + ")"));
+        deckLabel.setText("(" + player.getMainDeck().size() + ")");
     }
 
     /**
@@ -381,7 +381,7 @@ public class ShopViewController {
      */
     @FXML
     private void onBackToMap() {
-        SceneManager.getInstance().switchScene("/fxml/MapView.fxml");
+        SceneManager.getInstance().switchScene(GameConstants.MAP_VIEW_FXML);
     }
 
     /**

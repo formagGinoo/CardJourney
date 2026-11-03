@@ -111,6 +111,33 @@ public enum MapType {
     }
 
     /**
+     * Indica se dopo questa zona esistono altre zone esplorabili.
+     * <p>
+     * Il confronto è calcolato sui valori dell'enumerazione stessa, quindi
+     * l'aggiunta di nuove zone in futuro aggiorna automaticamente il risultato
+     * senza modifiche ai client.
+     * </p>
+     *
+     * @return {@code true} se esiste almeno una zona con livello superiore
+     */
+    public boolean hasNextLevel() {
+        return this.level < values()[values().length - 1].level;
+    }
+
+    /**
+     * Indica se questa è l'ultima zona del gioco.
+     * <p>
+     * Completare l'ultima zona con il boss sconfitto significa
+     * completare la partita.
+     * </p>
+     *
+     * @return {@code true} se non esistono zone successive
+     */
+    public boolean isFinalZone() {
+        return !hasNextLevel();
+    }
+
+    /**
      * Restituisce il {@link MapType} corrispondente al livello specificato.
      *
      * @param level il livello della zona

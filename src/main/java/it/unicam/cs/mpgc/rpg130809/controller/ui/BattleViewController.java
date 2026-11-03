@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg130809.controller.ui;
 
+import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.battle.BattleManager;
 import it.unicam.cs.mpgc.rpg130809.model.card.Card;
@@ -1037,12 +1038,12 @@ public class BattleViewController {
         if (victory) {
             FadeTransition enemyFade = new FadeTransition(Duration.millis(600), enemySprite);
             enemyFade.setToValue(0.0);
-            enemyFade.setOnFinished(e -> SceneManager.getInstance().switchScene("/fxml/BattleResultView.fxml"));
+            enemyFade.setOnFinished(e -> SceneManager.getInstance().switchScene(GameConstants.BATTLE_RESULT_VIEW_FXML));
             enemyFade.play();
         } else {
             FadeTransition playerFade = new FadeTransition(Duration.millis(600), playerSprite);
             playerFade.setToValue(0.2);
-            playerFade.setOnFinished(e -> SceneManager.getInstance().switchScene("/fxml/BattleResultView.fxml"));
+            playerFade.setOnFinished(e -> SceneManager.getInstance().switchScene(GameConstants.BATTLE_RESULT_VIEW_FXML));
             playerFade.play();
         }
     }

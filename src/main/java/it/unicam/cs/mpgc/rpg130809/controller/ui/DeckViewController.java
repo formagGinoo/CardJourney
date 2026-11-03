@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg130809.controller.ui;
 
+import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.card.Card;
 import it.unicam.cs.mpgc.rpg130809.model.card.CardType;
@@ -209,6 +210,6 @@ public class DeckViewController {
      */
     @FXML
     private void onBackToMap() {
-        SceneManager.getInstance().switchScene("/fxml/MapView.fxml");
+        SceneManager.getInstance().switchScene(GameConstants.MAP_VIEW_FXML);
     }
 }

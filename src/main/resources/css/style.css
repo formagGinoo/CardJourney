@@ -1482,3 +1482,106 @@
     -fx-effect: dropshadow(three-pass-box, rgba(59, 36, 18, 0.45), 3, 0, 0, 2);
 }
 /* --- HowToPlayView END --- */
+
+/* --- VictoryView START --- */
+.victory-root {
+    -fx-background-color: #0b0a14;
+}
+
+.victory-backdrop {
+    -fx-effect: null;
+}
+
+.victory-panel {
+    -fx-padding: 20px 28px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.70), 26, 0.25, 0, 10);
+}
+
+.victory-title {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 46px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffe08a;
+    -fx-effect: dropshadow(three-pass-box, rgba(24, 14, 4, 0.90), 6, 0.45, 0, 2);
+}
+
+.victory-sprite {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 5, 0.20, 0, 4);
+}
+
+.victory-subtitle {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 18px;
+    -fx-text-fill: #fdf6dd;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(20, 12, 4, 0.85), 4, 0.45, 0, 2);
+}
+
+.victory-stats {
+    -fx-padding: 6px 0 0 0;
+}
+
+.victory-stat {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffe9b8;
+    -fx-padding: 4px 12px;
+    -fx-background-color: rgba(24, 17, 8, 0.66);
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(255, 231, 170, 0.45);
+}
+
+.victory-hp {
+    -fx-text-fill: #ffd9c0;
+}
+
+.victory-gold {
+    -fx-text-fill: #ffe8a6;
+}
+
+.victory-deck {
+    -fx-text-fill: #cfe4ff;
+}
+
+.victory-actions {
+    -fx-padding: 10px 0 0 0;
+}
+
+.victory-button {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #27180a;
+    -fx-alignment: center;
+    -fx-content-display: text-only;
+    -fx-text-alignment: center;
+    -fx-min-width: 216px;
+    -fx-pref-width: 216px;
+    -fx-min-height: 46px;
+    -fx-pref-height: 46px;
+    -fx-padding: 0;
+    -fx-label-padding: 0;
+    -fx-background-color: #f3bd35;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-border-width: 3px;
+    -fx-border-color: #ffffff;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.80), 10, 0.3, 0, 3);
+}
+
+.victory-button:hover {
+    -fx-background-color: #ffd05a;
+    -fx-border-color: #ffffff;
+}
+
+.victory-button:pressed {
+    -fx-background-color: #d29a1e;
+    -fx-border-color: #ffffff;
+    -fx-translate-y: 2px;
+}
+/* --- VictoryView END --- */

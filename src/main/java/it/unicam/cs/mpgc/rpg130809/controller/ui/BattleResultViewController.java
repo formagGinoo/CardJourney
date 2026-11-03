@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg130809.controller.ui;
 
+import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.battle.BattleManager;
 import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.Enemy;
@@ -160,10 +161,10 @@ public class BattleResultViewController {
         GameManager gm = GameManager.getInstance();
         if (isVictory) {
             gm.endCurrentBattle(true);
-            SceneManager.getInstance().switchScene("/fxml/MapView.fxml");
+            SceneManager.getInstance().switchScene(GameConstants.MAP_VIEW_FXML);
         } else {
             gm.endCurrentBattle(false);
-            SceneManager.getInstance().switchScene("/fxml/TitleScreen.fxml");
+            SceneManager.getInstance().switchScene(GameConstants.TITLE_SCREEN_FXML);
         }
     }
 
