@@ -28,7 +28,6 @@ public class TitleScreenController {
     public TitleScreenController() {
     }
 
-    @FXML private Button newGameButton;
     @FXML private Button loadGameButton;
 
     /**
@@ -64,5 +63,13 @@ public class TitleScreenController {
     @FXML
     private void onExitGameButtonClicked() {
         System.exit(0);
+    }
+
+    /**
+     * Gestisce l'evento di visualizzazione delle istruzioni di gioco.
+     */
+    @FXML
+    private void onHowToPlayButtonClicked() {
+        SceneManager.getInstance().switchScene("/fxml/HowToPlayView.fxml");
     }
 }

@@ -67,6 +67,23 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
 }
 
+.title-screen-how-to-play-button {
+    -fx-background-color: #4338ca;
+    -fx-border-color: #ffffff;
+}
+
+.title-screen-how-to-play-button:hover {
+    -fx-background-color: #6366f1;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 5, 0, 0, 3);
+}
+
+.title-screen-how-to-play-button:pressed {
+    -fx-background-color: #312e81;
+    -fx-translate-y: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
+}
+
 /* TitleScreen Button 3: Esci dal Gioco */
 .title-screen-exit-button {
     -fx-background-color: #343944;
@@ -981,7 +998,7 @@
     -fx-border-color: #faede2;
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
-    -fx-border-width: 1.5px;
+    -fx-border-width: 2px;
     -fx-padding: 5px 16px;
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 4, 0, 0, 1);
@@ -1183,3 +1200,285 @@
     -fx-translate-y: 1px;
 }
 /* --- DeckView END --- */
+
+/* --- HowToPlayView START --- */
+.htp-root {
+    -fx-background-color: #0b0d12;
+}
+
+.htp-root {
+    -fx-background-color: #16181d;
+    -fx-background-image: url("../img/howtoplay/bg.jpg");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+}
+
+.htp-panel {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 26px 52px 40px 52px;
+    -fx-effect: null;
+}
+
+.htp-header {
+    -fx-padding: 16px 20px 8px 20px;
+}
+
+.htp-title {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3b2412;
+    -fx-effect: dropshadow(one-pass-box, rgba(255, 244, 210, 0.45), 1, 0, 0, 0);
+}
+
+.htp-subtitle {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 18px;
+    -fx-text-fill: #7a5630;
+}
+
+.htp-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.htp-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.htp-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.htp-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #a5772f;
+    -fx-background-radius: 5px;
+}
+
+.htp-scroll .scroll-bar .increment-button,
+.htp-scroll .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+.htp-content {
+    -fx-padding: 14px 36px 22px 36px;
+}
+
+.htp-section-title {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 23px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #7a4d1c;
+    -fx-padding: 4px 0 0 0;
+}
+
+.htp-step-row {
+    -fx-background-color: transparent;
+    -fx-padding: 8px 14px;
+}
+
+.htp-step-icon {
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 44, 18, 0.55), 8, 0, 0, 3);
+}
+
+.htp-step-title {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #7a4d1c;
+}
+
+.htp-text {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 19px;
+    -fx-text-fill: #3f2a18;
+}
+
+.htp-keypad {
+    -fx-padding: 8px 10px;
+    -fx-background-color: rgba(74, 42, 18, 0.10);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: rgba(74, 42, 18, 0.30);
+    -fx-border-width: 2px;
+}
+
+.htp-key-alt {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 17px;
+    -fx-text-fill: #8a6134;
+}
+
+.htp-key {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #faede2;
+    -fx-pref-width: 56px;
+    -fx-pref-height: 56px;
+    -fx-min-width: 56px;
+    -fx-min-height: 56px;
+    -fx-alignment: center;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 3px;
+    -fx-border-color: #0e101d;
+    -fx-background-color: #0e101d, #3f4757, #6a7381;
+    -fx-background-insets: 0, 3, 3 3 9 3;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 0, 0, 3, 4);
+}
+
+.htp-key:hover {
+    -fx-background-color: #0e101d, #4a5261, #7c8594;
+    -fx-background-insets: 0, 3, 3 3 9 3;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 0, 0, 4, 5);
+}
+
+.htp-key:pressed,
+.htp-key:armed {
+    -fx-background-color: #0e101d, #343b47, #4a5261;
+    -fx-background-insets: 0, 2, 2 2 4 2;
+    -fx-translate-y: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 0, 0, 2, 2);
+}
+
+.htp-key-wasd {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #100e26, #3f3a9c, #5550c8;
+    -fx-background-insets: 0, 3, 3 3 9 3;
+}
+
+.htp-key-wasd:hover {
+    -fx-background-color: #100e26, #4a45b8, #6963de;
+    -fx-background-insets: 0, 3, 3 3 9 3;
+}
+
+.htp-key-wasd:pressed,
+.htp-key-wasd:armed {
+    -fx-background-color: #100e26, #332f7d, #443fae;
+    -fx-background-insets: 0, 2, 2 2 4 2;
+}
+
+.htp-key-arrow {
+    -fx-text-fill: #e2e8f0;
+}
+
+.htp-arrow {
+    -fx-background-color: #e2e8f0;
+    -fx-shape: "M10 0 L18 6 H14 V15 H6 V6 H2 Z";
+}
+
+.htp-arrow-up {
+}
+
+.htp-arrow-down {
+    -fx-rotate: 180;
+}
+
+.htp-arrow-left {
+    -fx-rotate: 270;
+}
+
+.htp-arrow-right {
+    -fx-rotate: 90;
+}
+
+.htp-footer {
+    -fx-padding: 8px 20px 14px 20px;
+}
+
+.htp-status {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 18px;
+}
+
+.htp-status-info {
+    -fx-text-fill: #7a5a3a;
+}
+
+.htp-back-button {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3b2412;
+    -fx-background-color: linear-gradient(to bottom, #f6e5a8, #e7cd8b);
+    -fx-border-color: #3b2412;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
+    -fx-padding: 5px 18px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 36, 18, 0.5), 4, 0, 0, 2);
+}
+
+.htp-back-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #fbf0c2, #eeda9e);
+    -fx-border-color: #241408;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 36, 18, 0.6), 7, 0, 0, 3);
+}
+
+.htp-back-button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #e3c983, #d4b26a);
+    -fx-translate-y: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 36, 18, 0.4), 2, 0, 0, 1);
+}
+.htp-combo-panel {
+    -fx-padding: 10px 16px 14px 16px;
+}
+
+.htp-combo-heading {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #7a4d1c;
+}
+
+.htp-combo-card {
+    -fx-background-color: rgba(255, 255, 255, 0.45);
+    -fx-background-radius: 10px;
+    -fx-border-color: rgba(122, 77, 28, 0.28);
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-padding: 6px 12px;
+}
+
+.htp-combo-name {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5c3a16;
+}
+
+.htp-combo-desc {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 16px;
+    -fx-text-fill: #3f2a18;
+}
+
+.htp-combo-mult {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a5601a;
+}
+
+.htp-combo-mult-small {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-weight: bold;
+    -fx-text-fill: #a5601a;
+    -fx-font-size: 15px;
+}
+
+.htp-mini-card {
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 36, 18, 0.45), 3, 0, 0, 2);
+}
+/* --- HowToPlayView END --- */
