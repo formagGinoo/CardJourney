@@ -75,7 +75,7 @@
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                             <Label styleClass="htp-step-title" text="1. Esplora" />
                             <Label maxWidth="700.0" styleClass="htp-text" wrapText="true"
-                                   text="Esplora le zone della mappa. Sul tuo HUD in alto trovi sempre la vita, l'oro e le carte del mazzo." />
+                                   text="Esplora le zone della mappa. Sul HUD in alto trovi sempre la vita, l'oro e le carte del mazzo." />
                         </VBox>
                     </HBox>
                     <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="htp-step-row">
@@ -85,9 +85,116 @@
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                             <Label styleClass="htp-step-title" text="2. Combatti" />
                             <Label maxWidth="700.0" styleClass="htp-text" wrapText="true"
-                                   text="Avvicinati ad un nemico per iniziare una battaglia con le carte. Seleziona una o più carte della tua mano e premi ATTACCA per colpire: al termine del turno peschi nuove carte. Riduci a zero la vita del nemico per vincere oro e la gloria!" />
+                                   text="Avvicinati ad un nemico per iniziare una battaglia con le carte. Seleziona una o più carte della tua mano e premi ATTACCA per colpire; al termine del turno peschi nuove carte. Riduci a zero la vita del nemico per ottenere oro!" />
                         </VBox>
                     </HBox>
+                    <VBox spacing="10.0" styleClass="htp-combo-panel">
+                        <Label styleClass="htp-combo-heading" text="Come infliggere danno" />
+                        <Label maxWidth="730.0" styleClass="htp-text" wrapText="true"
+                               text="Seleziona una o più carte dalla mano e premi ATTACCA: il danno viene sottratto agli HP del nemico. L'anteprima mostra subito nome e danno della combinazione; le carte giocate finiscono negli scarti e verranno rimescolate e spostate nella pila della pesca solo quando le carte in quest'ultima finiscono." />
+                        <HBox spacing="10.0" maxWidth="1.7976931348623157E308">
+                            <VBox spacing="8.0" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308">
+                                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="htp-combo-card">
+                                    <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                        <Image url="@../img/sprites/cards/jack.png" />
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT">
+                                        <Label styleClass="htp-combo-name" text="Singola" />
+                                        <Label styleClass="htp-combo-desc" text="1 carta" />
+                                    </VBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label styleClass="htp-combo-mult-small" text="Moltiplicatore: ×1" />
+                                </HBox>
+
+                                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="htp-combo-card">
+                                    <HBox alignment="CENTER" spacing="2.0">
+                                        <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                            <Image url="@../img/sprites/cards/king.png" />
+                                        </ImageView>
+                                        <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                            <Image url="@../img/sprites/cards/king.png" />
+                                        </ImageView>
+                                        <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                            <Image url="@../img/sprites/cards/king.png" />
+                                        </ImageView>
+                                    </HBox>
+                                    <VBox alignment="CENTER_LEFT">
+                                        <Label styleClass="htp-combo-name" text="Tris" />
+                                        <Label styleClass="htp-combo-desc" text="3 carte uguali" />
+                                    </VBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label styleClass="htp-combo-mult-small" text="Moltiplicatore: ×2" />
+                                </HBox>
+                            </VBox>
+
+                            <VBox spacing="8.0" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308">
+                                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="htp-combo-card">
+                                    <HBox alignment="CENTER" spacing="2.0">
+                                        <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                            <Image url="@../img/sprites/cards/queen.png" />
+                                        </ImageView>
+                                        <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                            <Image url="@../img/sprites/cards/queen.png" />
+                                        </ImageView>
+                                    </HBox>
+                                    <VBox alignment="CENTER_LEFT">
+                                        <Label styleClass="htp-combo-name" text="Coppia" />
+                                        <Label styleClass="htp-combo-desc" text="2 carte uguali" />
+                                    </VBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label styleClass="htp-combo-mult-small" text="Moltiplicatore: ×1.5" />
+                                </HBox>
+
+                                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="htp-combo-card">
+                                    <HBox alignment="CENTER" spacing="2.0">
+                                        <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                            <Image url="@../img/sprites/cards/two.png" />
+                                        </ImageView>
+                                        <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                            <Image url="@../img/sprites/cards/two.png" />
+                                        </ImageView>
+                                        <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                            <Image url="@../img/sprites/cards/two.png" />
+                                        </ImageView>
+                                        <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                            <Image url="@../img/sprites/cards/two.png" />
+                                        </ImageView>
+                                    </HBox>
+                                    <VBox alignment="CENTER_LEFT">
+                                        <Label styleClass="htp-combo-name" text="Poker" />
+                                        <Label styleClass="htp-combo-desc" text="4 carte uguali" />
+                                    </VBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label styleClass="htp-combo-mult-small" text="Moltiplicatore: ×2.5" />
+                                </HBox>
+                            </VBox>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="htp-combo-card"
+                              maxWidth="1.7976931348623157E308">
+                            <HBox alignment="CENTER" spacing="2.0">
+                                <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                    <Image url="@../img/sprites/cards/seven.png" />
+                                </ImageView>
+                                <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                    <Image url="@../img/sprites/cards/eight.png" />
+                                </ImageView>
+                                <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                    <Image url="@../img/sprites/cards/nine.png" />
+                                </ImageView>
+                                <ImageView fitWidth="30.0" fitHeight="45.0" preserveRatio="true" styleClass="htp-mini-card">
+                                    <Image url="@../img/sprites/cards/ten.png" />
+                                </ImageView>
+                            </HBox>
+                            <VBox alignment="CENTER_LEFT">
+                                <Label styleClass="htp-combo-name" text="Scala" />
+                                <Label styleClass="htp-combo-desc" text="3 o più carte consecutive" />
+                            </VBox>
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label styleClass="htp-combo-mult, htp-combo-mult" text="Moltiplicatore: ×1.5 / ×2 / ×3" />
+                        </HBox>
+                    </VBox>
+
                     <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="htp-step-row">
                         <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true" styleClass="htp-step-icon">
                             <Image url="@../img/sprites/exit.png" />
@@ -95,7 +202,7 @@
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                             <Label styleClass="htp-step-title" text="3. Completa le zone" />
                             <Label maxWidth="700.0" styleClass="htp-text" wrapText="true"
-                                   text="Le uscite delle zone rimangono chiuse finché non sconfiggi il boss. Dopo la vittoria raggiungi la casella d'uscita per avanzare alla zona successiva, sempre più difficile: supera tutte le zone per completare il viaggio!" />
+                                   text="Le uscite delle zone rimangono chiuse finché non sconfiggi il boss. Dopo la vittoria raggiungi la casella d'uscita per avanzare alla zona successiva, sempre più difficile; supera tutte le zone per completare il viaggio!" />
                         </VBox>
                     </HBox>
                     <Label styleClass="htp-section-title" text="Il Negozio" />
