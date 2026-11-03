@@ -54,7 +54,7 @@ public class TitleScreenController {
     @FXML
     private void onNewGameButtonClicked() {
         GameManager.getInstance().startNewGame();
-        SceneManager.getInstance().switchScene("/fxml/MapSelection.fxml");
+        SceneManager.getInstance().switchScene(GameConstants.MAP_SELECTION_FXML);
     }
 
     /**
@@ -70,6 +70,6 @@ public class TitleScreenController {
      */
     @FXML
     private void onHowToPlayButtonClicked() {
-        SceneManager.getInstance().switchScene("/fxml/HowToPlayView.fxml");
+        SceneManager.getInstance().switchScene(GameConstants.HOW_TO_PLAY_FXML);
     }
 }

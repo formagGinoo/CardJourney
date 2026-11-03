@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg130809.controller.ui;
 
+import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import javafx.fxml.FXML;
 
@@ -32,6 +33,6 @@ public class HowToPlayViewController {
      */
     @FXML
     private void onBackToTitle() {
-        SceneManager.getInstance().switchScene("/fxml/TitleScreen.fxml");
+        SceneManager.getInstance().switchScene(GameConstants.TITLE_SCREEN_FXML);
     }
 }

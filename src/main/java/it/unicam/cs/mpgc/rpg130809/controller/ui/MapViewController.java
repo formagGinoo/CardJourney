@@ -1,8 +1,10 @@
 package it.unicam.cs.mpgc.rpg130809.controller.ui;
 
+import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.Enemy;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
+import it.unicam.cs.mpgc.rpg130809.model.game.GameStatus;
 import it.unicam.cs.mpgc.rpg130809.model.game.SpriteManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.SoundManager;
 import it.unicam.cs.mpgc.rpg130809.model.map.Position;
@@ -179,7 +181,7 @@ public class MapViewController {
      */
     private void handleEnemyEncounter(Position pos, Enemy enemy) {
         GameManager.getInstance().startBattle(pos, enemy);
-        SceneManager.getInstance().switchScene("/fxml/BattleView.fxml");
+        SceneManager.getInstance().switchScene(GameConstants.BATTLE_VIEW_FXML);
     }
 
     /**
@@ -192,22 +194,25 @@ public class MapViewController {
      * </p>
      */
     private void handleShopEncounter() {
-        SceneManager.getInstance().switchScene("/fxml/ShopView.fxml");
+        SceneManager.getInstance().switchScene(GameConstants.SHOP_VIEW_FXML);
     }
 
     /**
      * Completa la zona quando il giocatore raggiunge la posizione di uscita.
      * <p>
-     * Aggiorna la progressione del giocatore con
-     * {@link Player#advanceToNextMap()}, rimuove la mappa corrente dal
-     * {@link GameManager} e torna alla schermata di selezione delle mappe.
+     * Conclude la zona delegando l'aggiornamento dello stato di partita a
+     * {@link GameManager#completeCurrentZone()}: in base allo stato restituito
+     * la transizione porta alla selezione delle mappe in caso di partita in
+     * corso, oppure alla schermata di vittoria se l'ultima zona è stata
+     * completata. La transizione è sempre delegata a {@link SceneManager}.
      * </p>
      */
     private void handleExitEncounter() {
-        System.out.println("Zona completata! Avanzamento alla prossima zona...");
-        player.advanceToNextMap();
-        GameManager.getInstance().setActiveGameMap(null);
-        SceneManager.getInstance().switchScene("/fxml/MapSelection.fxml");
+        GameStatus status = GameManager.getInstance().completeCurrentZone();
+        String nextScene = (status == GameStatus.VICTORY)
+            ? GameConstants.VICTORY_VIEW_FXML
+            : GameConstants.MAP_SELECTION_FXML;
+        SceneManager.getInstance().switchScene(nextScene);
     }
 
     /**
@@ -322,6 +327,6 @@ public class MapViewController {
      */
     @FXML
     private void onDeckButtonClicked() {
-        SceneManager.getInstance().switchScene("/fxml/DeckView.fxml");
+        SceneManager.getInstance().switchScene(GameConstants.DECK_VIEW_FXML);
     }
 }

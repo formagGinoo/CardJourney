@@ -12,31 +12,31 @@ package it.unicam.cs.mpgc.rpg130809.model.entity.enemy;
 public enum EnemyType {
 
     /** Slime, il nemico più debole. */
-    SLIME("Slime", 15, 3, 10),
+    SLIME("Slime", 15, 3, 15),
 
     /** Goblin. */
-    GOBLIN("Goblin", 30, 5, 20),
+    GOBLIN("Goblin", 30, 5, 25),
 
     /** Bandito, boss della zona {@code PATH}. */
-    BANDIT("Bandito", 45, 7, 35),
+    BANDIT("Bandito", 45, 7, 40),
 
     /** Assassino. */
-    ASSASSIN("Assassino", 40, 18, 50),
+    ASSASSIN("Assassino", 40, 18, 55),
 
     /** Orco. */
-    ORC("Orco", 60, 10, 65),
+    ORC("Orco", 60, 10, 75),
 
     /** Golem. */
-    GOLEM("Golem", 120, 6, 80),
+    GOLEM("Golem", 120, 6, 85),
 
     /** Troll, boss della zona {@code FOREST}. */
-    TROLL("Troll", 100, 15, 100),
+    TROLL("Troll", 100, 15, 120),
 
     /** Vampiro. */
     VAMPIRE("Vampiro", 150, 12, 150),
 
     /** Drago, boss della zona {@code DRAGON_PEAK}. */
-    DRAGON("Drago", 250, 25, 300);
+    DRAGON("Drago", 200, 15, 200);
 
     private final String enemyName;
     private final int health;

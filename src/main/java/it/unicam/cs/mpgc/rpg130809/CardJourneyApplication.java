@@ -36,7 +36,7 @@ public class CardJourneyApplication extends Application {
         FontManager.loadFonts();
         SceneManager sceneManager = SceneManager.getInstance();
         sceneManager.initialize(stage);
-        sceneManager.switchScene("/fxml/TitleScreen.fxml");
+        sceneManager.switchScene(GameConstants.TITLE_SCREEN_FXML);
         stage.show();
     }
 }

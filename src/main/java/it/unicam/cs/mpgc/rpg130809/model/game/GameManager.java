@@ -29,6 +29,7 @@ public final class GameManager {
     private static GameManager instance;
     private Player player;
     private GameMap activeGameMap;
+    private GameStatus status;
     private Position currentBattlePosition;
     private Enemy currentBattleEnemy;
     private BattleManager activeBattleManager;
@@ -67,6 +68,7 @@ public final class GameManager {
         this.player = new Player(DeckFactory.createStarterDeck());
         MapType mapType = MapType.fromLevel(player.getCurrentMapLevel());
         this.activeGameMap = MapFactory.createMap(mapType);
+        this.status = GameStatus.IN_PROGRESS;
     }
 
     /**
@@ -92,6 +94,16 @@ public final class GameManager {
         this.player = player;
         MapType mapType = MapType.fromLevel(player.getCurrentMapLevel());
         this.activeGameMap = MapFactory.createMap(mapType);
+        this.status = GameStatus.IN_PROGRESS;
+    }
+
+    /**
+     * Restituisce lo stato complessivo della partita corrente.
+     *
+     * @return lo stato della partita, oppure {@code null} se nessuna partita è attiva
+     */
+    public GameStatus getGameStatus() {
+        return status;
     }
 
     /**
@@ -101,15 +113,6 @@ public final class GameManager {
      */
     public GameMap getActiveGameMap() {
         return activeGameMap;
-    }
-
-    /**
-     * Imposta la mappa di gioco attiva.
-     *
-     * @param activeGameMap la mappa da impostare
-     */
-    public void setActiveGameMap(GameMap activeGameMap) {
-        this.activeGameMap = activeGameMap;
     }
 
     /**
@@ -183,5 +186,31 @@ public final class GameManager {
         this.currentBattlePosition = null;
         this.currentBattleEnemy = null;
         this.activeBattleManager = null;
+    }
+
+    /**
+     * Completa la zona corrente.
+     * <p>
+     * Fa avanzare la progressione del giocatore con
+     * {@link Player#advanceToNextMap()}, libera la mappa attiva e aggiorna lo
+     * stato della partita: se l'ultima zona appena completata non è la finale
+     * la partita resta {@link GameStatus#IN_PROGRESS}, in caso contrario la
+     * partita è completata e assume {@link GameStatus#VICTORY}; instradare
+     * verso la schermata di vittoria resta compito delle viste.
+     * </p>
+     *
+     * @return il nuovo {@link GameStatus} della partita
+     * @throws IllegalStateException if no player has been initialized yet
+     */
+    public GameStatus completeCurrentZone() {
+        if (player == null) {
+            throw new IllegalStateException("Cannot complete a zone before a player is initialized");
+        }
+        this.status = (activeGameMap != null && activeGameMap.getMapType().hasNextLevel())
+            ? GameStatus.IN_PROGRESS
+            : GameStatus.VICTORY;
+        player.advanceToNextMap();
+        this.activeGameMap = null;
+        return status;
     }
 }
