@@ -2,8 +2,10 @@ package it.unicam.cs.mpgc.rpg130809.model.game;
 
 import it.unicam.cs.mpgc.rpg130809.model.battle.BattleManager;
 import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.Enemy;
+import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.EnemyType;
 import it.unicam.cs.mpgc.rpg130809.model.map.GameMap;
 import it.unicam.cs.mpgc.rpg130809.model.map.MapFactory;
+import it.unicam.cs.mpgc.rpg130809.model.map.MapProgress;
 import it.unicam.cs.mpgc.rpg130809.model.map.MapType;
 import it.unicam.cs.mpgc.rpg130809.model.map.Position;
 import it.unicam.cs.mpgc.rpg130809.model.deck.DeckFactory;
@@ -11,6 +13,7 @@ import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Gestore principale dello stato e della sessione di gioco.
@@ -19,8 +22,9 @@ import java.util.List;
  * di gestione dello stato durante l'intera esecuzione dell'applicazione.
  * </p>
  * <p>
- * Conserva il {@link Player}, la {@link GameMap} attiva e il
- * {@link BattleManager} corrente. Le viste del package
+ * Conserva il {@link Player}, la {@link GameMap} attiva, il {@link MapProgress}
+ * con i nemici rimasti vivi in ciascuna zona e il {@link BattleManager}
+ * corrente. Le viste del package
  * {@code controller.ui} leggono e aggiornano lo stato tramite questa classe,
  * mentre la creazione di mappe e mazzi è delegata a {@link MapFactory} e
  * {@link DeckFactory}. La transizione tra le scene resta a carico di
@@ -32,6 +36,7 @@ public final class GameManager {
     private static GameManager instance;
     private Player player;
     private GameMap activeGameMap;
+    private MapProgress mapProgress;
     private GameStatus status;
     private Position currentBattlePosition;
     private Enemy currentBattleEnemy;
@@ -43,6 +48,7 @@ public final class GameManager {
      */
     private GameManager() {
         this.stateListeners = new ArrayList<>();
+        this.mapProgress = new MapProgress();
     }
 
     /**
@@ -65,14 +71,15 @@ public final class GameManager {
      * <p>
      * Crea un nuovo {@link Player} con il mazzo iniziale fornito da
      * {@link DeckFactory#createStarterDeck()} e i valori base di salute e oro,
-     * quindi carica la mappa corrispondente al livello corrente del giocatore.
+     * azzera la progressione dei nemici e carica la mappa corrispondente al
+     * livello corrente del giocatore.
      * Il giocatore inizia nella prima mappa (Sentiero Scosceso).
      * </p>
      */
     public void startNewGame() {
         this.player = new Player(DeckFactory.createStarterDeck());
-        MapType mapType = MapType.fromLevel(player.getCurrentMapLevel());
-        this.activeGameMap = MapFactory.createMap(mapType);
+        this.mapProgress.reset();
+        createMapFor(MapType.fromLevel(player.getCurrentMapLevel()));
         this.status = GameStatus.IN_PROGRESS;
     }
 
@@ -108,19 +115,32 @@ public final class GameManager {
     }
 
     /**
-     * Imposta il giocatore della sessione di gioco.
+     * Restituisce il registro dei nemici rimasti vivi in ciascuna zona.
+     *
+     * @return il {@link MapProgress} della sessione corrente
+     */
+    public MapProgress getMapProgress() {
+        return mapProgress;
+    }
+
+    /**
+     * Imposta il giocatore della sessione di gioco ripristinando la progressione dei nemici.
      * <p>
      * Questo metodo è utilizzato principalmente durante il caricamento di una
-     * partita salvata. La mappa attiva viene ricreata in base al livello del
-     * giocatore.
+     * partita salvata.
      * </p>
      *
      * @param player il giocatore da associare alla sessione
+     * @param mapProgress i nemici rimasti vivi da ripristinare
+     * @throws IllegalArgumentException if the map progress is null
      */
-    public void setPlayer(Player player) {
+    public void setPlayer(Player player, MapProgress mapProgress) {
+        if (mapProgress == null) {
+            throw new IllegalArgumentException("Map progress cannot be null");
+        }
         this.player = player;
-        MapType mapType = MapType.fromLevel(player.getCurrentMapLevel());
-        this.activeGameMap = MapFactory.createMap(mapType);
+        this.mapProgress = mapProgress;
+        createMapFor(MapType.fromLevel(player.getCurrentMapLevel()));
         this.status = GameStatus.IN_PROGRESS;
     }
 
@@ -145,7 +165,8 @@ public final class GameManager {
     /**
      * Carica e inizializza la mappa specificata tramite {@link MapFactory}.
      * <p>
-     * Aggiorna anche il livello della mappa corrente del giocatore.
+     * Aggiorna anche il livello della mappa corrente del giocatore. I nemici
+     * sono generati secondo {@link MapProgress} in base a {@link MapType}.
      * </p>
      *
      * @param mapType il tipo di mappa da caricare
@@ -156,8 +177,8 @@ public final class GameManager {
             throw new IllegalStateException("Cannot load a map before a player is initialized");
         }
         player.setCurrentMapLevel(mapType.getLevel());
-        this.activeGameMap = MapFactory.createMap(mapType);
-        notifyPlayerStateChanged();
+        createMapFor(mapType);
+        notifyGameStateChanged();
     }
 
     /**
@@ -199,9 +220,10 @@ public final class GameManager {
     /**
      * Conclude la battaglia corrente.
      * <p>
-     * Se la battaglia è stata vinta, il nemico viene rimosso dalla mappa e il
-     * giocatore viene spostato sulla casella dell'incontro. In ogni caso i
-     * riferimenti alla battaglia vengono azzerati.
+     * Se la battaglia è stata vinta, il nemico viene rimosso dalla mappa, la
+     * sconfitta viene registrata in {@link MapProgress} (così il nemico non
+     * respawnerebbe nemmeno ricreando la zona) e il giocatore viene spostato
+     * sulla casella dell'incontro.
      * </p>
      *
      * @param won {@code true} se il giocatore ha vinto la battaglia
@@ -209,12 +231,13 @@ public final class GameManager {
     public void endCurrentBattle(boolean won) {
         if (won && activeGameMap != null && currentBattlePosition != null) {
             activeGameMap.removeEnemy(currentBattlePosition);
+            mapProgress.recordDefeat(activeGameMap.getMapType().getLevel(), currentBattlePosition);
             activeGameMap.movePlayer(currentBattlePosition);
         }
         this.currentBattlePosition = null;
         this.currentBattleEnemy = null;
         this.activeBattleManager = null;
-        notifyPlayerStateChanged();
+        notifyGameStateChanged();
     }
 
     /**
@@ -240,26 +263,48 @@ public final class GameManager {
             : GameStatus.VICTORY;
         player.advanceToNextMap();
         this.activeGameMap = null;
-        notifyPlayerStateChanged();
+        notifyGameStateChanged();
         return status;
     }
 
     /**
-     * Notifica a tutti i listener registrati che lo stato persistente del
-     * giocatore è cambiato.
+     * Crea la mappa della zona indicata e ne registra i nemici se la zona non
+     * ha ancora una registrazione nel {@link MapProgress}.
+     * <p>
+     * Alla prima creazione di una zona i nemici sono generati casualmente e la
+     * loro composizione viene registrata: tutte le successive ricreazioni
+     * usano {@link MapProgress}. Una zona registrata con
+     * tutti i nemici uccisi resta quindi vuota.
+     * </p>
+     *
+     * @param mapType il tipo di mappa da creare
+     */
+    private void createMapFor(MapType mapType) {
+        Map<Position, EnemyType> aliveEnemies = mapProgress.hasZone(mapType.getLevel())
+            ? mapProgress.getAliveEnemies(mapType.getLevel())
+            : null;
+        this.activeGameMap = MapFactory.createMap(mapType, aliveEnemies);
+        if (aliveEnemies == null) {
+            mapProgress.registerZone(mapType.getLevel(), activeGameMap.getEnemyTypes());
+        }
+    }
+
+    /**
+     * Notifica a tutti i listener registrati che lo stato persistente di
+     * gioco è cambiato.
      * <p>
      * Le eccezioni di un listener non interrompono la partita né impediscono
      * la notifica agli altri listener: un fallimento della persistenza non
      * deve mai propagarsi al gameplay.
      * </p>
      */
-    private void notifyPlayerStateChanged() {
+    private void notifyGameStateChanged() {
         if (player == null) {
             return;
         }
         for (GameStateListener listener : stateListeners) {
             try {
-                listener.onPlayerStateChanged(player);
+                listener.onGameStateChanged(player, mapProgress);
             } catch (RuntimeException e) {
                 System.getLogger(GameManager.class.getName()).log(System.Logger.Level.WARNING, "State listener failed", e);
             }

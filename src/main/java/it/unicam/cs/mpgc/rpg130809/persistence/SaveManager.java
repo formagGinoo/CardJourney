@@ -3,6 +3,7 @@ package it.unicam.cs.mpgc.rpg130809.persistence;
 import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameStateListener;
+import it.unicam.cs.mpgc.rpg130809.model.map.MapProgress;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -89,23 +90,24 @@ public final class SaveManager implements GameStateListener {
     }
 
     /**
-     * Salva lo stato corrente del giocatore.
+     * Salva lo stato corrente del giocatore e della sessione.
      * <p>
-     * L'operazione è <b>benevola</b>: i fallimenti di I/O vengono loggati e non
-     * propagati, perché un problema di salvataggio non deve mai interrompere
-     * la partita. Se il file tecnico di scrittura non riesce, il file
-     * precedente resta integro grazie alla scrittura atomica.
+     * Se il salvataggio fallisce, l'errore viene loggato ma non propagato, perché un problema di salvataggio non deve mai interrompere la partita.
      * </p>
      *
      * @param player il giocatore di cui salvare lo stato
-     * @throws IllegalArgumentException if the player is null
+     * @param mapProgress il registro dei nemici rimasti vivi da salvare
+     * @throws IllegalArgumentException if the player or the map progress is null
      */
-    public void save(Player player) {
+    public void save(Player player, MapProgress mapProgress) {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null");
         }
+        if (mapProgress == null) {
+            throw new IllegalArgumentException("Map progress cannot be null");
+        }
         try {
-            String json = serializer.toJson(SaveData.from(player));
+            String json = serializer.toJson(SaveData.from(player, mapProgress));
             fileHandler.write(json);
             LOGGER.fine("Partita salvata in: " + fileHandler.getSaveFilePath());
         } catch (IOException e) {
@@ -114,10 +116,25 @@ public final class SaveManager implements GameStateListener {
     }
 
     /**
+     * Salva lo stato del giocatore corrente della sessione attiva.
+     * <p>
+     * Variante di {@link #save(Player, MapProgress)} per i salvataggi fuori
+     * dal flusso di notifiche (es. acquisti nello shop): il registro dei
+     * nemici viene letto dal {@code GameManager}, unico proprietario dello
+     * stato di sessione. Non fa nulla se nessuna partita è attiva.
+     * </p>
+     *
+     * @param player il giocatore di cui salvare lo stato
+     */
+    public void save(Player player) {
+        save(player, GameManager.getInstance().getMapProgress());
+    }
+
+    /**
      * Salvataggio di sicurezza in fase di chiusura dell'applicazione.
      * <p>
      * Chiamato da {@code CardJourneyApplication#stop()} a fine ciclo di vita
-     * JavaFX. A differenza di {@link #save(Player)}, un giocatore assente
+     * JavaFX. A differenza del salvataggio standard, un giocatore assente
      * (schermata del menu, nessuna partita attiva) è una condizione normale e
      * viene semplicemente ignorata. I fallimenti restano silenziosi, perché in
      * chiusura non c'è modo di gestirli in modo utile.
@@ -133,15 +150,16 @@ public final class SaveManager implements GameStateListener {
     /**
      * {@inheritDoc}
      * <p>
-     * Delega al salvataggio standard: qui il giocatore è garantito non nullo
-     * perché la notifica arriva da una partita attiva.
+     * Delega al salvataggio standard: qui giocatore e registro dei nemici sono
+     * garantiti non nulli perché la notifica arriva da una partita attiva.
      * </p>
      *
      * @param player il giocatore nello stato corrente
+     * @param mapProgress i nemici rimasti vivi nello stato corrente
      */
     @Override
-    public void onPlayerStateChanged(Player player) {
-        save(player);
+    public void onGameStateChanged(Player player, MapProgress mapProgress) {
+        save(player, mapProgress);
     }
 
     /**
@@ -154,23 +172,24 @@ public final class SaveManager implements GameStateListener {
     }
 
     /**
-     * Carica il salvataggio e ricostruisce il giocatore.
+     * Carica il salvataggio e restituisce lo snapshot dello stato di gioco.
      * <p>
      * A differenza del salvataggio, qui un errore di lettura o di formato è
      * fatale: il chiamante (l'interfaccia) deve saperlo gestire e mostrare
      * all'utente che il salvataggio non è ripristinabile. I valori fuori dal
      * range di gioco vengono valutati dal costruttore designato di
-     * {@code Player}, che li ridimensiona correttamente.
+     * {@code Player}, che li ridimensiona correttamente; il chiamante ricostruisce
+     * giocatore e registro dei nemici con {@link SaveData#toPlayer()} e
+     * {@link SaveData#toMapProgress()}.
      * </p>
      *
-     * @return il giocatore ricostruito dal salvataggio
+     * @return lo snapshot del salvataggio, pronto per la ricostruzione dello stato
      * @throws RuntimeException if reading, parsing or deserialization fails
      */
-    public Player load() {
+    public SaveData load() {
         try {
             String json = fileHandler.read();
-            SaveData data = serializer.fromJson(json);
-            return data.toPlayer();
+            return serializer.fromJson(json);
         } catch (IOException | RuntimeException e) {
             throw new RuntimeException("Impossibile leggere il file di salvataggio", e);
         }

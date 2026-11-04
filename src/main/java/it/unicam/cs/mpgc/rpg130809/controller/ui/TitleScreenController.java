@@ -2,9 +2,9 @@ package it.unicam.cs.mpgc.rpg130809.controller.ui;
 
 import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
-import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.SoundManager;
+import it.unicam.cs.mpgc.rpg130809.persistence.SaveData;
 import it.unicam.cs.mpgc.rpg130809.persistence.SaveManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -23,7 +23,7 @@ import javafx.scene.control.Label;
  * <p>
  * La nuova partita crea un {@link it.unicam.cs.mpgc.rpg130809.model.entity.Player}
  * con il mazzo iniziale e apre la schermata di selezione delle mappe. Il
- * caricamento dei salvataggi è previsto ma non ancora implementato.
+ * caricamento ripristina giocatore e progressione dei nemici dal salvataggio.
  * </p>
  */
 public class TitleScreenController {
@@ -109,7 +109,9 @@ public class TitleScreenController {
      * Gestisce il click sul pulsante {@code Continua Partita}.
      * <p>
      * Carica il salvataggio tramite {@link SaveManager} e ricostruisce lo
-     * stato di gioco. Al caricamento si apre direttamente la selezione delle
+     * stato di gioco: giocatore e registro dei nemici rimasti vivi, così le
+     * zone ricreate riproducono esattamente i nemici non ancora sconfitti.
+     * Al caricamento si apre direttamente la selezione delle
      * zone, dove la zona corrente è l'unica accessibile. Se il salvataggio è
      * illeggibile o corrotto, un messaggio avvisa il giocatore e la partita
      * non viene avviata.
@@ -118,8 +120,8 @@ public class TitleScreenController {
     @FXML
     private void onLoadGameButtonClicked() {
         try {
-            Player player = SaveManager.getInstance().load();
-            GameManager.getInstance().setPlayer(player);
+            SaveData data = SaveManager.getInstance().load();
+            GameManager.getInstance().setPlayer(data.toPlayer(), data.toMapProgress());
         } catch (RuntimeException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Caricamento non riuscito");
