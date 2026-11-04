@@ -37,7 +37,7 @@ public final class GameManager {
     private Player player;
     private GameMap activeGameMap;
     private MapProgress mapProgress;
-    private GameStatus status;
+    private GameState status;
     private Position currentBattlePosition;
     private Enemy currentBattleEnemy;
     private BattleManager activeBattleManager;
@@ -80,7 +80,7 @@ public final class GameManager {
         this.player = new Player(DeckFactory.createStarterDeck());
         this.mapProgress.reset();
         createMapFor(MapType.fromLevel(player.getCurrentMapLevel()));
-        this.status = GameStatus.IN_PROGRESS;
+        this.status = GameState.IN_PROGRESS;
     }
 
     /**
@@ -141,7 +141,7 @@ public final class GameManager {
         this.player = player;
         this.mapProgress = mapProgress;
         createMapFor(MapType.fromLevel(player.getCurrentMapLevel()));
-        this.status = GameStatus.IN_PROGRESS;
+        this.status = GameState.IN_PROGRESS;
     }
 
     /**
@@ -149,7 +149,7 @@ public final class GameManager {
      *
      * @return lo stato della partita, oppure {@code null} se nessuna partita è attiva
      */
-    public GameStatus getGameStatus() {
+    public GameState getGameStatus() {
         return status;
     }
 
@@ -246,21 +246,21 @@ public final class GameManager {
      * Fa avanzare la progressione del giocatore con
      * {@link Player#advanceToNextMap()}, libera la mappa attiva e aggiorna lo
      * stato della partita: se l'ultima zona appena completata non è la finale
-     * la partita resta {@link GameStatus#IN_PROGRESS}, in caso contrario la
-     * partita è completata e assume {@link GameStatus#VICTORY}; instradare
+     * la partita resta {@link GameState#IN_PROGRESS}, in caso contrario la
+     * partita è completata e assume {@link GameState#VICTORY}; instradare
      * verso la schermata di vittoria resta compito delle viste.
      * </p>
      *
-     * @return il nuovo {@link GameStatus} della partita
+     * @return il nuovo {@link GameState} della partita
      * @throws IllegalStateException if no player has been initialized yet
      */
-    public GameStatus completeCurrentZone() {
+    public GameState completeCurrentZone() {
         if (player == null) {
             throw new IllegalStateException("Cannot complete a zone before a player is initialized");
         }
         this.status = (activeGameMap != null && activeGameMap.getMapType().hasNextLevel())
-            ? GameStatus.IN_PROGRESS
-            : GameStatus.VICTORY;
+            ? GameState.IN_PROGRESS
+            : GameState.VICTORY;
         player.advanceToNextMap();
         this.activeGameMap = null;
         notifyGameStateChanged();

@@ -4,6 +4,7 @@ import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
+import it.unicam.cs.mpgc.rpg130809.model.game.GameState;
 import it.unicam.cs.mpgc.rpg130809.model.game.SoundManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.SpriteManager;
 import it.unicam.cs.mpgc.rpg130809.persistence.SaveManager;
@@ -31,7 +32,7 @@ import javafx.scene.image.ImageView;
  * {@link SceneManager}.
  * </p>
  *
- * @see it.unicam.cs.mpgc.rpg130809.model.game.GameStatus#VICTORY
+ * @see GameState#VICTORY
  */
 public class VictoryViewController {
 

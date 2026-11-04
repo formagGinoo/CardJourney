@@ -15,7 +15,7 @@ package it.unicam.cs.mpgc.rpg130809.model.game;
  * client esistenti.
  * </p>
  */
-public enum GameStatus {
+public enum GameState {
 
     /** La partita è in corso, esistono zone successive da esplorare. */
     IN_PROGRESS,

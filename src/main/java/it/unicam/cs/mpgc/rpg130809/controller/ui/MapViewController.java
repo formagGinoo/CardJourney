@@ -4,7 +4,7 @@ import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.Enemy;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
-import it.unicam.cs.mpgc.rpg130809.model.game.GameStatus;
+import it.unicam.cs.mpgc.rpg130809.model.game.GameState;
 import it.unicam.cs.mpgc.rpg130809.model.game.SpriteManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.SoundManager;
 import it.unicam.cs.mpgc.rpg130809.model.map.Position;
@@ -208,8 +208,8 @@ public class MapViewController {
      * </p>
      */
     private void handleExitEncounter() {
-        GameStatus status = GameManager.getInstance().completeCurrentZone();
-        String nextScene = (status == GameStatus.VICTORY)
+        GameState status = GameManager.getInstance().completeCurrentZone();
+        String nextScene = (status == GameState.VICTORY)
             ? GameConstants.VICTORY_VIEW_FXML
             : GameConstants.MAP_SELECTION_FXML;
         SceneManager.getInstance().switchScene(nextScene);
