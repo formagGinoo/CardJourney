@@ -49,6 +49,7 @@ public final class GameManager {
     private GameManager() {
         this.stateListeners = new ArrayList<>();
         this.mapProgress = new MapProgress();
+        this.status = GameState.NOT_STARTED;
     }
 
     /**
@@ -71,16 +72,17 @@ public final class GameManager {
      * <p>
      * Crea un nuovo {@link Player} con il mazzo iniziale fornito da
      * {@link DeckFactory#createStarterDeck()} e i valori base di salute e oro,
-     * azzera la progressione dei nemici e carica la mappa corrispondente al
-     * livello corrente del giocatore.
-     * Il giocatore inizia nella prima mappa (Sentiero Scosceso).
+     * azzera la progressione dei nemici e prepara la mappa corrispondente al
+     * livello corrente del giocatore. Lo stato della sessione diventa
+     * {@link GameState#MAP_SELECTION}: la zona parte quando il giocatore la
+     * sceglie esplicitamente.
      * </p>
      */
     public void startNewGame() {
         this.player = new Player(DeckFactory.createStarterDeck());
         this.mapProgress.reset();
         createMapFor(MapType.fromLevel(player.getCurrentMapLevel()));
-        this.status = GameState.IN_PROGRESS;
+        this.status = GameState.MAP_SELECTION;
     }
 
     /**
@@ -126,8 +128,9 @@ public final class GameManager {
     /**
      * Imposta il giocatore della sessione di gioco ripristinando la progressione dei nemici.
      * <p>
-     * Questo metodo è utilizzato principalmente durante il caricamento di una
-     * partita salvata.
+     * Questo metodo è utilizzato durante il caricamento di una partita
+     * salvata: lo stato della sessione diventa {@link GameState#MAP_SELECTION},
+     * da cui il giocatore sceglie la zona da esplorare.
      * </p>
      *
      * @param player il giocatore da associare alla sessione
@@ -141,13 +144,14 @@ public final class GameManager {
         this.player = player;
         this.mapProgress = mapProgress;
         createMapFor(MapType.fromLevel(player.getCurrentMapLevel()));
-        this.status = GameState.IN_PROGRESS;
+        this.status = GameState.MAP_SELECTION;
     }
 
     /**
-     * Restituisce lo stato complessivo della partita corrente.
+     * Restituisce lo stato complessivo della sessione di gioco.
      *
-     * @return lo stato della partita, oppure {@code null} se nessuna partita è attiva
+     * @return lo stato corrente della sessione, {@link GameState#NOT_STARTED}
+     *         se nessuna partita è ancora attiva
      */
     public GameState getGameStatus() {
         return status;
@@ -165,7 +169,8 @@ public final class GameManager {
     /**
      * Carica e inizializza la mappa specificata tramite {@link MapFactory}.
      * <p>
-     * Aggiorna anche il livello della mappa corrente del giocatore. I nemici
+     * Aggiorna il livello della mappa corrente del giocatore e passa allo
+     * stato {@link GameState#EXPLORING}. I nemici
      * sono generati secondo {@link MapProgress} in base a {@link MapType}.
      * </p>
      *
@@ -178,15 +183,16 @@ public final class GameManager {
         }
         player.setCurrentMapLevel(mapType.getLevel());
         createMapFor(mapType);
+        this.status = GameState.EXPLORING;
         notifyGameStateChanged();
     }
 
     /**
      * Avvia un combattimento con il nemico specificato alla posizione indicata.
      * <p>
-     * Crea un nuovo {@link BattleManager} per il giocatore corrente e avvia
-     * subito la battaglia, memorizzando posizione e nemico per la conclusione
-     * dell'incontro.
+     * Crea un nuovo {@link BattleManager} per il giocatore corrente, passa allo
+     * stato {@link GameState#IN_BATTLE} e avvia subito la battaglia,
+     * memorizzando posizione e nemico per la conclusione dell'incontro.
      * </p>
      *
      * @param pos la posizione del nemico sulla mappa
@@ -196,6 +202,7 @@ public final class GameManager {
         this.currentBattlePosition = pos;
         this.currentBattleEnemy = enemy;
         this.activeBattleManager = new BattleManager(player, enemy);
+        this.status = GameState.IN_BATTLE;
         this.activeBattleManager.startBattle();
     }
 
@@ -222,8 +229,11 @@ public final class GameManager {
      * <p>
      * Se la battaglia è stata vinta, il nemico viene rimosso dalla mappa, la
      * sconfitta viene registrata in {@link MapProgress} (così il nemico non
-     * respawnerebbe nemmeno ricreando la zona) e il giocatore viene spostato
-     * sulla casella dell'incontro.
+     * respawnerebbe nemmeno ricreando la zona), il giocatore viene spostato
+     * sulla casella dell'incontro e lo stato torna {@link GameState#EXPLORING}.
+     * In caso di sconfitta la sessione assume {@link GameState#GAME_OVER}: lo
+     * stato non è salvabile, così il file su disco conserva l'ultimo
+     * salvataggio pre battaglia da cui riprendere.
      * </p>
      *
      * @param won {@code true} se il giocatore ha vinto la battaglia
@@ -237,6 +247,7 @@ public final class GameManager {
         this.currentBattlePosition = null;
         this.currentBattleEnemy = null;
         this.activeBattleManager = null;
+        this.status = won ? GameState.EXPLORING : GameState.GAME_OVER;
         notifyGameStateChanged();
     }
 
@@ -245,10 +256,10 @@ public final class GameManager {
      * <p>
      * Fa avanzare la progressione del giocatore con
      * {@link Player#advanceToNextMap()}, libera la mappa attiva e aggiorna lo
-     * stato della partita: se l'ultima zona appena completata non è la finale
-     * la partita resta {@link GameState#IN_PROGRESS}, in caso contrario la
-     * partita è completata e assume {@link GameState#VICTORY}; instradare
-     * verso la schermata di vittoria resta compito delle viste.
+     * stato della sessione: se l'ultima zona appena completata non è la finale
+     * si torna a {@link GameState#MAP_SELECTION} per scegliere la zona
+     * successiva, in caso contrario la partita è completata e assume
+     * {@link GameState#VICTORY}.
      * </p>
      *
      * @return il nuovo {@link GameState} della partita
@@ -259,11 +270,47 @@ public final class GameManager {
             throw new IllegalStateException("Cannot complete a zone before a player is initialized");
         }
         this.status = (activeGameMap != null && activeGameMap.getMapType().hasNextLevel())
-            ? GameState.IN_PROGRESS
+            ? GameState.MAP_SELECTION
             : GameState.VICTORY;
         player.advanceToNextMap();
         this.activeGameMap = null;
         notifyGameStateChanged();
+        return status;
+    }
+
+    /**
+     * Apre il negozio della zona corrente, portando la sessione in
+     * {@link GameState#IN_SHOP}. Non notifica i listener: l'ingresso nello shop
+     * non modifica dati persistenti.
+     *
+     * @return il nuovo {@link GameState} della sessione
+     */
+    public GameState enterShop() {
+        this.status = GameState.IN_SHOP;
+        return status;
+    }
+
+    /**
+     * Chiude il negozio e torna all'esplorazione della mappa corrente, senza
+     * ricaricarla. Non notifica i listener: non modifica dati persistenti.
+     *
+     * @return il nuovo {@link GameState} della sessione
+     */
+    public GameState exitShop() {
+        this.status = GameState.EXPLORING;
+        return status;
+    }
+
+    /**
+     * Abbandona la vista della mappa corrente tornando alla selezione delle
+     * zone, senza liberare la mappa: il giocatore potrà rientrare nella stessa
+     * zona ricreandola con {@link MapProgress}. Non notifica i listener: non
+     * modifica dati persistenti.
+     *
+     * @return il nuovo {@link GameState} della sessione
+     */
+    public GameState returnToMapSelection() {
+        this.status = GameState.MAP_SELECTION;
         return status;
     }
 
@@ -304,7 +351,7 @@ public final class GameManager {
         }
         for (GameStateListener listener : stateListeners) {
             try {
-                listener.onGameStateChanged(player, mapProgress);
+                listener.onGameStateChanged(player, mapProgress, status);
             } catch (RuntimeException e) {
                 System.getLogger(GameManager.class.getName()).log(System.Logger.Level.WARNING, "State listener failed", e);
             }

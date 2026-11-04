@@ -2,6 +2,7 @@ package it.unicam.cs.mpgc.rpg130809.persistence;
 
 import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
+import it.unicam.cs.mpgc.rpg130809.model.game.GameState;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameStateListener;
 import it.unicam.cs.mpgc.rpg130809.model.map.MapProgress;
 
@@ -97,14 +98,18 @@ public final class SaveManager implements GameStateListener {
      *
      * @param player il giocatore di cui salvare lo stato
      * @param mapProgress il registro dei nemici rimasti vivi da salvare
+     * @param gameState lo stato della sessione al momento del salvataggio
      * @throws IllegalArgumentException if the player or the map progress is null
      */
-    public void save(Player player, MapProgress mapProgress) {
+    public void save(Player player, MapProgress mapProgress, GameState gameState) {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null");
         }
         if (mapProgress == null) {
             throw new IllegalArgumentException("Map progress cannot be null");
+        }
+        if (gameState == null) {
+            throw new IllegalArgumentException("Game state cannot be null");
         }
         try {
             String json = serializer.toJson(SaveData.from(player, mapProgress));
@@ -118,31 +123,30 @@ public final class SaveManager implements GameStateListener {
     /**
      * Salva lo stato del giocatore corrente della sessione attiva.
      * <p>
-     * Variante di {@link #save(Player, MapProgress)} per i salvataggi fuori
-     * dal flusso di notifiche (es. acquisti nello shop): il registro dei
-     * nemici viene letto dal {@code GameManager}, unico proprietario dello
-     * stato di sessione. Non fa nulla se nessuna partita è attiva.
+     * Variante di {@link #save(Player, MapProgress, GameState)} per i
+     * salvataggi fuori da {@link GameStateListener#onGameStateChanged(Player, MapProgress, GameState)}.
      * </p>
      *
      * @param player il giocatore di cui salvare lo stato
      */
     public void save(Player player) {
-        save(player, GameManager.getInstance().getMapProgress());
+        save(player, GameManager.getInstance().getMapProgress(), GameManager.getInstance().getGameStatus());
     }
 
     /**
      * Salvataggio di sicurezza in fase di chiusura dell'applicazione.
      * <p>
-     * Chiamato da {@code CardJourneyApplication#stop()} a fine ciclo di vita
-     * JavaFX. A differenza del salvataggio standard, un giocatore assente
-     * (schermata del menu, nessuna partita attiva) è una condizione normale e
-     * viene semplicemente ignorata. I fallimenti restano silenziosi, perché in
-     * chiusura non c'è modo di gestirli in modo utile.
+     * Chiamato da {@code CardJourneyApplication#stop()} a fine ciclo di vita.
+     * Salva solo se lo stato corrente è {@link GameState#isSavable()}:
+     * chiudere l'app durante una battaglia o dopo una sconfitta
+     * conserva l'ultimo salvataggio coerente invece di sovrascriverlo con uno
+     * stato non ripristinabile.
      * </p>
      */
     public void saveOnShutdown() {
-        Player player = GameManager.getInstance().getPlayer();
-        if (player != null) {
+        GameManager gameManager = GameManager.getInstance();
+        Player player = gameManager.getPlayer();
+        if (player != null && gameManager.getGameStatus().isSavable()) {
             save(player);
         }
     }
@@ -150,16 +154,23 @@ public final class SaveManager implements GameStateListener {
     /**
      * {@inheritDoc}
      * <p>
-     * Delega al salvataggio standard: qui giocatore e registro dei nemici sono
-     * garantiti non nulli perché la notifica arriva da una partita attiva.
+     * Salva solo se lo stato notificato è {@link GameState#isSavable()
+     * salvabile}: gli stati non ripristinabili (battaglia in corso, sconfitta)
+     * non sovrascrivono il file, che conserva l'ultimo salvataggio coerente da
+     * cui riprendere con "Continua partita".
      * </p>
      *
      * @param player il giocatore nello stato corrente
      * @param mapProgress i nemici rimasti vivi nello stato corrente
+     * @param gameState lo stato della sessione al momento del cambiamento
      */
     @Override
-    public void onGameStateChanged(Player player, MapProgress mapProgress) {
-        save(player, mapProgress);
+    public void onGameStateChanged(Player player, MapProgress mapProgress, GameState gameState) {
+        if (gameState.isSavable()) {
+            save(player, mapProgress, gameState);
+        } else {
+            LOGGER.fine("Salvataggio saltato: lo stato " + gameState + " non è ripristinabile");
+        }
     }
 
     /**

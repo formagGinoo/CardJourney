@@ -1,6 +1,5 @@
 package it.unicam.cs.mpgc.rpg130809.controller.ui;
 
-import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.battle.BattleManager;
 import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.Enemy;
@@ -151,21 +150,17 @@ public class BattleResultViewController {
     /**
      * Gestisce il click sul pulsante d'azione principale.
      * <p>
-     * Conclude la battaglia nel {@link GameManager} e apre la mappa in caso di
-     * vittoria, oppure il menu principale in caso di sconfitta. La transizione
-     * è delegata a {@link SceneManager}.
+     * Conclude la battaglia nel {@link GameManager}: lo stato della sessione
+     * risultante ({@code EXPLORING} in caso di vittoria, {@code GAME_OVER} in
+     * caso di sconfitta) conosce la propria schermata e guida direttamente la
+     * transizione, delegata a {@link SceneManager}.
      * </p>
      */
     @FXML
     private void onBattleResultButtonClicked() {
         GameManager gm = GameManager.getInstance();
-        if (isVictory) {
-            gm.endCurrentBattle(true);
-            SceneManager.getInstance().switchScene(GameConstants.MAP_VIEW_FXML);
-        } else {
-            gm.endCurrentBattle(false);
-            SceneManager.getInstance().switchScene(GameConstants.TITLE_SCREEN_FXML);
-        }
+        gm.endCurrentBattle(isVictory);
+        SceneManager.getInstance().switchScene(gm.getGameStatus().getSceneFxml());
     }
 
 }

@@ -378,12 +378,14 @@ public class ShopViewController {
     }
 
     /**
-     * Torna alla mappa corrente. La vista viene ricaricata dal {@link SceneManager}
-     * leggendo lo stato persistente del {@link GameManager}.
+     * Torna alla mappa corrente: chiude il negozio riportando la sessione
+     * nello stato {@code EXPLORING} tramite il {@link GameManager} e apre la
+     * schermata associata allo stato. La vista viene ricaricata dal
+     * {@link SceneManager} leggendo lo stato persistente.
      */
     @FXML
     private void onBackToMap() {
-        SceneManager.getInstance().switchScene(GameConstants.MAP_VIEW_FXML);
+        SceneManager.getInstance().switchScene(GameManager.getInstance().exitShop().getSceneFxml());
     }
 
     /**
