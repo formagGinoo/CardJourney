@@ -10,6 +10,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 
 /**
  * Controller per la schermata del menu principale ({@code TitleScreen.fxml}).
@@ -49,14 +51,42 @@ public class TitleScreenController {
     /**
      * Gestisce l'avvio di una nuova partita.
      * <p>
-     * Inizializza lo stato del giocatore tramite il {@link GameManager}
-     * e richiede a {@link SceneManager} il passaggio alla schermata della mappa.
+     * Se esiste un salvataggio, chiede conferma all'utente perché i progressi
+     * correnti andranno perduti: alla conferma il salvataggio viene rimosso
+     * prima di iniziare, così lo stato su disco non contiene mai per sbaglio
+     * i progressi della partita precedente. Inizializza poi lo stato del
+     * giocatore tramite il {@link GameManager} e richiede a
+     * {@link SceneManager} il passaggio alla schermata della mappa.
      * </p>
      */
     @FXML
     private void onNewGameButtonClicked() {
+        if (SaveManager.getInstance().hasSave() && !confirmSaveOverwrite()) {
+            return;
+        }
+        SaveManager.getInstance().delete();
         GameManager.getInstance().startNewGame();
         SceneManager.getInstance().switchScene(GameConstants.MAP_SELECTION_FXML);
+    }
+
+    /**
+     * Mostra la finestra di conferma per la sovrascrittura del salvataggio.
+     *
+     * @return {@code true} se l'utente conferma l'avvio di una nuova partita
+     */
+    private boolean confirmSaveOverwrite() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Nuova Partita");
+        alert.setHeaderText("Attenzione: Esiste già un salvataggio!");
+        setWrappedContent(alert, "Avviando una nuova partita il salvataggio esistente verrà cancellato "
+            + "e i progressi andranno persi. Vuoi continuare?");
+        return alert.showAndWait().filter(response -> response == ButtonType.OK).isPresent();
+    }
+
+    private static void setWrappedContent(Alert alert, String message) {
+        Label content = new Label(message);
+        content.setWrapText(true);
+        alert.getDialogPane().setContent(content);
     }
 
     /**
@@ -91,8 +121,11 @@ public class TitleScreenController {
             Player player = SaveManager.getInstance().load();
             GameManager.getInstance().setPlayer(player);
         } catch (RuntimeException e) {
-            new Alert(Alert.AlertType.WARNING,
-                "Il salvataggio non è ripristinabile e verrà rimosso. Avvia una nuova partita.").show();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Caricamento non riuscito");
+            alert.setHeaderText("Salvataggio corrotto o illeggibile");
+            setWrappedContent(alert, "Il salvataggio non è ripristinabile e verrà rimosso. Avvia una nuova partita.");
+            alert.show();
             SaveManager.getInstance().delete();
             loadGameButton.setDisable(true);
             return;
