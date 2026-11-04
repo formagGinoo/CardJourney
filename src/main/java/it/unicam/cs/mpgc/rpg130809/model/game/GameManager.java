@@ -9,6 +9,9 @@ import it.unicam.cs.mpgc.rpg130809.model.map.Position;
 import it.unicam.cs.mpgc.rpg130809.model.deck.DeckFactory;
 import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Gestore principale dello stato e della sessione di gioco.
  * <p>
@@ -33,11 +36,13 @@ public final class GameManager {
     private Position currentBattlePosition;
     private Enemy currentBattleEnemy;
     private BattleManager activeBattleManager;
+    private final List<GameStateListener> stateListeners;
 
     /**
      * Costruttore privato conforme al pattern Singleton.
      */
     private GameManager() {
+        this.stateListeners = new ArrayList<>();
     }
 
     /**
@@ -69,6 +74,28 @@ public final class GameManager {
         MapType mapType = MapType.fromLevel(player.getCurrentMapLevel());
         this.activeGameMap = MapFactory.createMap(mapType);
         this.status = GameStatus.IN_PROGRESS;
+    }
+
+    /**
+     * Registra un listener da notificare quando lo stato persistente del
+     * giocatore cambia.
+     * <p>
+     * È il punto di aggancio del salvataggio automatico: l'applicazione
+     * registra all'avvio un listener che delega a {@code SaveManager}, senza
+     * che il modello dipenda dalla persistenza concreta.
+     * Questo metodo in futuro potrebbe essere utilizzato anche per
+     * statistiche, telemetry o altre funzionalità
+     * che reagiscono ai cambiamenti dello stato di gioco.
+     * </p>
+     *
+     * @param listener il listener da registrare
+     * @throws IllegalArgumentException if the listener is null
+     */
+    public void addStateListener(GameStateListener listener) {
+        if (listener == null) {
+            throw new IllegalArgumentException("State listener cannot be null");
+        }
+        this.stateListeners.add(listener);
     }
 
     /**
@@ -130,6 +157,7 @@ public final class GameManager {
         }
         player.setCurrentMapLevel(mapType.getLevel());
         this.activeGameMap = MapFactory.createMap(mapType);
+        notifyPlayerStateChanged();
     }
 
     /**
@@ -186,6 +214,7 @@ public final class GameManager {
         this.currentBattlePosition = null;
         this.currentBattleEnemy = null;
         this.activeBattleManager = null;
+        notifyPlayerStateChanged();
     }
 
     /**
@@ -211,6 +240,29 @@ public final class GameManager {
             : GameStatus.VICTORY;
         player.advanceToNextMap();
         this.activeGameMap = null;
+        notifyPlayerStateChanged();
         return status;
+    }
+
+    /**
+     * Notifica a tutti i listener registrati che lo stato persistente del
+     * giocatore è cambiato.
+     * <p>
+     * Le eccezioni di un listener non interrompono la partita né impediscono
+     * la notifica agli altri listener: un fallimento della persistenza non
+     * deve mai propagarsi al gameplay.
+     * </p>
+     */
+    private void notifyPlayerStateChanged() {
+        if (player == null) {
+            return;
+        }
+        for (GameStateListener listener : stateListeners) {
+            try {
+                listener.onPlayerStateChanged(player);
+            } catch (RuntimeException e) {
+                System.getLogger(GameManager.class.getName()).log(System.Logger.Level.WARNING, "State listener failed", e);
+            }
+        }
     }
 }

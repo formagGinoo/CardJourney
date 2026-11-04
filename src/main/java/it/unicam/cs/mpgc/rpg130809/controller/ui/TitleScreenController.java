@@ -2,9 +2,13 @@ package it.unicam.cs.mpgc.rpg130809.controller.ui;
 
 import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
+import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.SoundManager;
+import it.unicam.cs.mpgc.rpg130809.persistence.SaveManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 /**
@@ -39,9 +43,7 @@ public class TitleScreenController {
     public void initialize() {
         SoundManager.getInstance().playMusic(GameConstants.MAIN_THEME);
 
-        // TODO: Controlla se esiste un salvataggio e abilita/disabilita il pulsante di caricamento di conseguenza.
-        // loadGameButton.setVisible(false);
-        // loadGameButton.setManaged(false);
+        loadGameButton.setDisable(!SaveManager.getInstance().hasSave());
     }
 
     /**
@@ -62,7 +64,7 @@ public class TitleScreenController {
      */
     @FXML
     private void onExitGameButtonClicked() {
-        System.exit(0);
+        Platform.exit();
     }
 
     /**
@@ -71,5 +73,30 @@ public class TitleScreenController {
     @FXML
     private void onHowToPlayButtonClicked() {
         SceneManager.getInstance().switchScene(GameConstants.HOW_TO_PLAY_FXML);
+    }
+
+    /**
+     * Gestisce il click sul pulsante {@code Continua Partita}.
+     * <p>
+     * Carica il salvataggio tramite {@link SaveManager} e ricostruisce lo
+     * stato di gioco. Al caricamento si apre direttamente la selezione delle
+     * zone, dove la zona corrente è l'unica accessibile. Se il salvataggio è
+     * illeggibile o corrotto, un messaggio avvisa il giocatore e la partita
+     * non viene avviata.
+     * </p>
+     */
+    @FXML
+    private void onLoadGameButtonClicked() {
+        try {
+            Player player = SaveManager.getInstance().load();
+            GameManager.getInstance().setPlayer(player);
+        } catch (RuntimeException e) {
+            new Alert(Alert.AlertType.WARNING,
+                "Il salvataggio non è ripristinabile e verrà rimosso. Avvia una nuova partita.").show();
+            SaveManager.getInstance().delete();
+            loadGameButton.setDisable(true);
+            return;
+        }
+        SceneManager.getInstance().switchScene(GameConstants.MAP_SELECTION_FXML);
     }
 }

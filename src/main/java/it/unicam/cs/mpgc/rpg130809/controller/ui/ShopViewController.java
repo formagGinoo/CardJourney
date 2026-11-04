@@ -13,6 +13,7 @@ import it.unicam.cs.mpgc.rpg130809.model.shop.PurchaseResult;
 import it.unicam.cs.mpgc.rpg130809.model.shop.ShopFactory;
 import it.unicam.cs.mpgc.rpg130809.model.shop.ShopItem;
 import it.unicam.cs.mpgc.rpg130809.model.shop.ShopManager;
+import it.unicam.cs.mpgc.rpg130809.persistence.SaveManager;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -343,6 +344,7 @@ public class ShopViewController {
                         "shop-status-success");
                 updateHud();
                 refreshAllItems();
+                SaveManager.getInstance().save(player);
             }
             case NOT_ENOUGH_GOLD -> showStatus("Non hai abbastanza oro per " + item.getName() + ".",
                     "shop-status-error");
