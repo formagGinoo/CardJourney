@@ -6,7 +6,7 @@
 
 <VBox alignment="CENTER" prefHeight="640.0" prefWidth="960.0" spacing="18.0" styleClass="title-screen" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.rpg130809.controller.ui.TitleScreenController">
    <Button mnemonicParsing="false" onAction="#onNewGameButtonClicked" styleClass="title-screen-menu-button, title-screen-new-game-button" text="Nuova Partita" />
-   <Button fx:id="loadGameButton" mnemonicParsing="false" styleClass="title-screen-menu-button, title-screen-load-game-button" text="Continua Partita" />
+   <Button fx:id="loadGameButton" mnemonicParsing="false" onAction="#onLoadGameButtonClicked" styleClass="title-screen-menu-button, title-screen-load-game-button" text="Continua Partita" />
    <Button mnemonicParsing="false" onAction="#onHowToPlayButtonClicked" styleClass="title-screen-menu-button, title-screen-how-to-play-button" text="Come Giocare" />
    <Button mnemonicParsing="false" onAction="#onExitGameButtonClicked" styleClass="title-screen-menu-button, title-screen-exit-button" text="Esci dal Gioco" />
    <padding>

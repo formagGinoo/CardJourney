@@ -13,6 +13,7 @@ import it.unicam.cs.mpgc.rpg130809.model.shop.PurchaseResult;
 import it.unicam.cs.mpgc.rpg130809.model.shop.ShopFactory;
 import it.unicam.cs.mpgc.rpg130809.model.shop.ShopItem;
 import it.unicam.cs.mpgc.rpg130809.model.shop.ShopManager;
+import it.unicam.cs.mpgc.rpg130809.persistence.SaveManager;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -343,6 +344,7 @@ public class ShopViewController {
                         "shop-status-success");
                 updateHud();
                 refreshAllItems();
+                SaveManager.getInstance().save(player);
             }
             case NOT_ENOUGH_GOLD -> showStatus("Non hai abbastanza oro per " + item.getName() + ".",
                     "shop-status-error");
@@ -376,12 +378,14 @@ public class ShopViewController {
     }
 
     /**
-     * Torna alla mappa corrente. La vista viene ricaricata dal {@link SceneManager}
-     * leggendo lo stato persistente del {@link GameManager}.
+     * Torna alla mappa corrente: chiude il negozio riportando la sessione
+     * nello stato {@code EXPLORING} tramite il {@link GameManager} e apre la
+     * schermata associata allo stato. La vista viene ricaricata dal
+     * {@link SceneManager} leggendo lo stato persistente.
      */
     @FXML
     private void onBackToMap() {
-        SceneManager.getInstance().switchScene(GameConstants.MAP_VIEW_FXML);
+        SceneManager.getInstance().switchScene(GameManager.getInstance().exitShop().getSceneFxml());
     }
 
     /**

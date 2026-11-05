@@ -4,7 +4,6 @@ import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.Enemy;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
-import it.unicam.cs.mpgc.rpg130809.model.game.GameStatus;
 import it.unicam.cs.mpgc.rpg130809.model.game.SpriteManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.SoundManager;
 import it.unicam.cs.mpgc.rpg130809.model.map.Position;
@@ -187,32 +186,31 @@ public class MapViewController {
     /**
      * Gestisce l'ingresso del giocatore nel negozio della mappa corrente.
      * <p>
-     * Apre la schermata dello shop. Il catalogo è creato dalla vista stessa e
-     * non viene memorizzato nel {@link GameManager}, perché lo shop è una
-     * schermata temporanea. Al ritorno, {@code MapView} ricarica giocatore e
-     * mappa dallo stato persistente.
+     * Porta la sessione nello stato {@code IN_SHOP} tramite il
+     * {@link GameManager} e apre la schermata associata allo stato. Il catalogo
+     * è creato dalla vista stessa e non viene memorizzato nel
+     * {@code GameManager}, perché lo shop è una schermata temporanea. Al
+     * ritorno, {@code MapView} ricarica giocatore e mappa dallo stato
+     * persistente.
      * </p>
      */
     private void handleShopEncounter() {
-        SceneManager.getInstance().switchScene(GameConstants.SHOP_VIEW_FXML);
+        GameManager gameManager = GameManager.getInstance();
+        SceneManager.getInstance().switchScene(gameManager.enterShop().getSceneFxml());
     }
 
     /**
      * Completa la zona quando il giocatore raggiunge la posizione di uscita.
      * <p>
      * Conclude la zona delegando l'aggiornamento dello stato di partita a
-     * {@link GameManager#completeCurrentZone()}: in base allo stato restituito
-     * la transizione porta alla selezione delle mappe in caso di partita in
-     * corso, oppure alla schermata di vittoria se l'ultima zona è stata
-     * completata. La transizione è sempre delegata a {@link SceneManager}.
+     * {@link GameManager#completeCurrentZone()}: lo stato restituito
+     * (selezione delle mappe oppure vittoria) conosce la propria schermata e
+     * guida direttamente la transizione, sempre delegata a
+     * {@link SceneManager}.
      * </p>
      */
     private void handleExitEncounter() {
-        GameStatus status = GameManager.getInstance().completeCurrentZone();
-        String nextScene = (status == GameStatus.VICTORY)
-            ? GameConstants.VICTORY_VIEW_FXML
-            : GameConstants.MAP_SELECTION_FXML;
-        SceneManager.getInstance().switchScene(nextScene);
+        SceneManager.getInstance().switchScene(GameManager.getInstance().completeCurrentZone().getSceneFxml());
     }
 
     /**
@@ -309,12 +307,14 @@ public class MapViewController {
     /**
      * Abbandona la vista corrente e torna alla selezione delle mappe.
      * <p>
-     * La transizione viene delegata a {@link SceneManager}.
+     * Porta la sessione nello stato {@code MAP_SELECTION} tramite il
+     * {@link GameManager} e apre la schermata associata allo stato; la
+     * transizione viene delegata a {@link SceneManager}.
      * </p>
      */
     @FXML
     private void onBackToMap() {
-        SceneManager.getInstance().switchScene("/fxml/MapSelection.fxml");
+        SceneManager.getInstance().switchScene(GameManager.getInstance().returnToMapSelection().getSceneFxml());
     }
 
     /**

@@ -4,8 +4,10 @@ import it.unicam.cs.mpgc.rpg130809.GameConstants;
 import it.unicam.cs.mpgc.rpg130809.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130809.model.entity.Player;
 import it.unicam.cs.mpgc.rpg130809.model.game.GameManager;
+import it.unicam.cs.mpgc.rpg130809.model.game.GameState;
 import it.unicam.cs.mpgc.rpg130809.model.game.SoundManager;
 import it.unicam.cs.mpgc.rpg130809.model.game.SpriteManager;
+import it.unicam.cs.mpgc.rpg130809.persistence.SaveManager;
 import it.unicam.cs.mpgc.rpg130809.model.map.MapType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,7 +32,7 @@ import javafx.scene.image.ImageView;
  * {@link SceneManager}.
  * </p>
  *
- * @see it.unicam.cs.mpgc.rpg130809.model.game.GameStatus#VICTORY
+ * @see GameState#VICTORY
  */
 public class VictoryViewController {
 
@@ -60,6 +62,9 @@ public class VictoryViewController {
     @FXML
     public void initialize() {
         SoundManager.getInstance().playMusic(GameConstants.VICTORY_THEME);
+
+        // La partita è finita: il salvataggio non serve più.
+        SaveManager.getInstance().delete();
 
         Player player = GameManager.getInstance().getPlayer();
         victorySprite.setImage(SpriteManager.getPlayerSprite());

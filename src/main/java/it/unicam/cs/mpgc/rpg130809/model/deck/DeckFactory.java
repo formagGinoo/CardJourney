@@ -1,7 +1,10 @@
 package it.unicam.cs.mpgc.rpg130809.model.deck;
 
+import it.unicam.cs.mpgc.rpg130809.model.card.Card;
 import it.unicam.cs.mpgc.rpg130809.model.card.CardFactory;
 import it.unicam.cs.mpgc.rpg130809.model.card.CardType;
+
+import java.util.List;
 
 /**
  * Factory dedicata alla creazione dei mazzi di carte ({@link Deck}).
@@ -48,5 +51,24 @@ public final class DeckFactory {
         }
 
         return starter;
+    }
+
+    /**
+     * Crea un mazzo a partire da una lista di carte esistenti.
+     * <p>
+     * Utilizzato in particolare dal sistema di persistenza per ricostruire il
+     * mazzo principale del giocatore da un salvataggio, preservando l'ordine
+     * delle carte. La lista viene copiata dal costruttore di {@link Deck}.
+     * </p>
+     *
+     * @param cards la lista di carte da cui creare il mazzo
+     * @return un nuovo {@link Deck} contenente le carte indicate, nello stesso ordine
+     * @throws IllegalArgumentException if the card list is null
+     */
+    public static Deck createDeck(List<Card> cards) {
+        if (cards == null) {
+            throw new IllegalArgumentException("Card list cannot be null");
+        }
+        return new Deck(cards);
     }
 }

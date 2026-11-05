@@ -4,6 +4,7 @@ import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.Enemy;
 import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.EnemyFactory;
 import it.unicam.cs.mpgc.rpg130809.model.entity.enemy.EnemyType;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,24 +69,34 @@ public class GameMap {
      * Carica e popola la mappa a partire da una matrice di caratteri rappresentante il layout.
      * <p>
      * Viene utilizzata una nuova istanza di {@link Random} per la scelta dei
-     * nemici comuni.
+     * nemici comuni, che vengono generati casualmente (prima creazione della zona).
      * </p>
      *
      * @param layout l'array di stringhe rappresentante le righe della matrice di gioco
      */
     public void loadFromLayout(String[] layout) {
-        loadFromLayout(layout, new Random());
+        loadFromLayout(layout, new Random(), null);
     }
 
     /**
-     * Carica e popola la mappa a partire dal layout specificato utilizzando una data istanza di {@link Random}.
+     * Carica e popola la mappa a partire dal layout specificato, generando i nemici secondo la tabella indicata.
+     * <p>
+     * Se {@code aliveEnemies} è {@code null} la zona viene creata per la prima
+     * volta: i nemici comuni sono scelti casualmente tra i tipi previsti dalla
+     * zona e il boss viene generato con il suo tipo. Altrimenti: su ogni tile {@code 'E'} o {@code 'B'} nasce
+     * un nemico solo se la posizione è presente in {@code aliveEnemies}, con il tipo
+     * registrato; le posizioni assenti restano calpestabili, perché
+     * corrispondono a nemici uccisi in precedenza che non devono respawnare.
+     * </p>
      *
      * @param layout l'array di stringhe rappresentante le righe della mappa
-     * @param random l'istanza di {@link Random} per selezionare casualmente i nemici comuni
+     * @param random l'istanza di {@link Random} per selezionare casualmente i nemici comuni alla prima creazione
+     * @param aliveEnemies la tabella posizione → tipo dei nemici vivi, oppure {@code null} per la generazione casuale
      */
-    public void loadFromLayout(String[] layout, Random random) {
+    public void loadFromLayout(String[] layout, Random random, Map<Position, EnemyType> aliveEnemies) {
         enemies.clear();
         List<EnemyType> availableEnemies = mapType.getEnemies();
+        boolean hasSpawnData = aliveEnemies != null;
 
         for (int y = 0; y < height; y++) {
             String row = layout[y];
@@ -107,23 +118,52 @@ public class GameMap {
                         this.playerPosition = pos;
                     }
                     case 'E' -> {
-                        tiles[x][y] = TileType.ENEMY;
-                        if (availableEnemies != null && !availableEnemies.isEmpty()) {
-                            EnemyType type = availableEnemies.get(random.nextInt(availableEnemies.size()));
-                            enemies.put(pos, EnemyFactory.createEnemy(type));
+                        if (hasSpawnData) {
+                            spawnFromData(pos, aliveEnemies, TileType.ENEMY);
+                        } else {
+                            tiles[x][y] = TileType.ENEMY;
+                            if (availableEnemies != null && !availableEnemies.isEmpty()) {
+                                EnemyType type = availableEnemies.get(random.nextInt(availableEnemies.size()));
+                                enemies.put(pos, EnemyFactory.createEnemy(type));
+                            }
                         }
                     }
                     case 'B' -> {
-                        tiles[x][y] = TileType.BOSS;
-                        this.bossPosition = pos;
-                        if (mapType.getBoss() != null) {
-                            enemies.put(pos, EnemyFactory.createEnemy(mapType.getBoss()));
+                        if (hasSpawnData) {
+                            if (spawnFromData(pos, aliveEnemies, TileType.BOSS)) {
+                                this.bossPosition = pos;
+                            }
+                        } else {
+                            tiles[x][y] = TileType.BOSS;
+                            this.bossPosition = pos;
+                            if (mapType.getBoss() != null) {
+                                enemies.put(pos, EnemyFactory.createEnemy(mapType.getBoss()));
+                            }
                         }
                     }
                     default -> tiles[x][y] = TileType.WALKABLE;
                 }
             }
         }
+    }
+
+    /**
+     * Genera il nemico registrato nella mappa alla posizione indicata.
+     *
+     * @param pos la coordinata della tile {@code 'E'} o {@code 'B'} da popolare
+     * @param aliveEnemies la mappa {@code <Position, EnemyType>} contenente i nemici vivi
+     * @param occupiedTile il tipo di tile da assegnare se la posizione ha un nemico vivo
+     * @return {@code true} se un nemico è stato generato, {@code false} se la posizione è priva di nemici vivi
+     */
+    private boolean spawnFromData(Position pos, Map<Position, EnemyType> aliveEnemies, TileType occupiedTile) {
+        EnemyType type = aliveEnemies.get(pos);
+        if (type == null) {
+            tiles[pos.getX()][pos.getY()] = TileType.WALKABLE;
+            return false;
+        }
+        tiles[pos.getX()][pos.getY()] = occupiedTile;
+        enemies.put(pos, EnemyFactory.createEnemy(type));
+        return true;
     }
 
     /**
@@ -227,6 +267,22 @@ public class GameMap {
      */
     public Map<Position, Enemy> getEnemies() {
         return enemies;
+    }
+
+    /**
+     * Restituisce i tipi dei nemici correntemente vivi, associati alle loro coordinate.
+     * <p>
+     * Viene usato dal {@code GameManager} per registrare la
+     * composizione della zona nel {@link MapProgress}: i tipi, a differenza
+     * delle istanze, bastano a ricreare i nemici tramite {@link EnemyFactory}.
+     * </p>
+     *
+     * @return la mappa immutabile {@code <Position, EnemyType>}
+     */
+    public Map<Position, EnemyType> getEnemyTypes() {
+        Map<Position, EnemyType> types = new HashMap<>();
+        enemies.forEach((position, enemy) -> types.put(position, enemy.getType()));
+        return Collections.unmodifiableMap(types);
     }
 
     /**
