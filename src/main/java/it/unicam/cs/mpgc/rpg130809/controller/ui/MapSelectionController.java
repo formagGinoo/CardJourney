@@ -85,4 +85,13 @@ public class MapSelectionController {
         GameManager.getInstance().loadGameMap(MapType.DRAGON_PEAK);
         SceneManager.getInstance().switchScene(GameConstants.MAP_VIEW_FXML);
     }
+
+    /**
+     * Gestisce il click sul pulsante per tornare al menu principale.
+     */
+    @FXML
+    private void onBackToTitleScreen() {
+        GameManager gm = GameManager.getInstance();
+        SceneManager.getInstance().switchScene(gm.returnToTitleScreen().getSceneFxml());
+    }
 }

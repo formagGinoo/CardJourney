@@ -35,4 +35,5 @@
             </graphic>
         </Button>
     </HBox>
+    <Button styleClass="map-selection-back-button" text="Torna al menu principale" onAction="#onBackToTitleScreen"/>
 </VBox>

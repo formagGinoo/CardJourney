@@ -151,6 +151,40 @@
     -fx-translate-y: 0;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 4, 0, 0, 2);
 }
+
+.map-selection-back-button {
+    -fx-font-family: 'Jersey 20';
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-pref-width: 320px;
+    -fx-pref-height: 56px;
+    -fx-min-width: 300px;
+    -fx-min-height: 52px;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-border-width: 3px;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.7), 0, 0, 0, 3);
+    -fx-background-color: #343944;
+    -fx-border-color: #e7e8eb;
+}
+
+.map-selection-back-button:hover {
+    -fx-background-color: #444b58;
+    -fx-border-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.85), 5, 0, 0, 3);
+}
+
+.map-selection-back-button:pressed {
+    -fx-background-color: #242830;
+    -fx-translate-y: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 0, 0, 0, 1);
+}
 /* --- MapSelection END --- */
 
 /* --- MapView START --- */

@@ -315,6 +315,21 @@ public final class GameManager {
     }
 
     /**
+     * Torna al menu principale, abbandonando la partita corrente.
+     * <p>
+     * Lo stato della sessione diventa {@link GameState#NOT_STARTED} e la
+     * mappa attiva viene liberata. Non notifica i listener: non modifica dati
+     * persistenti.
+     * </p>
+     *
+     * @return il nuovo {@link GameState} della sessione
+     */
+    public GameState returnToTitleScreen() {
+        this.status = GameState.NOT_STARTED;
+        return status;
+    }
+
+    /**
      * Crea la mappa della zona indicata e ne registra i nemici se la zona non
      * ha ancora una registrazione nel {@link MapProgress}.
      * <p>
